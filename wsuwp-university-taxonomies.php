@@ -24,7 +24,23 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
+		add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
+	}
+
+	/**
+	 * Modify the default labels assigned by WordPress to built in taxonomies.
+	 */
+	public function modify_default_taxonomy_labels() {
+		global $wp_taxonomies;
+
+		$wp_taxonomies['category']->labels->name          = 'Site Categories';
+		$wp_taxonomies['category']->labels->singular_name = 'Site Category';
+		$wp_taxonomies['category']->labels->menu_name     = 'Site Categories';
+
+		$wp_taxonomies['post_tag']->labels->name          = 'University Tags';
+		$wp_taxonomies['post_tag']->labels->singular_name = 'University Tag';
+		$wp_taxonomies['post_tag']->labels->menu_name     = 'University Tags';
 	}
 
 	/**
