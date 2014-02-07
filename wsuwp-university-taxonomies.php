@@ -16,6 +16,11 @@ class WSUWP_University_Taxonomies {
 	var $university_category = 'wsuwp_university_category';
 
 	/**
+	 * @var string Taxonomy slug for the University Location taxonomy.
+	 */
+	var $university_location = 'wsuwp_university_location';
+
+	/**
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
@@ -43,6 +48,23 @@ class WSUWP_University_Taxonomies {
 			'query_var'         => true,
 		);
 		register_taxonomy( $this->university_category, array( 'post', 'page', 'attachment' ), $args );
+
+		$labels = array(
+			'name'          => 'Location',
+			'search_items'  => 'Search Locations',
+			'all_items'     => 'All Locations',
+			'edit_item'     => 'Edit Location',
+			'update_item'   => 'Update Location',
+			'add_new_item'  => 'Add New Location',
+			'new_item_name' => 'New Location Name',
+		);
+
+		$args = array(
+			'hierarchical' => true,
+			'labels'       => $labels,
+			'show_ui'      => true,
+		);
+		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
 	}
 }
 new WSUWP_University_Taxonomies();
