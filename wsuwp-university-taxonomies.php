@@ -48,13 +48,15 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function register_taxonomies() {
 		$labels = array(
-			'name'              => 'University Category',
-			'search_items'      => 'Search Categories',
-			'all_items'         => 'All Categories',
-			'edit_item'         => 'Edit Category',
-			'update_item'       => 'Update Category',
-			'add_new_item'      => 'Add New Category',
-			'new_item_name'     => 'New Category Name',
+			'name'          => 'University Categories',
+			'singular_name' => 'University Category',
+			'search_items'  => 'Search Categories',
+			'all_items'     => 'All Categories',
+			'edit_item'     => 'Edit Category',
+			'update_item'   => 'Update Category',
+			'add_new_item'  => 'Add New Category',
+			'new_item_name' => 'New Category Name',
+			'menu_name'     => 'University Categories',
 		);
 
 		$args = array(
@@ -73,6 +75,7 @@ class WSUWP_University_Taxonomies {
 			'update_item'   => 'Update Location',
 			'add_new_item'  => 'Add New Location',
 			'new_item_name' => 'New Location Name',
+			'menu_name'     => 'University Locations',
 		);
 
 		$args = array(
