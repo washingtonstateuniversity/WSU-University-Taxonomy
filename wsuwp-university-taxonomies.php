@@ -41,7 +41,6 @@ class WSUWP_University_Taxonomies {
 			'labels'            => $labels,
 			'show_ui'           => true,
 			'query_var'         => true,
-			'rewrite'           => array( 'slug' => 'subject' ),
 		);
 		register_taxonomy( $this->university_category, array( 'post', 'page', 'attachment' ), $args );
 	}
