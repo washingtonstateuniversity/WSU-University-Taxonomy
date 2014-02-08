@@ -31,9 +31,9 @@ class WSUWP_University_Taxonomies {
 	function __construct() {
 		$this->locations = $this->get_university_locations();
 
-		add_action( 'init',       array( $this, 'modify_default_taxonomy_labels' ) );
-		add_action( 'init',       array( $this, 'register_taxonomies'            ) );
-		add_action( 'admin_init', array( $this, 'compare_locations'              ) );
+		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ) );
+		add_action( 'init',               array( $this, 'register_taxonomies'            ) );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ) );
 	}
 
 	/**
@@ -161,6 +161,10 @@ class WSUWP_University_Taxonomies {
 	 * Compare the current state of locations and populate anything that is missing.
 	 */
 	public function compare_locations() {
+		if ( $this->university_location !== get_current_screen()->taxonomy ) {
+			return;
+		}
+
 		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
 		$current_locations = wp_list_pluck( $current_locations, 'name' );
 
