@@ -31,8 +31,9 @@ class WSUWP_University_Taxonomies {
 	function __construct() {
 		$this->locations = $this->get_university_locations();
 
-		add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ) );
-		add_action( 'init', array( $this, 'register_taxonomies' ) );
+		add_action( 'init',       array( $this, 'modify_default_taxonomy_labels' ) );
+		add_action( 'init',       array( $this, 'register_taxonomies'            ) );
+		add_action( 'admin_init', array( $this, 'compare_locations'              ) );
 	}
 
 	/**
@@ -154,6 +155,39 @@ class WSUWP_University_Taxonomies {
 		);
 
 		return $locations;
+	}
+
+	/**
+	 * Compare the current state of locations and populate anything that is missing.
+	 */
+	public function compare_locations() {
+		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
+		$current_locations = wp_list_pluck( $current_locations, 'name' );
+
+		foreach ( $this->locations as $location => $child_locations ) {
+			$parent_id = false;
+
+			// If the parent location is not a term yet, insert it.
+			if ( ! in_array( $location, $current_locations ) ) {
+				$new_term    = wp_insert_term( $location, $this->university_location, array( 'parent' => 0 ) );
+				$parent_id = $new_term['term_id'];
+			}
+
+			// Loop through the parent's children to check term existence.
+			foreach( $child_locations as $child_location ) {
+				if ( ! in_array( $child_location, $current_locations ) ) {
+					if ( ! $parent_id ) {
+						$parent = get_term_by( 'name', $location, $this->university_location );
+						if ( isset( $parent->id ) ) {
+							$parent_id = $parent->id;
+						} else {
+							$parent_id = 0;
+						}
+					}
+					wp_insert_term( $child_location, $this->university_location, array( 'parent' => $parent_id ) );
+				}
+			}
+		}
 	}
 }
 new WSUWP_University_Taxonomies();
