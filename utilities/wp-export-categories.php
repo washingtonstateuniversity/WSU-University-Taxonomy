@@ -33,6 +33,36 @@ function wsuwp_dump_categories_csv() {
 	fclose($fp);
 }
 
+//add_action( 'init', 'wsuwp_dump_categories_php_array' );
+/**
+ * Echo current category data as an array assignment to be used in a PHP script.
+ *
+ * Uncomment the action immediately above this comment to activate.
+ */
+function wsuwp_dump_categories_php_array() {
+	$top_level = wsuwp_get_full_category_array();
+
+	echo '$categories = array(';
+	foreach ( $top_level as $cat ) {
+		echo "\n\t'" . $cat['name'] . "' => array(";
+		foreach ( $cat['children'] as $lvl2 ) {
+			echo "\n\t\t'" . $lvl2['name'];
+			if ( empty ( $lvl2['children'] ) ) {
+				echo "',";
+			} else {
+				echo "' => array(";
+				foreach ( $lvl2['children'] as $lvl3 ) {
+					echo "\n\t\t\t'" . $lvl3['name'] . "',";
+				}
+				echo "\n\t\t),";
+			}
+
+		}
+		echo "\n\t),";
+	}
+	echo "\n);";
+}
+
 /**
  * Pull the full list of university categories and arrange in an array of parent
  * child relationships.
