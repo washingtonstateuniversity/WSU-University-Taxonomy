@@ -159,12 +159,26 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Clear all cache for a given taxonomy.
+	 *
+	 * @param string $taxonomy A taxonomy slug.
+	 */
+	private function clear_taxonomy_cache( $taxonomy ) {
+		wp_cache_delete( 'all_ids', $taxonomy );
+		wp_cache_delete( 'get',     $taxonomy );
+		delete_option( $taxonomy . '_children' );
+		_get_term_hierarchy( $taxonomy );
+	}
+
+	/**
 	 * Compare the current state of locations and populate anything that is missing.
 	 */
 	public function compare_locations() {
 		if ( $this->university_location !== get_current_screen()->taxonomy ) {
 			return;
 		}
+
+		$this->clear_taxonomy_cache( $this->university_location );
 
 		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
 		$current_locations = wp_list_pluck( $current_locations, 'name' );
@@ -193,6 +207,8 @@ class WSUWP_University_Taxonomies {
 				}
 			}
 		}
+
+		$this->clear_taxonomy_cache( $this->university_location );
 	}
 
 	/**
@@ -203,56 +219,102 @@ class WSUWP_University_Taxonomies {
 			return;
 		}
 
+		$this->clear_taxonomy_cache( $this->university_category );
+
 		// Get our current master list of categories.
 		$master_list = $this->get_university_categories();
 
 		// Get our current list of top level parents.
-		$current_parents = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
-		$parent_assign = array();
-		foreach( $current_parents as $parent ) {
-			$parent_assign[ $parent->name ] = array( 'term_id' => $parent->term_id );
+		$level1_exist  = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$level1_assign = array();
+		foreach( $level1_exist as $level1 ) {
+			$level1_assign[ $level1->name ] = array( 'term_id' => $level1->term_id );
 		}
 
-		// Look for mismatches between master and parent. Fill in the blanks.
-		foreach( $master_list as $parent => $children ) {
-			if ( ! array_key_exists( $parent, $parent_assign ) ) {
-				$new_term = wp_insert_term( $parent, $this->university_category, array( 'parent' => '0' ) );
+		$level1_names = array_keys( $master_list );
+		/**
+		 * Look for mismatches between the master list and the existing parent terms list.
+		 *
+		 * In this loop:
+		 *
+		 *     * $level1_names    array of top level parent names.
+		 *     * $level1_name     string containing a top level category.
+		 *     * $level1_children array containing all of the current parent's child arrays.
+		 *     * $level1_assign   array of top level parents that exist in the database with term ids.
+		 */
+		foreach( $level1_names as $level1_name ) {
+			if ( ! array_key_exists( $level1_name, $level1_assign ) ) {
+				$new_term = wp_insert_term( $level1_name, $this->university_category, array( 'parent' => '0' ) );
 				if ( ! is_wp_error( $new_term ) ) {
-					$parent_assign[ $parent ] = array( 'term_id' => $new_term['term_id'] );
+					$level1_assign[ $level1_name ] = array( 'term_id' => $new_term['term_id'] );
+				} else {
+					echo $new_term->get_error_message();
+					wp_die( 'There was an error in assigning a top level parent.' );
 				}
 			}
 		}
 
-		// Process the children for each top level parent.
-		foreach( $master_list as $parent => $children ) {
-			$current_level2 = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $parent_assign[ $parent ]['term_id'] ) );
+		/**
+		 * Process the children of each top level parent.
+		 *
+		 * In this loop:
+		 *
+		 *     * $level1_names    array of top level parent names.
+		 *     * $level1_name     string containing a top level category.
+		 *     * $level1_children array containing all of the current parent's child arrays.
+		 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
+		 */
+		foreach( $level1_names as $level1_name ) {
+			$level2_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
 			$level2_assign = array();
-			foreach( $current_level2 as $level2 ) {
+
+			foreach( $level2_exists as $level2 ) {
 				$level2_assign[ $level2->name ] = array( 'term_id' =>  $level2->term_id );
 			}
+			$level2_assign_stage1 = $level2_assign;
 
-			// Look for mismatches between master and level2. Fill in the blanks.
-			foreach( $children as $key => $value ) {
-				if ( ! array_key_exists( $key, $level2_assign ) ) {
-					$new_term = wp_insert_term( $key, $this->university_category, array( 'parent' => $parent_assign[ $parent ]['term_id'] ) );
+			$level2_names = array_keys( $master_list[ $level1_name ] );
+			/**
+			 * Look for mismatches between the expected and real children of the current parent.
+			 *
+			 * In this loop:
+			 *
+			 *     * $level2_names    array of the current parent's child level names.
+			 *     * $level2_name     string containing a second level category.
+			 *     * $level2_children array containing the current second level category's children. Unused in this context.
+			 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
+			 */
+			foreach( $level2_names as $level2_name ) {
+				if ( ! array_key_exists( $level2_name, $level2_assign ) ) {
+					$new_term = wp_insert_term( $level2_name, $this->university_category, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
 					if ( ! is_wp_error( $new_term ) ) {
-						$level2_assign[ $key ] = array( 'term_id' => $new_term['term_id'] );
+						$level2_assign[ $level2_name ] = array( 'term_id' => $new_term['term_id'] );
+					} else {
+						echo $new_term->get_error_message();
+						var_dump( $level1_name, $level2_name, $level2_names, $level2_assign_stage1, $level2_assign );
+						var_dump( $level2_exists );
+						wp_die( 'Error in level2 assignment.' );
 					}
 				}
 			}
 
-			// Look for mismatches between level2 and level3 relationships. Fill in the blanks.
-			foreach( $children as $key => $value ) {
-				$current_level3 = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level2_assign[ $key ]['term_id'] ) );
-				$current_level3 = wp_list_pluck( $current_level3, 'name' );
+			/**
+			 * Look for mismatches between second and third level category relationships.
+			 */
+			foreach( $level2_names as $level2_name ) {
+				$level3_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+				$level3_exists = wp_list_pluck( $level3_exists, 'name' );
 
-				foreach( $value as $cat ) {
-					if ( ! in_array( $cat, $current_level3 ) ) {
-						wp_insert_term( $cat, $this->university_category, array( 'parent' => $level2_assign[ $key ]['term_id'] ) );
+				$level3_names = $master_list[ $level1_name ][ $level2_name ];
+				foreach( $level3_names as $level3_name ) {
+					if ( ! in_array( $level3_name, $level3_exists ) ) {
+						wp_insert_term( $level3_name, $this->university_category, array( 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
 					}
 				}
 			}
 		}
+
+		$this->clear_taxonomy_cache( $this->university_category );
 	}
 
 	/**
