@@ -191,9 +191,6 @@ class WSUWP_University_Taxonomies {
 				$new_term = wp_insert_term( $level1_name, $this->university_category, array( 'parent' => '0' ) );
 				if ( ! is_wp_error( $new_term ) ) {
 					$level1_assign[ $level1_name ] = array( 'term_id' => $new_term['term_id'] );
-				} else {
-					echo $new_term->get_error_message();
-					wp_die( 'There was an error in assigning a top level parent.' );
 				}
 			}
 		}
@@ -232,11 +229,6 @@ class WSUWP_University_Taxonomies {
 					$new_term = wp_insert_term( $level2_name, $this->university_category, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
 					if ( ! is_wp_error( $new_term ) ) {
 						$level2_assign[ $level2_name ] = array( 'term_id' => $new_term['term_id'] );
-					} else {
-						echo $new_term->get_error_message();
-						var_dump( $level1_name, $level2_name, $level2_names, $level2_assign_stage1, $level2_assign );
-						var_dump( $level2_exists );
-						wp_die( 'Error in level2 assignment.' );
 					}
 				}
 			}
@@ -261,7 +253,7 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Maintain an array of current universith locations.
+	 * Maintain an array of current university locations.
 	 *
 	 * @return array Current university locations.
 	 */
