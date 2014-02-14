@@ -88,69 +88,6 @@ class WSUWP_University_Taxonomies {
 		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
 	}
 
-	public function get_university_locations() {
-		$locations = array(
-			'WSU Pullman'                      => array(),
-			'WSU West/Downtown Seattle'        => array(),
-			'WSU Spokane'                      => array(),
-			'WSU Tri-Cities'                   => array(),
-			'WSU Vancouver'                    => array(),
-			'WSU Global Campus'                => array(),
-			'WSU Extension'                    => array(
-				'Asotin County',
-				'Benton County',
-				'Chelan County',
-				'Clallam County',
-				'Clark County',
-				'Columbia County',
-				'Cowlitz County',
-				'Douglas County',
-				'Ferry County',
-				'Franklin County',
-				'Garfield County',
-				'Grant County',
-				'Grays Harbor County',
-				'Island County',
-				'Jefferson County',
-				'King County',
-				'Kitsap County',
-				'Kittitas County',
-				'Klickitat County',
-				'Lewis County',
-				'Lincoln County',
-				'Mason County',
-				'Okanogan County',
-				'Pacific County',
-				'Pend Oreille County',
-				'Pierce County',
-				'San Juan County',
-				'Skagit County',
-				'Skamania County',
-				'Spokane County',
-				'Stevens County',
-				'Thurston County',
-				'Wahkiakum County',
-				'Walla Walla County',
-				'Whatcom County',
-				'Whitman County',
-				'Yakima County',
-			),
-			'WSU Seattle'                      => array(),
-			'WSU North Puget Sound at Everett' => array(),
-			'WSU Research Centers'             => array(
-				'Lind',
-				'Long Beach',
-				'Mount Vernon',
-				'Othello',
-				'Prosser',
-				'Puyallup',
-				'Wenatchee',
-			)
-		);
-
-		return $locations;
-	}
-
 	/**
 	 * Clear all cache for a given taxonomy.
 	 *
@@ -310,6 +247,74 @@ class WSUWP_University_Taxonomies {
 		}
 
 		$this->clear_taxonomy_cache( $this->university_category );
+	}
+
+	/**
+	 * Maintain an array of current universith locations.
+	 * 
+	 * @return array Current university locations.
+	 */
+	public function get_university_locations() {
+		$locations = array(
+			'WSU Pullman'                      => array(),
+			'WSU West/Downtown Seattle'        => array(),
+			'WSU Spokane'                      => array(),
+			'WSU Tri-Cities'                   => array(),
+			'WSU Vancouver'                    => array(),
+			'WSU Global Campus'                => array(),
+			'WSU Extension'                    => array(
+				'Asotin County',
+				'Benton County',
+				'Chelan County',
+				'Clallam County',
+				'Clark County',
+				'Columbia County',
+				'Cowlitz County',
+				'Douglas County',
+				'Ferry County',
+				'Franklin County',
+				'Garfield County',
+				'Grant County',
+				'Grays Harbor County',
+				'Island County',
+				'Jefferson County',
+				'King County',
+				'Kitsap County',
+				'Kittitas County',
+				'Klickitat County',
+				'Lewis County',
+				'Lincoln County',
+				'Mason County',
+				'Okanogan County',
+				'Pacific County',
+				'Pend Oreille County',
+				'Pierce County',
+				'San Juan County',
+				'Skagit County',
+				'Skamania County',
+				'Spokane County',
+				'Stevens County',
+				'Thurston County',
+				'Wahkiakum County',
+				'Walla Walla County',
+				'Whatcom County',
+				'Whitman County',
+				'Yakima County',
+			),
+			'WSU Seattle'                      => array(),
+			'WSU North Puget Sound at Everett' => array(),
+			'WSU Research Centers'             => array(
+				'Lind',
+				'Long Beach',
+				'Mount Vernon',
+				'Othello',
+				'Prosser',
+				'Puyallup',
+				'Wenatchee',
+			)
+		);
+
+		return $locations;
 	}
 
 	/**
