@@ -24,10 +24,10 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ) );
-		add_action( 'init',               array( $this, 'register_taxonomies'            ) );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ) );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ) );
+		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ), 10 );
+		add_action( 'init',               array( $this, 'register_taxonomies'            ), 11 );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ), 10 );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ), 10 );
 	}
 
 	/**
@@ -251,7 +251,7 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Maintain an array of current universith locations.
-	 * 
+	 *
 	 * @return array Current university locations.
 	 */
 	public function get_university_locations() {
