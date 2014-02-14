@@ -21,16 +21,9 @@ class WSUWP_University_Taxonomies {
 	var $university_location = 'wsuwp_university_location';
 
 	/**
-	 * @var array Contains current dataset for University Locations.
-	 */
-	var $locations = array();
-
-	/**
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		$this->locations = $this->get_university_locations();
-
 		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ) );
 		add_action( 'init',               array( $this, 'register_taxonomies'            ) );
 		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ) );
@@ -180,10 +173,12 @@ class WSUWP_University_Taxonomies {
 
 		$this->clear_taxonomy_cache( $this->university_location );
 
+		$master_locations = $this->get_university_locations();
+
 		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
 		$current_locations = wp_list_pluck( $current_locations, 'name' );
 
-		foreach ( $this->locations as $location => $child_locations ) {
+		foreach ( $master_locations as $location => $child_locations ) {
 			$parent_id = false;
 
 			// If the parent location is not a term yet, insert it.
