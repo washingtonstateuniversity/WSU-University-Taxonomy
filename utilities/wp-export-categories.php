@@ -48,7 +48,7 @@ function wsuwp_dump_categories_php_array() {
 		foreach ( $cat['children'] as $lvl2 ) {
 			echo "\n\t\t'" . $lvl2['name'];
 			if ( empty ( $lvl2['children'] ) ) {
-				echo "',";
+				echo "' => array(),";
 			} else {
 				echo "' => array(";
 				foreach ( $lvl2['children'] as $lvl3 ) {
@@ -70,7 +70,7 @@ function wsuwp_dump_categories_php_array() {
  * @return array
  */
 function wsuwp_get_full_category_array() {
-	$terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'hierarchical'  => true, ) );
+	$terms = get_terms( 'wsuwp_university_category', array( 'hide_empty' => false, 'hierarchical'  => true, ) );
 	$top_level = array();
 	foreach ( $terms as $key => $term ) {
 		if ( '0' === $term->parent ) {
