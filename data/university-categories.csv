@@ -1,0 +1,334 @@
+"Level 1 Name", "Level 1 Slug", "Level 2 Name", "Level 2 Slug", "Level 3 Name", "Level 3 Slug"
+"Academic Subjects",academic-subjects,,,,
+"Academic Subjects",academic-subjects,Agriculture,agriculture,,
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Agriculture Business",agriculture-business
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Agriculture Economics",agriculture-economics
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Agriculture Engineering",agriculture-engineering
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Animal Sciences",animal-sciences
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Berries,berries
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Crop Sciences",crop-sciences
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Equipment/Mechanization,equipmentmechanization
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Fodder/Silage,foddersilage
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Food Science",food-science
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Forestry,forestry
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Fruit Trees",fruit-trees
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Fungus,fungus
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Horticulture,horticulture
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Irrigation / Water Management",irrigation-water-management
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Legumes, Pulse",legumes-pulse
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Mint,mint
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Oil Seed",oil-seed
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Organic Farming",organic-farming
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Pests and Weeds",pests-and-weeds
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Plant Pathology",plant-pathology
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Small Grains",small-grains
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Soil Sciences",soil-sciences
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Tubers,tubers
+"Academic Subjects",academic-subjects,Agriculture,agriculture,Vegetables,vegetables
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Viticulture, Enology, Wine",viticulture-enology-wine
+"Academic Subjects",academic-subjects,Agriculture,agriculture,"Weather, Climate",weather-climate
+"Academic Subjects",academic-subjects,Arts,arts,,
+"Academic Subjects",academic-subjects,Arts,arts,"Digital Media",digital-media
+"Academic Subjects",academic-subjects,Arts,arts,"Fine Arts",fine-arts
+"Academic Subjects",academic-subjects,Arts,arts,"Performing Arts",performing-arts
+"Academic Subjects",academic-subjects,Biology,biology,,
+"Academic Subjects",academic-subjects,Biology,biology,Botany,botany
+"Academic Subjects",academic-subjects,Biology,biology,Entomology,entomology
+"Academic Subjects",academic-subjects,Biology,biology,"Genomics and Bioinformatics",genomics-and-bioinformatics
+"Academic Subjects",academic-subjects,Biology,biology,"Molecular Biology",molecular-biology
+"Academic Subjects",academic-subjects,Biology,biology,Neuroscience,neuroscience
+"Academic Subjects",academic-subjects,Biology,biology,Zoology,zoology
+"Academic Subjects",academic-subjects,Business,business,,
+"Academic Subjects",academic-subjects,Business,business,Accounting,accounting
+"Academic Subjects",academic-subjects,Business,business,"Construction Management",consturction-management
+"Academic Subjects",academic-subjects,Business,business,Economics,economics
+"Academic Subjects",academic-subjects,Business,business,Finance,finance
+"Academic Subjects",academic-subjects,Business,business,Hospitality,hospitality
+"Academic Subjects",academic-subjects,Business,business,"Information Systems",information-systems
+"Academic Subjects",academic-subjects,Business,business,Investment,investment
+"Academic Subjects",academic-subjects,Business,business,Management,management
+"Academic Subjects",academic-subjects,Business,business,"Sports Management",sports-management
+"Academic Subjects",academic-subjects,Chemistry,chemistry,,
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,,
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,Advertising,advertising
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,Broadcasting,broadcasting
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,Electronic,electronic
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,Journalism,journalism
+"Academic Subjects",academic-subjects,"Communication (academic)",communication-academic,"Public Relations",public-relations
+"Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,,
+"Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,"Computer Engineering",computer-engineering
+"Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,"Computer Science",computer-science
+"Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,"Power Systems",power-systems
+"Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,"Smart Environments",smart-environments
+"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,,
+"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,Architecture,architecture
+"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Construction Management",construction-management
+"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Interior Design",interior-design
+"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Landscape Architecture",landscape-architecture
+"Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,,
+"Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,"Environmental Studies",environmental-studies
+"Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,Geology,geology
+"Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,"Natural Resources",natural-resources
+"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,,
+"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,Administration,administration-education-academics
+"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,"Special Education",special-education
+"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,"Teaching (Education)",teaching-education
+"Academic Subjects",academic-subjects,Engineering,engineering,,
+"Academic Subjects",academic-subjects,Engineering,engineering,"Atmospheric Research",atmospheric-research
+"Academic Subjects",academic-subjects,Engineering,engineering,Catalysis,catalysis
+"Academic Subjects",academic-subjects,Engineering,engineering,"Energy Conversion",energy-conversion
+"Academic Subjects",academic-subjects,Engineering,engineering,Infrastructure,infrastructure
+"Academic Subjects",academic-subjects,Engineering,engineering,Structures,structures
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,,
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,"Apparel and Textile Design",apparel-and-textile-design
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,"Food and Sensory Science",food-and-sensory-science
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,"Home Economics",home-economics
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,"Human Development",human-development
+"Academic Subjects",academic-subjects,"Family and Consumer Science",family-and-consumer-science,Nutrition,nutrition
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,,
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Addictions,addictions
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Cancer,cancer
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Childhood Trauma",childhood-trauma
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Chronic Illness",chronic-illness
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Exercise Physiology",exercise-physiology
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Health Administration",health-administration
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Health Policy",health-policy
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Medical Health",medical-health
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Metabolic Disorders",metabolic-disorders
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Nursing,nursing
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Nutrition,nutrition-health-sciences
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Pharmacy,pharmacy
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Physical performance, recreation",physical-performance-recreation
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Sleep,sleep
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Speech and Hearing",speech-and-hearing
+"Academic Subjects",academic-subjects,Humanities,humanities,,
+"Academic Subjects",academic-subjects,Humanities,humanities,English,english
+"Academic Subjects",academic-subjects,Humanities,humanities,History,history
+"Academic Subjects",academic-subjects,Humanities,humanities,Languages,languages
+"Academic Subjects",academic-subjects,Humanities,humanities,Literature,literature
+"Academic Subjects",academic-subjects,Humanities,humanities,Philosophy,philosophy
+"Academic Subjects",academic-subjects,Mathematics,mathematics,,
+"Academic Subjects",academic-subjects,Music,music,,
+"Academic Subjects",academic-subjects,Music,music,Instrumental,instrumental
+"Academic Subjects",academic-subjects,Music,music,Vocal,vocal
+"Academic Subjects",academic-subjects,Physics,physics,,
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,,
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Anthropology,anthropology
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Archaeology,archaeology
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,"Criminology/Criminal Justice",criminologycriminal-justice
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,"Cultural and ethnic studies",cultural-and-ethnic-studies
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,"Gender and sexuality studies",gender-and-sexuality-studies
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Geography,geography
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Military,military
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,"Political science",political-science
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Psychology,psychology
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Religion,religion
+"Academic Subjects",academic-subjects,"Social Sciences",social-sciences,Sociology,sociology
+"Academic Subjects",academic-subjects,"Space sciences",space-sciences,,
+"Academic Subjects",academic-subjects,"Space sciences",space-sciences,Astronomy,astronomy
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,,
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Companion Animals",companion-animals
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Emerging Diseases",emerging-diseases
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,Equine,equine
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Exotic / Pocket Pets",exotic-pocket-pets
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Food Animal",food-animal
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Foreign Animal Diseases",foreign-animal-diseases
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,Pathology,pathology
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,"Pharmacology, animal",pharmacology-animal
+"Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,Zoonoses,zoonoses
+Alumni,alumni,,,,
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,,
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,"Alumni Centre",alumni-centre
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,Awards,awards
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,Benefits,benefits
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,Events,events
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,Membership,membership
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,Recognition,recognition
+Alumni,alumni,"Notable Alumni",notable-alumni,,
+Alumni,alumni,"Notable Alumni",notable-alumni,Athletes,athletes
+Alumni,alumni,"Notable Alumni",notable-alumni,"Business Leaders",business-leaders
+Alumni,alumni,"Notable Alumni",notable-alumni,"Government Leaders",government-leaders
+Alumni,alumni,"Notable Alumni",notable-alumni,Other,other
+Alumni,alumni,"Notable Alumni",notable-alumni,Philanthropists,philanthropists
+Alumni,alumni,"Notable Alumni",notable-alumni,Scientists,scientists
+"Community &amp; Economic Development",community-economic-development,,,,
+"Community &amp; Economic Development",community-economic-development,4-H,4-h,,
+"Community &amp; Economic Development",community-economic-development,"Economic Development",economic-development,,
+"Community &amp; Economic Development",community-economic-development,"Economic Development",economic-development,Entrepreneurship,entrepreneurship
+"Community &amp; Economic Development",community-economic-development,Gardening,gardening,,
+"Community &amp; Economic Development",community-economic-development,Gardening,gardening,"Master Gardeners",master-gardeners
+"Community &amp; Economic Development",community-economic-development,"Small Business",small-business,,
+"Community &amp; Economic Development",community-economic-development,"Technology Transfer",technology-transfer,,
+"Community &amp; Economic Development",community-economic-development,WeatherNet,weathernet,,
+Events,events-2,,,,
+Events,events-2,Anniversary,anniversary,,
+Events,events-2,Athletic,athletic,,
+Events,events-2,Camp,camp,,
+Events,events-2,Concert,concert,,
+Events,events-2,Conference,conference,,
+Events,events-2,Cultural,cultural,,
+Events,events-2,Deadline,deadline,,
+Events,events-2,"Dedication &amp; Naming",dedication-naming,,
+Events,events-2,"Dedication &amp; Naming",dedication-naming,Building,building
+Events,events-2,"Dedication &amp; Naming",dedication-naming,College/School/Program,collegeschoolprogram
+Events,events-2,Exhibit,exhibit,,
+Events,events-2,"Fair and Festival",fair-and-festival,,
+Events,events-2,"Field Day",field-day,,
+Events,events-2,Film,film,,
+Events,events-2,Groundbreaking,groundbreaking,,
+Events,events-2,"Guest Speaker",guest-speaker,,
+Events,events-2,Lecture,lecture,,
+Events,events-2,Meeting,meeting,,
+Events,events-2,Performance,performance,,
+Events,events-2,Reception,reception,,
+Events,events-2,Recognition,recognition-events-2,,
+Events,events-2,Recreation/Wellness,recreationwellness,,
+Events,events-2,Seminar,seminar,,
+Events,events-2,"Student event",student-event,,
+Events,events-2,Workshop,workshop,,
+"Faculty, Staff",faculty-staff,,,,
+"Faculty, Staff",faculty-staff,"Awards, employee",awards-employee,,
+"Faculty, Staff",faculty-staff,Faculty,faculty,,
+"Faculty, Staff",faculty-staff,Faculty,faculty,"Faculty Senate",faculty-senate
+"Faculty, Staff",faculty-staff,Obituaries,obituaries,,
+"Faculty, Staff",faculty-staff,Retirement,retirement,,
+"Faculty, Staff",faculty-staff,Staff,staff,,
+Philanthropy,philanthropy,,,,
+Philanthropy,philanthropy,"Fundraising News",fundraising-news,,
+Philanthropy,philanthropy,"Fundraising News",fundraising-news,"Foundation &amp; Fundraising Events",foundation-fundraising-events
+Philanthropy,philanthropy,"Fundraising News",fundraising-news,"Fundraising Updates",fundraising-updates
+Philanthropy,philanthropy,"Fundraising News",fundraising-news,"Gift Announcements",gift-announcements
+Philanthropy,philanthropy,"Fundraising News",fundraising-news,"Volunteer News",volunteer-news
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,,
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Alumni Giving",alumni-giving
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Faculty &amp; Staff Giving",faculty-staff-giving
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Friends &amp; Organizations Giving",friends-organizations-giving
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Gifts for Faculty &amp; Research",gifts-for-faculty-research
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Meet Our Donors",meet-our-donors
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Scholarships in Action",scholarships-in-action
+Philanthropy,philanthropy,"Impact (Private Support, Volunteers)",impact-private-support-volunteers,"Student Philanthropy",student-philanthropy
+Research,research,,,,
+Research,research,"Graduate Research",graduate-research,,
+Research,research,Grants,grants,,
+Research,research,Grants,grants,"Corporate Grants",corporate-grants
+Research,research,Grants,grants,"Federal Grants",federal-grants
+Research,research,Grants,grants,"State Grants",state-grants
+Research,research,"Intellectual Property",intellectual-property,,
+Research,research,"Postdoctoral Research",postdoctoral-research,,
+Research,research,"Research Fellowships",research-fellowships,,
+Research,research,"Undergraduate Research",undergraduate-research,,
+"Resources &amp; Offices",resources-offices,,,,
+"Resources &amp; Offices",resources-offices,"Attorney General",attorney-general,,
+"Resources &amp; Offices",resources-offices,"Board of Regents",board-of-regents,,
+"Resources &amp; Offices",resources-offices,"Buildings and Grounds",buildings-and-grounds,,
+"Resources &amp; Offices",resources-offices,"Buildings and Grounds",buildings-and-grounds,"Campus Planning",campus-planning
+"Resources &amp; Offices",resources-offices,"Buildings and Grounds",buildings-and-grounds,Construction,construction
+"Resources &amp; Offices",resources-offices,"Buildings and Grounds",buildings-and-grounds,"Facilities Management",facilities-management
+"Resources &amp; Offices",resources-offices,"Business and Finances",business-and-finances,,
+"Resources &amp; Offices",resources-offices,"Business and Finances",business-and-finances,Budget,budget
+"Resources &amp; Offices",resources-offices,"Business and Finances",business-and-finances,"Real Estate",real-estate
+"Resources &amp; Offices",resources-offices,"Business and Finances",business-and-finances,Travel,travel
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,,
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,Marketing,marketing
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,"Media Relations",media-relations
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,"Public Relations",public-relations-communication-university
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,Publishing,publishing
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,"Social Media",social-media
+"Resources &amp; Offices",resources-offices,"Communication, University",communication-university,"Web Communication",web-communication
+"Resources &amp; Offices",resources-offices,"Community Engagement",community-engagement,,
+"Resources &amp; Offices",resources-offices,"Deans and Executives",deans-and-executives,,
+"Resources &amp; Offices",resources-offices,"Government Relations",government-relations,,
+"Resources &amp; Offices",resources-offices,"Health &amp; Wellness Services",health-wellness-services,,
+"Resources &amp; Offices",resources-offices,"History of University",history-of-university,,
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,,
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Benefits,benefits-human-resources
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Employment,employment-human-resources
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,"Equal Employment Opportunities",equal-employment-opportunities
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Payroll,payroll
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,"Professional Development",professional-development
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Retirement,retirement-human-resources
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Training,training
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,,
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,"Faculty and Staff",faculty-and-staff
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,"Help Desk",help-desk
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,Maintenance,maintenance
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,Network,network
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,Security,security
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,Services,services
+"Resources &amp; Offices",resources-offices,"Information Technology",information-technology,"Students &amp; Parents",students-parents
+"Resources &amp; Offices",resources-offices,Libraries,libraries,,
+"Resources &amp; Offices",resources-offices,Libraries,libraries,"Archives/Special Collections",archivesspecial-collections
+"Resources &amp; Offices",resources-offices,Libraries,libraries,Books,books
+"Resources &amp; Offices",resources-offices,Libraries,libraries,Collections,collections
+"Resources &amp; Offices",resources-offices,Libraries,libraries,Reference,reference
+"Resources &amp; Offices",resources-offices,Museums,museums,,
+"Resources &amp; Offices",resources-offices,Museums,museums,"Anthropology Museum",anthropology-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,"Art Museum",art-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,"Conner Museum",conner-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,Entomology,entomology-museums
+"Resources &amp; Offices",resources-offices,Museums,museums,Geology,geology-museums
+"Resources &amp; Offices",resources-offices,Museums,museums,Herbarium,herbarium
+"Resources &amp; Offices",resources-offices,Museums,museums,Veterinary,veterinary
+"Resources &amp; Offices",resources-offices,President,president,,
+"Resources &amp; Offices",resources-offices,Safety,safety,,
+"Resources &amp; Offices",resources-offices,Safety,safety,"Campus police",campus-police
+"Resources &amp; Offices",resources-offices,Safety,safety,"Emergency management",emergency-management
+"Resources &amp; Offices",resources-offices,Safety,safety,"Environmental safety",environmental-safety
+"Resources &amp; Offices",resources-offices,Transportation,transportation,,
+"Resources &amp; Offices",resources-offices,Transportation,transportation,Bicycle,bicycle
+"Resources &amp; Offices",resources-offices,Transportation,transportation,Bus,bus
+"Resources &amp; Offices",resources-offices,Transportation,transportation,Parking,parking
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,,
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Employment,employment-university-statistics
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Enrollment,enrollment
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Funding,funding
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Graduation,graduation
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,"Private Support",private-support
+Sports,sports,,,,
+Sports,sports,Administration,administration-sports,,
+Sports,sports,Club,club,,
+Sports,sports,Intercollegiate,intercollegiate,,
+Sports,sports,Intercollegiate,intercollegiate,Baseball,baseball
+Sports,sports,Intercollegiate,intercollegiate,Basketball,basketball
+Sports,sports,Intercollegiate,intercollegiate,"Cross Country",cross-country
+Sports,sports,Intercollegiate,intercollegiate,Football,football
+Sports,sports,Intercollegiate,intercollegiate,Golf,golf
+Sports,sports,Intercollegiate,intercollegiate,Rowing,rowing
+Sports,sports,Intercollegiate,intercollegiate,Soccer,soccer
+Sports,sports,Intercollegiate,intercollegiate,Swimming,swimming
+Sports,sports,Intercollegiate,intercollegiate,Tennis,tennis
+Sports,sports,Intercollegiate,intercollegiate,"Track &amp; Field",track-field
+Sports,sports,Intercollegiate,intercollegiate,Volleyball,volleyball
+Sports,sports,Intramural,intramural,,
+Sports,sports,Intramural,intramural,"Outdoor Recreation",outdoor-recreation
+Students,students,,,,
+Students,students,Admissions,admissions,,
+Students,students,Advising,advising,,
+Students,students,Advising,advising,Academic,academic
+Students,students,Advising,advising,Career,career
+Students,students,"Awards, honors",awards-honors,,
+Students,students,Bookstore,bookstore,,
+Students,students,"Career services",career-services,,
+Students,students,"Civic engagement, community outreach",civic-engagement-community-outreach,,
+Students,students,"Clubs, organizations",clubs-organizations,,
+Students,students,Counseling,counseling,,
+Students,students,"Dining Services",dining-services,,
+Students,students,Diversity,diversity,,
+Students,students,Enrollment,enrollment-students,,
+Students,students,Fellowships,fellowships,,
+Students,students,"Financial aid",financial-aid,,
+Students,students,"Health wellness",health-wellness,,
+Students,students,"Health wellness",health-wellness,"Health &amp; wellness services",health-wellness-services-health-wellness
+Students,students,"Health wellness",health-wellness,"University recreation",university-recreation
+Students,students,"Honors College",honors-college,,
+Students,students,International,international,,
+Students,students,Internships,internships,,
+Students,students,"Living Communities",living-communities,,
+Students,students,"Living Communities",living-communities,Fraternities,fraternities
+Students,students,"Living Communities",living-communities,"Independent Living",independent-living
+Students,students,"Living Communities",living-communities,"Residence Halls",residence-halls
+Students,students,"Living Communities",living-communities,Sororities,sororities
+Students,students,"Recruitment / Retention",recruitment-retention,,
+Students,students,Registar,registar,,
+Students,students,"Student Ambassadors",student-ambassadors,,
+Students,students,"Student government",student-government,,

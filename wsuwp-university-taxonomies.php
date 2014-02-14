@@ -21,19 +21,13 @@ class WSUWP_University_Taxonomies {
 	var $university_location = 'wsuwp_university_location';
 
 	/**
-	 * @var array Contains current dataset for University Locations.
-	 */
-	var $locations = array();
-
-	/**
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		$this->locations = $this->get_university_locations();
-
-		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ) );
-		add_action( 'init',               array( $this, 'register_taxonomies'            ) );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ) );
+		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ), 10 );
+		add_action( 'init',               array( $this, 'register_taxonomies'            ), 11 );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ), 10 );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ), 10 );
 	}
 
 	/**
@@ -52,7 +46,10 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Register the taxonomies provided by the plugin.
+	 * Register the central University taxonomies provided.
+	 *
+	 * Taxonomies are registered to core post types by default. To take advantage of these
+	 * custom taxonomies in your custom post types, use register_taxonomy_for_object_type().
 	 */
 	public function register_taxonomies() {
 		$labels = array(
@@ -66,12 +63,15 @@ class WSUWP_University_Taxonomies {
 			'new_item_name' => 'New Category Name',
 			'menu_name'     => 'University Categories',
 		);
-
 		$args = array(
-			'hierarchical'      => true,
 			'labels'            => $labels,
+			'description'       => 'The central taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
 			'show_ui'           => true,
-			'query_var'         => true,
+			'show_in_menu'      => false,
+			'rewrite'           => false,
+			'query_var'         => $this->university_category,
 		);
 		register_taxonomy( $this->university_category, array( 'post', 'page', 'attachment' ), $args );
 
@@ -85,15 +85,178 @@ class WSUWP_University_Taxonomies {
 			'new_item_name' => 'New Location Name',
 			'menu_name'     => 'University Locations',
 		);
-
 		$args = array(
-			'hierarchical' => true,
-			'labels'       => $labels,
-			'show_ui'      => true,
+			'labels'            => $labels,
+			'description'       => 'The central location taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
+			'show_ui'           => true,
+			'show_in_menu'      => false,
+			'rewrite'           => false,
+			'query_var'         => $this->university_location,
 		);
 		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
 	}
 
+	/**
+	 * Clear all cache for a given taxonomy.
+	 *
+	 * @param string $taxonomy A taxonomy slug.
+	 */
+	private function clear_taxonomy_cache( $taxonomy ) {
+		wp_cache_delete( 'all_ids', $taxonomy );
+		wp_cache_delete( 'get',     $taxonomy );
+		delete_option( $taxonomy . '_children' );
+		_get_term_hierarchy( $taxonomy );
+	}
+
+	/**
+	 * Compare the current state of locations and populate anything that is missing.
+	 */
+	public function compare_locations() {
+		if ( $this->university_location !== get_current_screen()->taxonomy ) {
+			return;
+		}
+
+		$this->clear_taxonomy_cache( $this->university_location );
+
+		// Get our current master list of locations.
+		$master_locations = $this->get_university_locations();
+
+		// Get our current list of top level locations.
+		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
+		$current_locations = wp_list_pluck( $current_locations, 'name' );
+
+		foreach ( $master_locations as $location => $child_locations ) {
+			$parent_id = false;
+
+			// If the parent location is not a term yet, insert it.
+			if ( ! in_array( $location, $current_locations ) ) {
+				$new_term    = wp_insert_term( $location, $this->university_location, array( 'parent' => 0 ) );
+				$parent_id = $new_term['term_id'];
+			}
+
+			// Loop through the parent's children to check term existence.
+			foreach( $child_locations as $child_location ) {
+				if ( ! in_array( $child_location, $current_locations ) ) {
+					if ( ! $parent_id ) {
+						$parent = get_term_by( 'name', $location, $this->university_location );
+						if ( isset( $parent->id ) ) {
+							$parent_id = $parent->id;
+						} else {
+							$parent_id = 0;
+						}
+					}
+					wp_insert_term( $child_location, $this->university_location, array( 'parent' => $parent_id ) );
+				}
+			}
+		}
+
+		$this->clear_taxonomy_cache( $this->university_location );
+	}
+
+	/**
+	 * Compare the current state of categories and populate anything that is missing.
+	 */
+	public function compare_categories() {
+		if ( $this->university_category !== get_current_screen()->taxonomy ) {
+			return;
+		}
+
+		$this->clear_taxonomy_cache( $this->university_category );
+
+		// Get our current master list of categories.
+		$master_list = $this->get_university_categories();
+
+		// Get our current list of top level parents.
+		$level1_exist  = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$level1_assign = array();
+		foreach( $level1_exist as $level1 ) {
+			$level1_assign[ $level1->name ] = array( 'term_id' => $level1->term_id );
+		}
+
+		$level1_names = array_keys( $master_list );
+		/**
+		 * Look for mismatches between the master list and the existing parent terms list.
+		 *
+		 * In this loop:
+		 *
+		 *     * $level1_names    array of top level parent names.
+		 *     * $level1_name     string containing a top level category.
+		 *     * $level1_children array containing all of the current parent's child arrays.
+		 *     * $level1_assign   array of top level parents that exist in the database with term ids.
+		 */
+		foreach( $level1_names as $level1_name ) {
+			if ( ! array_key_exists( $level1_name, $level1_assign ) ) {
+				$new_term = wp_insert_term( $level1_name, $this->university_category, array( 'parent' => '0' ) );
+				if ( ! is_wp_error( $new_term ) ) {
+					$level1_assign[ $level1_name ] = array( 'term_id' => $new_term['term_id'] );
+				}
+			}
+		}
+
+		/**
+		 * Process the children of each top level parent.
+		 *
+		 * In this loop:
+		 *
+		 *     * $level1_names    array of top level parent names.
+		 *     * $level1_name     string containing a top level category.
+		 *     * $level1_children array containing all of the current parent's child arrays.
+		 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
+		 */
+		foreach( $level1_names as $level1_name ) {
+			$level2_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+			$level2_assign = array();
+
+			foreach( $level2_exists as $level2 ) {
+				$level2_assign[ $level2->name ] = array( 'term_id' =>  $level2->term_id );
+			}
+
+			$level2_names = array_keys( $master_list[ $level1_name ] );
+			/**
+			 * Look for mismatches between the expected and real children of the current parent.
+			 *
+			 * In this loop:
+			 *
+			 *     * $level2_names    array of the current parent's child level names.
+			 *     * $level2_name     string containing a second level category.
+			 *     * $level2_children array containing the current second level category's children. Unused in this context.
+			 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
+			 */
+			foreach( $level2_names as $level2_name ) {
+				if ( ! array_key_exists( $level2_name, $level2_assign ) ) {
+					$new_term = wp_insert_term( $level2_name, $this->university_category, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+					if ( ! is_wp_error( $new_term ) ) {
+						$level2_assign[ $level2_name ] = array( 'term_id' => $new_term['term_id'] );
+					}
+				}
+			}
+
+			/**
+			 * Look for mismatches between second and third level category relationships.
+			 */
+			foreach( $level2_names as $level2_name ) {
+				$level3_exists = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+				$level3_exists = wp_list_pluck( $level3_exists, 'name' );
+
+				$level3_names = $master_list[ $level1_name ][ $level2_name ];
+				foreach( $level3_names as $level3_name ) {
+					if ( ! in_array( $level3_name, $level3_exists ) ) {
+						wp_insert_term( $level3_name, $this->university_category, array( 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+					}
+				}
+			}
+		}
+
+		$this->clear_taxonomy_cache( $this->university_category );
+	}
+
+	/**
+	 * Maintain an array of current university locations.
+	 *
+	 * @return array Current university locations.
+	 */
 	public function get_university_locations() {
 		$locations = array(
 			'WSU Pullman'                      => array(),
@@ -158,40 +321,399 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Compare the current state of locations and populate anything that is missing.
+	 * Maintain an array of current university categories.
+	 *
+	 * @return array Current university categories.
 	 */
-	public function compare_locations() {
-		if ( $this->university_location !== get_current_screen()->taxonomy ) {
-			return;
-		}
+	public function get_university_categories() {
+		$categories = array(
+			'Academic Subjects' => array(
+				'Agriculture' => array(
+					'Agriculture Business',
+					'Agriculture Economics',
+					'Agriculture Engineering',
+					'Animal Sciences',
+					'Berries',
+					'Crop Sciences',
+					'Equipment/Mechanization',
+					'Fodder/Silage',
+					'Food Science',
+					'Forestry',
+					'Fruit Trees',
+					'Fungus',
+					'Horticulture',
+					'Irrigation / Water Management',
+					'Legumes, Pulse',
+					'Mint',
+					'Oil Seed',
+					'Organic Farming',
+					'Pests and Weeds',
+					'Plant Pathology',
+					'Small Grains',
+					'Soil Sciences',
+					'Tubers',
+					'Vegetables',
+					'Viticulture, Enology, Wine',
+					'Weather, Climate',
+				),
+				'Arts' => array(
+					'Digital Media',
+					'Fine Arts',
+					'Performing Arts',
+				),
+				'Biology' => array(
+					'Botany',
+					'Entomology',
+					'Genomics and Bioinformatics',
+					'Molecular Biology',
+					'Neuroscience',
+					'Zoology',
+				),
+				'Business' => array(
+					'Accounting',
+					'Construction Management',
+					'Economics',
+					'Finance',
+					'Hospitality',
+					'Information Systems',
+					'Investment',
+					'Management',
+					'Sports Management',
+				),
+				'Chemistry' => array(),
+				'Communication (academic)' => array(
+					'Advertising',
+					'Broadcasting',
+					'Electronic',
+					'Journalism',
+					'Public Relations',
+				),
+				'Computer Sciences' => array(
+					'Computer Engineering',
+					'Computer Science',
+					'Power Systems',
+					'Smart Environments',
+				),
+				'Design (Construction)' => array(
+					'Architecture',
+					'Construction Management',
+					'Interior Design',
+					'Landscape Architecture',
+				),
+				'Earth Sciences' => array(
+					'Environmental Studies',
+					'Geology',
+					'Natural Resources',
+				),
+				'Education (Academics)' => array(
+					'Administration',
+					'Special Education',
+					'Teaching (Education)',
+				),
+				'Engineering' => array(
+					'Atmospheric Research',
+					'Catalysis',
+					'Energy Conversion',
+					'Infrastructure',
+					'Structures',
+				),
+				'Family and Consumer Science' => array(
+					'Apparel and Textile Design',
+					'Food and Sensory Science',
+					'Home Economics',
+					'Human Development',
+					'Nutrition',
+				),
+				'Health Sciences' => array(
+					'Addictions',
+					'Cancer',
+					'Childhood Trauma',
+					'Chronic Illness',
+					'Exercise Physiology',
+					'Health Administration',
+					'Health Policy',
+					'Medical Health',
+					'Metabolic Disorders',
+					'Nursing',
+					'Nutrition',
+					'Pharmacy',
+					'Physical performance, recreation',
+					'Sleep',
+					'Speech and Hearing',
+				),
+				'Humanities' => array(
+					'English',
+					'History',
+					'Languages',
+					'Literature',
+					'Philosophy',
+				),
+				'Mathematics' => array(),
+				'Music' => array(
+					'Instrumental',
+					'Vocal',
+				),
+				'Physics' => array(),
+				'Social Sciences' => array(
+					'Anthropology',
+					'Archaeology',
+					'Criminology/Criminal Justice',
+					'Cultural and ethnic studies',
+					'Gender and sexuality studies',
+					'Geography',
+					'Military',
+					'Political science',
+					'Psychology',
+					'Religion',
+					'Sociology',
+				),
+				'Space sciences' => array(
+					'Astronomy',
+				),
+				'Veterinary Medicine' => array(
+					'Companion Animals',
+					'Emerging Diseases',
+					'Equine',
+					'Exotic / Pocket Pets',
+					'Food Animal',
+					'Foreign Animal Diseases',
+					'Pathology',
+					'Pharmacology, animal',
+					'Zoonoses',
+				),
+			),
+			'Alumni' => array(
+				'Alumni Assoc.' => array(
+					'Alumni Centre',
+					'Awards',
+					'Benefits',
+					'Events',
+					'Membership',
+					'Recognition',
+				),
+				'Notable Alumni' => array(
+					'Athletes',
+					'Business Leaders',
+					'Government Leaders',
+					'Other',
+					'Philanthropists',
+					'Scientists',
+				),
+			),
+			'Community &amp; Economic Development' => array(
+				'4-H' => array(),
+				'Economic Development' => array(
+					'Entrepreneurship',
+				),
+				'Gardening' => array(
+					'Master Gardeners',
+				),
+				'Small Business' => array(),
+				'Technology Transfer' => array(),
+				'WeatherNet' => array(),
+			),
+			'Events' => array(
+				'Anniversary' => array(),
+				'Athletic' => array(),
+				'Camp' => array(),
+				'Concert' => array(),
+				'Conference' => array(),
+				'Cultural' => array(),
+				'Deadline' => array(),
+				'Dedication &amp; Naming' => array(
+					'Building',
+					'College/School/Program',
+				),
+				'Exhibit' => array(),
+				'Fair and Festival' => array(),
+				'Field Day' => array(),
+				'Film' => array(),
+				'Groundbreaking' => array(),
+				'Guest Speaker' => array(),
+				'Lecture' => array(),
+				'Meeting' => array(),
+				'Performance' => array(),
+				'Reception' => array(),
+				'Recognition' => array(),
+				'Recreation/Wellness' => array(),
+				'Seminar' => array(),
+				'Student event' => array(),
+				'Workshop' => array(),
+			),
+			'Faculty, Staff' => array(
+				'Awards, employee' => array(),
+				'Faculty' => array(
+					'Faculty Senate',
+				),
+				'Obituaries' => array(),
+				'Retirement' => array(),
+				'Staff' => array(),
+			),
+			'Philanthropy' => array(
+				'Fundraising News' => array(
+					'Foundation &amp; Fundraising Events',
+					'Fundraising Updates',
+					'Gift Announcements',
+					'Volunteer News',
+				),
+				'Impact (Private Support, Volunteers)' => array(
+					'Alumni Giving',
+					'Faculty &amp; Staff Giving',
+					'Friends &amp; Organizations Giving',
+					'Gifts for Faculty &amp; Research',
+					'Meet Our Donors',
+					'Scholarships in Action',
+					'Student Philanthropy',
+				),
+			),
+			'Research' => array(
+				'Graduate Research' => array(),
+				'Grants' => array(
+					'Corporate Grants',
+					'Federal Grants',
+					'State Grants',
+				),
+				'Intellectual Property' => array(),
+				'Postdoctoral Research' => array(),
+				'Research Fellowships' => array(),
+				'Undergraduate Research' => array(),
+			),
+			'Resources &amp; Offices' => array(
+				'Attorney General' => array(),
+				'Board of Regents' => array(),
+				'Buildings and Grounds' => array(
+					'Campus Planning',
+					'Construction',
+					'Facilities Management',
+				),
+				'Business and Finances' => array(
+					'Budget',
+					'Real Estate',
+					'Travel',
+				),
+				'Communication, University' => array(
+					'Marketing',
+					'Media Relations',
+					'Public Relations',
+					'Publishing',
+					'Social Media',
+					'Web Communication',
+				),
+				'Community Engagement' => array(),
+				'Deans and Executives' => array(),
+				'Government Relations' => array(),
+				'Health &amp; Wellness Services' => array(),
+				'History of University' => array(),
+				'Human Resources' => array(
+					'Benefits',
+					'Employment',
+					'Equal Employment Opportunities',
+					'Payroll',
+					'Professional Development',
+					'Retirement',
+					'Training',
+				),
+				'Information Technology' => array(
+					'Faculty and Staff',
+					'Help Desk',
+					'Maintenance',
+					'Network',
+					'Security',
+					'Services',
+					'Students &amp; Parents',
+				),
+				'Libraries' => array(
+					'Archives/Special Collections',
+					'Books',
+					'Collections',
+					'Reference',
+				),
+				'Museums' => array(
+					'Anthropology Museum',
+					'Art Museum',
+					'Conner Museum',
+					'Entomology',
+					'Geology',
+					'Herbarium',
+					'Veterinary',
+				),
+				'President' => array(),
+				'Safety' => array(
+					'Campus police',
+					'Emergency management',
+					'Environmental safety',
+				),
+				'Transportation' => array(
+					'Bicycle',
+					'Bus',
+					'Parking',
+				),
+				'University Statistics' => array(
+					'Employment',
+					'Enrollment',
+					'Funding',
+					'Graduation',
+					'Private Support',
+				),
+			),
+			'Sports' => array(
+				'Administration' => array(),
+				'Club' => array(),
+				'Intercollegiate' => array(
+					'Baseball',
+					'Basketball',
+					'Cross Country',
+					'Football',
+					'Golf',
+					'Rowing',
+					'Soccer',
+					'Swimming',
+					'Tennis',
+					'Track &amp; Field',
+					'Volleyball',
+				),
+				'Intramural' => array(
+					'Outdoor Recreation',
+				),
+			),
+			'Students' => array(
+				'Admissions' => array(),
+				'Advising' => array(
+					'Academic',
+					'Career',
+				),
+				'Awards, honors' => array(),
+				'Bookstore' => array(),
+				'Career services' => array(),
+				'Civic engagement, community outreach' => array(),
+				'Clubs, organizations' => array(),
+				'Counseling' => array(),
+				'Dining Services' => array(),
+				'Diversity' => array(),
+				'Enrollment' => array(),
+				'Fellowships' => array(),
+				'Financial aid' => array(),
+				'Health wellness' => array(
+					'Health &amp; wellness services',
+					'University recreation',
+				),
+				'Honors College' => array(),
+				'International' => array(),
+				'Internships' => array(),
+				'Living Communities' => array(
+					'Fraternities',
+					'Independent Living',
+					'Residence Halls',
+					'Sororities',
+				),
+				'Recruitment / Retention' => array(),
+				'Registar' => array(),
+				'Student Ambassadors' => array(),
+				'Student government' => array(),
+			),
+		);
 
-		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
-		$current_locations = wp_list_pluck( $current_locations, 'name' );
-
-		foreach ( $this->locations as $location => $child_locations ) {
-			$parent_id = false;
-
-			// If the parent location is not a term yet, insert it.
-			if ( ! in_array( $location, $current_locations ) ) {
-				$new_term    = wp_insert_term( $location, $this->university_location, array( 'parent' => 0 ) );
-				$parent_id = $new_term['term_id'];
-			}
-
-			// Loop through the parent's children to check term existence.
-			foreach( $child_locations as $child_location ) {
-				if ( ! in_array( $child_location, $current_locations ) ) {
-					if ( ! $parent_id ) {
-						$parent = get_term_by( 'name', $location, $this->university_location );
-						if ( isset( $parent->id ) ) {
-							$parent_id = $parent->id;
-						} else {
-							$parent_id = 0;
-						}
-					}
-					wp_insert_term( $child_location, $this->university_location, array( 'parent' => $parent_id ) );
-				}
-			}
-		}
+		return $categories;
 	}
 }
 new WSUWP_University_Taxonomies();
