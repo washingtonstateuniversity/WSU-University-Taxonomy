@@ -46,7 +46,10 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Register the taxonomies provided by the plugin.
+	 * Register the central University taxonomies provided.
+	 *
+	 * Taxonomies are registered to core post types by default. To take advantage of these
+	 * custom taxonomies in your custom post types, use register_taxonomy_for_object_type().
 	 */
 	public function register_taxonomies() {
 		$labels = array(
@@ -60,12 +63,15 @@ class WSUWP_University_Taxonomies {
 			'new_item_name' => 'New Category Name',
 			'menu_name'     => 'University Categories',
 		);
-
 		$args = array(
-			'hierarchical'      => true,
 			'labels'            => $labels,
+			'description'       => 'The central taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
 			'show_ui'           => true,
-			'query_var'         => true,
+			'show_in_menu'      => false,
+			'rewrite'           => false,
+			'query_var'         => $this->university_category,
 		);
 		register_taxonomy( $this->university_category, array( 'post', 'page', 'attachment' ), $args );
 
@@ -79,11 +85,15 @@ class WSUWP_University_Taxonomies {
 			'new_item_name' => 'New Location Name',
 			'menu_name'     => 'University Locations',
 		);
-
 		$args = array(
-			'hierarchical' => true,
-			'labels'       => $labels,
-			'show_ui'      => true,
+			'labels'            => $labels,
+			'description'       => 'The central location taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
+			'show_ui'           => true,
+			'show_in_menu'      => false,
+			'rewrite'           => false,
+			'query_var'         => $this->university_location,
 		);
 		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
 	}
