@@ -120,8 +120,10 @@ class WSUWP_University_Taxonomies {
 
 		$this->clear_taxonomy_cache( $this->university_location );
 
+		// Get our current master list of locations.
 		$master_locations = $this->get_university_locations();
 
+		// Get our current list of top level locations.
 		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
 		$current_locations = wp_list_pluck( $current_locations, 'name' );
 
@@ -213,7 +215,6 @@ class WSUWP_University_Taxonomies {
 			foreach( $level2_exists as $level2 ) {
 				$level2_assign[ $level2->name ] = array( 'term_id' =>  $level2->term_id );
 			}
-			$level2_assign_stage1 = $level2_assign;
 
 			$level2_names = array_keys( $master_list[ $level1_name ] );
 			/**
