@@ -29,6 +29,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ), 10 );
 		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ), 10 );
 		add_action( 'load-edit-tags.php', array( $this, 'display_locations'              ), 11 );
+		add_action( 'load-edit-tags.php', array( $this, 'display_categories'             ), 11 );
 	}
 
 	/**
@@ -274,6 +275,47 @@ class WSUWP_University_Taxonomies {
 		foreach( $parent_terms as $term ) {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
 			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
+			echo '<ul>';
+
+			if ( 7 < count( $child_terms ) ) {
+				$style = 'style="width:200px;display:inline-block;"';
+			} else {
+				$style = '';
+			}
+
+			foreach ( $child_terms as $child ) {
+				echo '<li ' . $style . '>' . esc_html( $child->name ) . '</li>';
+			}
+			echo '</ul>';
+		}
+
+		// Close the page.
+		echo '</div>';
+		include( ABSPATH . 'wp-admin/admin-footer.php' );
+		die();
+	}
+
+	/**
+	 * Display a dashboard for University Categories. This offers a view of the existing
+	 * categories and removes the ability to add/edit terms of the taxonomy.
+	 */
+	public function display_categories() {
+		if ( $this->university_category !== get_current_screen()->taxonomy ) {
+			return;
+		}
+
+		// Setup the page.
+		global $title;
+		$tax = get_taxonomy( $this->university_category );
+		$title = $tax->labels->name;
+		require_once( ABSPATH . 'wp-admin/admin-header.php' );
+		echo '<div class="wrap nosubsub"><h2>University Categories</h2>';
+
+		$parent_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
+
+		foreach( $parent_terms as $term ) {
+			echo '<h3>' . esc_html( $term->name ) . '</h3>';
+			$child_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 			echo '<ul>';
 
 			if ( 7 < count( $child_terms ) ) {
