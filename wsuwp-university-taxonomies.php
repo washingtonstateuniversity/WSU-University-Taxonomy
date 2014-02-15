@@ -69,7 +69,7 @@ class WSUWP_University_Taxonomies {
 			'public'            => true,
 			'hierarchical'      => true,
 			'show_ui'           => true,
-			'show_in_menu'      => false,
+			'show_in_menu'      => true,
 			'rewrite'           => false,
 			'query_var'         => $this->university_category,
 		);
@@ -91,7 +91,7 @@ class WSUWP_University_Taxonomies {
 			'public'            => true,
 			'hierarchical'      => true,
 			'show_ui'           => true,
-			'show_in_menu'      => false,
+			'show_in_menu'      => true,
 			'rewrite'           => false,
 			'query_var'         => $this->university_location,
 		);
