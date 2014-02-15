@@ -316,18 +316,25 @@ class WSUWP_University_Taxonomies {
 		foreach( $parent_terms as $term ) {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
 			$child_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
-			echo '<ul>';
 
-			if ( 7 < count( $child_terms ) ) {
-				$style = 'style="width:200px;display:inline-block;"';
-			} else {
-				$style = '';
+			foreach( $child_terms as $child ) {
+				echo '<h4>' . esc_html( $child->name ) . '</h4>';
+				$grandchild_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
+
+				echo '<ul>';
+
+				if ( 7 < count( $grandchild_terms ) ) {
+					$style = 'style="width:200px;display:inline-block;"';
+				} else {
+					$style = '';
+				}
+
+				foreach ( $grandchild_terms as $grandchild ) {
+					echo '<li ' . $style . '>' . esc_html( $grandchild->name ) . '</li>';
+				}
+				echo '</ul>';
 			}
 
-			foreach ( $child_terms as $child ) {
-				echo '<li ' . $style . '>' . esc_html( $child->name ) . '</li>';
-			}
-			echo '</ul>';
 		}
 
 		// Close the page.
