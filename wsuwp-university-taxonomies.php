@@ -28,6 +28,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'init',               array( $this, 'register_taxonomies'            ), 11 );
 		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ), 10 );
 		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ), 10 );
+		add_action( 'load-edit-tags.php', array( $this, 'display_locations'              ), 11 );
 	}
 
 	/**
@@ -252,6 +253,32 @@ class WSUWP_University_Taxonomies {
 		$this->clear_taxonomy_cache( $this->university_category );
 	}
 
+	/**
+	 * Display a dashboard for University Locations. This offers a view of the existing
+	 * locations and removes the ability to add/edit terms of the taxonomy.
+	 */
+	public function display_locations() {
+		if ( $this->university_location !== get_current_screen()->taxonomy ) {
+			return;
+		}
+		require_once( ABSPATH . 'wp-admin/admin-header.php' );
+		echo '<div class="wrap nosubsub"><h2>University Locations</h2>';
+
+		$parent_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => '0' ) );
+
+		foreach( $parent_terms as $term ) {
+			echo '<h3>' . $term->name . '</h3>';
+			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
+			echo '<ul>';
+			foreach ( $child_terms as $child ) {
+				echo '<li>' . $child->name . '</li>';
+			}
+			echo '</ul>';
+		}
+		echo '</div>';
+		include( ABSPATH . 'wp-admin/admin-footer.php' );
+		die();
+	}
 	/**
 	 * Maintain an array of current university locations.
 	 *
