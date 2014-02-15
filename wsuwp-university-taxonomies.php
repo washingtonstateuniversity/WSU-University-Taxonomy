@@ -261,24 +261,32 @@ class WSUWP_University_Taxonomies {
 		if ( $this->university_location !== get_current_screen()->taxonomy ) {
 			return;
 		}
+
+		// Setup the page.
+		global $title;
+		$tax = get_taxonomy( $this->university_location );
+		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
 		echo '<div class="wrap nosubsub"><h2>University Locations</h2>';
 
 		$parent_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => '0' ) );
 
 		foreach( $parent_terms as $term ) {
-			echo '<h3>' . $term->name . '</h3>';
+			echo '<h3>' . esc_html( $term->name ) . '</h3>';
 			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 			echo '<ul>';
 			foreach ( $child_terms as $child ) {
-				echo '<li>' . $child->name . '</li>';
+				echo '<li>' . esc_html( $child->name ) . '</li>';
 			}
 			echo '</ul>';
 		}
+
+		// Close the page.
 		echo '</div>';
 		include( ABSPATH . 'wp-admin/admin-footer.php' );
 		die();
 	}
+
 	/**
 	 * Maintain an array of current university locations.
 	 *
