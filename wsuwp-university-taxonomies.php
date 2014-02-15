@@ -275,8 +275,15 @@ class WSUWP_University_Taxonomies {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
 			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 			echo '<ul>';
+
+			if ( 7 < count( $child_terms ) ) {
+				$style = 'style="width:200px;display:inline-block;"';
+			} else {
+				$style = '';
+			}
+
 			foreach ( $child_terms as $child ) {
-				echo '<li>' . esc_html( $child->name ) . '</li>';
+				echo '<li ' . $style . '>' . esc_html( $child->name ) . '</li>';
 			}
 			echo '</ul>';
 		}
