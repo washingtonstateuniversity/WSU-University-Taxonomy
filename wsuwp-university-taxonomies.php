@@ -434,8 +434,8 @@ class WSUWP_University_Taxonomies {
 					'Animal Sciences',
 					'Berries',
 					'Crop Sciences',
-					'Equipment/Mechanization',
-					'Fodder/Silage',
+					'Equipment / Mechanization',
+					'Fodder / Silage',
 					'Food Science',
 					'Forestry',
 					'Fruit Trees',
@@ -452,7 +452,7 @@ class WSUWP_University_Taxonomies {
 					'Soil Sciences',
 					'Tubers',
 					'Vegetables',
-					'Viticulture, Enology, Wine',
+					'Viticulture / Enology / Wine',
 					'Weather, Climate',
 				),
 				'Arts' => array(
@@ -480,7 +480,7 @@ class WSUWP_University_Taxonomies {
 					'Sports Management',
 				),
 				'Chemistry' => array(),
-				'Communication (academic)' => array(
+				'Communication, Academic' => array(
 					'Advertising',
 					'Broadcasting',
 					'Electronic',
@@ -493,9 +493,8 @@ class WSUWP_University_Taxonomies {
 					'Power Systems',
 					'Smart Environments',
 				),
-				'Design (Construction)' => array(
+				'Design, Construction' => array(
 					'Architecture',
-					'Construction Management',
 					'Interior Design',
 					'Landscape Architecture',
 				),
@@ -504,10 +503,10 @@ class WSUWP_University_Taxonomies {
 					'Geology',
 					'Natural Resources',
 				),
-				'Education (Academics)' => array(
+				'Education, Academic' => array(
 					'Administration',
 					'Special Education',
-					'Teaching (Education)',
+					'Teaching',
 				),
 				'Engineering' => array(
 					'Atmospheric Research',
@@ -534,9 +533,9 @@ class WSUWP_University_Taxonomies {
 					'Medical Health',
 					'Metabolic Disorders',
 					'Nursing',
-					'Nutrition',
+					'Nutrition, Health',
 					'Pharmacy',
-					'Physical performance, recreation',
+					'Physical Performance / Recreation',
 					'Sleep',
 					'Speech and Hearing',
 				),
@@ -556,17 +555,17 @@ class WSUWP_University_Taxonomies {
 				'Social Sciences' => array(
 					'Anthropology',
 					'Archaeology',
-					'Criminology/Criminal Justice',
-					'Cultural and ethnic studies',
-					'Gender and sexuality studies',
+					'Criminology / Criminal Justice',
+					'Cultural and Ethnic Studies',
+					'Gender and Sexuality Studies',
 					'Geography',
 					'Military',
-					'Political science',
+					'Political Science',
 					'Psychology',
 					'Religion',
 					'Sociology',
 				),
-				'Space sciences' => array(
+				'Space Sciences' => array(
 					'Astronomy',
 				),
 				'Veterinary Medicine' => array(
@@ -577,29 +576,28 @@ class WSUWP_University_Taxonomies {
 					'Food Animal',
 					'Foreign Animal Diseases',
 					'Pathology',
-					'Pharmacology, animal',
+					'Pharmacology, Animal',
 					'Zoonoses',
 				),
 			),
 			'Alumni' => array(
-				'Alumni Assoc.' => array(
+				'Alumni Association' => array(
 					'Alumni Centre',
 					'Awards',
-					'Benefits',
-					'Events',
+					'Alumni Benefits',
+					'Alumni Events',
 					'Membership',
-					'Recognition',
 				),
 				'Notable Alumni' => array(
 					'Athletes',
 					'Business Leaders',
 					'Government Leaders',
-					'Other',
+					'Other Notable Alumni',
 					'Philanthropists',
 					'Scientists',
 				),
 			),
-			'Community &amp; Economic Development' => array(
+			'Community and Economic Development' => array(
 				'4-H' => array(),
 				'Economic Development' => array(
 					'Entrepreneurship',
@@ -619,9 +617,9 @@ class WSUWP_University_Taxonomies {
 				'Conference' => array(),
 				'Cultural' => array(),
 				'Deadline' => array(),
-				'Dedication &amp; Naming' => array(
+				'Dedication and Naming' => array(
 					'Building',
-					'College/School/Program',
+					'College / School / Program',
 				),
 				'Exhibit' => array(),
 				'Fair and Festival' => array(),
@@ -634,13 +632,13 @@ class WSUWP_University_Taxonomies {
 				'Performance' => array(),
 				'Reception' => array(),
 				'Recognition' => array(),
-				'Recreation/Wellness' => array(),
+				'Recreation / Wellness' => array(),
 				'Seminar' => array(),
-				'Student event' => array(),
+				'Student Event' => array(),
 				'Workshop' => array(),
 			),
 			'Faculty, Staff' => array(
-				'Awards, employee' => array(),
+				'Awards, Employee' => array(),
 				'Faculty' => array(
 					'Faculty Senate',
 				),
@@ -650,16 +648,16 @@ class WSUWP_University_Taxonomies {
 			),
 			'Philanthropy' => array(
 				'Fundraising News' => array(
-					'Foundation &amp; Fundraising Events',
+					'Foundation and Fundraising Events',
 					'Fundraising Updates',
 					'Gift Announcements',
 					'Volunteer News',
 				),
 				'Impact (Private Support, Volunteers)' => array(
 					'Alumni Giving',
-					'Faculty &amp; Staff Giving',
-					'Friends &amp; Organizations Giving',
-					'Gifts for Faculty &amp; Research',
+					'Faculty and Staff Giving',
+					'Friends and Organizations Giving',
+					'Gifts for Faculty and Research',
 					'Meet Our Donors',
 					'Scholarships in Action',
 					'Student Philanthropy',
@@ -677,7 +675,7 @@ class WSUWP_University_Taxonomies {
 				'Research Fellowships' => array(),
 				'Undergraduate Research' => array(),
 			),
-			'Resources &amp; Offices' => array(
+			'Resources and Offices' => array(
 				'Attorney General' => array(),
 				'Board of Regents' => array(),
 				'Buildings and Grounds' => array(
@@ -693,7 +691,6 @@ class WSUWP_University_Taxonomies {
 				'Communication, University' => array(
 					'Marketing',
 					'Media Relations',
-					'Public Relations',
 					'Publishing',
 					'Social Media',
 					'Web Communication',
@@ -701,15 +698,15 @@ class WSUWP_University_Taxonomies {
 				'Community Engagement' => array(),
 				'Deans and Executives' => array(),
 				'Government Relations' => array(),
-				'Health &amp; Wellness Services' => array(),
+				'Health and Wellness Services' => array(),
 				'History of University' => array(),
 				'Human Resources' => array(
-					'Benefits',
-					'Employment',
+					'Employee Benefits',
+					'Jobs',
 					'Equal Employment Opportunities',
 					'Payroll',
 					'Professional Development',
-					'Retirement',
+					'Retirees',
 					'Training',
 				),
 				'Information Technology' => array(
@@ -719,10 +716,10 @@ class WSUWP_University_Taxonomies {
 					'Network',
 					'Security',
 					'Services',
-					'Students &amp; Parents',
+					'Students and Parents',
 				),
 				'Libraries' => array(
-					'Archives/Special Collections',
+					'Archives / Special Collections',
 					'Books',
 					'Collections',
 					'Reference',
@@ -731,16 +728,16 @@ class WSUWP_University_Taxonomies {
 					'Anthropology Museum',
 					'Art Museum',
 					'Conner Museum',
-					'Entomology',
-					'Geology',
-					'Herbarium',
-					'Veterinary',
+					'Entomology Museum',
+					'Geology Museum',
+					'Herbarium Museum',
+					'Veterinary Museum',
 				),
 				'President' => array(),
 				'Safety' => array(
-					'Campus police',
-					'Emergency management',
-					'Environmental safety',
+					'Campus Police',
+					'Emergency Management',
+					'Environmental Safety',
 				),
 				'Transportation' => array(
 					'Bicycle',
@@ -749,14 +746,14 @@ class WSUWP_University_Taxonomies {
 				),
 				'University Statistics' => array(
 					'Employment',
-					'Enrollment',
+					'Enrollment Statistics',
 					'Funding',
 					'Graduation',
 					'Private Support',
 				),
 			),
 			'Sports' => array(
-				'Administration' => array(),
+				'Sports Administration' => array(),
 				'Club' => array(),
 				'Intercollegiate' => array(
 					'Baseball',
@@ -768,7 +765,7 @@ class WSUWP_University_Taxonomies {
 					'Soccer',
 					'Swimming',
 					'Tennis',
-					'Track &amp; Field',
+					'Track and Field',
 					'Volleyball',
 				),
 				'Intramural' => array(
@@ -781,20 +778,20 @@ class WSUWP_University_Taxonomies {
 					'Academic',
 					'Career',
 				),
-				'Awards, honors' => array(),
+				'Awards / Honors' => array(),
 				'Bookstore' => array(),
 				'Career services' => array(),
-				'Civic engagement, community outreach' => array(),
-				'Clubs, organizations' => array(),
+				'Civic Engagement / Community Outreach' => array(),
+				'Clubs / Organizations' => array(),
 				'Counseling' => array(),
 				'Dining Services' => array(),
 				'Diversity' => array(),
 				'Enrollment' => array(),
 				'Fellowships' => array(),
-				'Financial aid' => array(),
-				'Health wellness' => array(
-					'Health &amp; wellness services',
-					'University recreation',
+				'Financial Aid' => array(),
+				'Health Wellness' => array(
+					'Health and Wellness Services',
+					'University Recreation',
 				),
 				'Honors College' => array(),
 				'International' => array(),
@@ -806,9 +803,9 @@ class WSUWP_University_Taxonomies {
 					'Sororities',
 				),
 				'Recruitment / Retention' => array(),
-				'Registar' => array(),
+				'Registrar' => array(),
 				'Student Ambassadors' => array(),
-				'Student government' => array(),
+				'Student Government' => array(),
 			),
 		);
 
