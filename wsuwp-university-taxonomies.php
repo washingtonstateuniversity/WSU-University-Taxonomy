@@ -309,26 +309,25 @@ class WSUWP_University_Taxonomies {
 		$tax = get_taxonomy( $this->university_category );
 		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub"><h2>University Categories</h2>';
+		echo '<div class="wrap nosubsub" style="max-width:750px;"><h2>University Categories</h2>';
 
 		$parent_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
 
 		foreach( $parent_terms as $term ) {
-			echo '<h3>' . esc_html( $term->name ) . '</h3>';
+			echo '<h3 style="border-bottom:1px solid #333; padding-bottom: 6px;">' . esc_html( $term->name ) . '</h3>';
 			$child_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 
 			foreach( $child_terms as $child ) {
-				echo '<h4>' . esc_html( $child->name ) . '</h4>';
+				echo '<h4 style="font-size: 1.1em;">' . esc_html( $child->name ) . '</h4>';
 				$grandchild_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
 
 				echo '<ul>';
 
-				if ( 7 < count( $grandchild_terms ) ) {
-					$style = 'style="width:200px;display:inline-block;"';
-				} else {
-					$style = '';
-				}
+				$style = 'style="width:250px;display:inline-block;"';
 
+				if ( empty( $grandchild_terms ) ) {
+					echo '<li><em>No level 3 categories for this term.</em></li>';
+				}
 				foreach ( $grandchild_terms as $grandchild ) {
 					echo '<li ' . $style . '>' . esc_html( $grandchild->name ) . '</li>';
 				}
