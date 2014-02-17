@@ -24,12 +24,13 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		add_action( 'init',               array( $this, 'modify_default_taxonomy_labels' ), 10 );
-		add_action( 'init',               array( $this, 'register_taxonomies'            ), 11 );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_locations'              ), 10 );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_categories'             ), 10 );
-		add_action( 'load-edit-tags.php', array( $this, 'display_locations'              ), 11 );
-		add_action( 'load-edit-tags.php', array( $this, 'display_categories'             ), 11 );
+		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
+		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
+		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
+		add_action( 'load-edit-tags.php',    array( $this, 'compare_categories'             ), 10 );
+		add_action( 'load-edit-tags.php',    array( $this, 'display_locations'              ), 11 );
+		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
 	}
 
 	/**
@@ -255,6 +256,22 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Enqueue styles to be used for the display of taxonomy terms.
+	 *
+	 * @param string $hook Hook indicating the current admin page.
+	 */
+	public function admin_enqueue_scripts( $hook ) {
+		if ( 'edit-tags.php' !== $hook ) {
+			return;
+		}
+
+		if ( $this->university_category === get_current_screen()->taxonomy || $this->university_location === get_current_screen()->taxonomy ) {
+			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
+		}
+
+	}
+
+	/**
 	 * Display a dashboard for University Locations. This offers a view of the existing
 	 * locations and removes the ability to add/edit terms of the taxonomy.
 	 */
@@ -277,14 +294,8 @@ class WSUWP_University_Taxonomies {
 			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 			echo '<ul>';
 
-			if ( 7 < count( $child_terms ) ) {
-				$style = 'style="width:200px;display:inline-block;"';
-			} else {
-				$style = '';
-			}
-
 			foreach ( $child_terms as $child ) {
-				echo '<li ' . $style . '>' . esc_html( $child->name ) . '</li>';
+				echo '<li>' . esc_html( $child->name ) . '</li>';
 			}
 			echo '</ul>';
 		}
@@ -309,7 +320,7 @@ class WSUWP_University_Taxonomies {
 		$tax = get_taxonomy( $this->university_category );
 		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub"><h2>University Categories</h2>';
+		echo '<div class="wrap nosubsub""><h2>University Categories</h2>';
 
 		$parent_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
 
@@ -323,14 +334,11 @@ class WSUWP_University_Taxonomies {
 
 				echo '<ul>';
 
-				if ( 7 < count( $grandchild_terms ) ) {
-					$style = 'style="width:200px;display:inline-block;"';
-				} else {
-					$style = '';
+				if ( empty( $grandchild_terms ) ) {
+					echo '<li><em>No level 3 categories for this term.</em></li>';
 				}
-
 				foreach ( $grandchild_terms as $grandchild ) {
-					echo '<li ' . $style . '>' . esc_html( $grandchild->name ) . '</li>';
+					echo '<li>' . esc_html( $grandchild->name ) . '</li>';
 				}
 				echo '</ul>';
 			}
