@@ -683,7 +683,6 @@ class WSUWP_University_Taxonomies {
 				'Communication, University' => array(
 					'Marketing',
 					'Media Relations',
-					'Public Relations',
 					'Publishing',
 					'Social Media',
 					'Web Communication',
