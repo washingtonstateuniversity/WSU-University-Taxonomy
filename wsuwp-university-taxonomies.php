@@ -472,7 +472,7 @@ class WSUWP_University_Taxonomies {
 					'Sports Management',
 				),
 				'Chemistry' => array(),
-				'Communication (Academic)' => array(
+				'Communication, Academic' => array(
 					'Advertising',
 					'Broadcasting',
 					'Electronic',
@@ -485,7 +485,7 @@ class WSUWP_University_Taxonomies {
 					'Power Systems',
 					'Smart Environments',
 				),
-				'Design (Construction)' => array(
+				'Design, Construction' => array(
 					'Architecture',
 					'Interior Design',
 					'Landscape Architecture',
@@ -495,7 +495,7 @@ class WSUWP_University_Taxonomies {
 					'Geology',
 					'Natural Resources',
 				),
-				'Education (Academic)' => array(
+				'Education, Academic' => array(
 					'Administration',
 					'Special Education',
 					'Teaching',
@@ -525,7 +525,7 @@ class WSUWP_University_Taxonomies {
 					'Medical Health',
 					'Metabolic Disorders',
 					'Nursing',
-					'Nutrition (Health)',
+					'Nutrition, Health',
 					'Pharmacy',
 					'Physical Performance / Recreation',
 					'Sleep',
@@ -568,7 +568,7 @@ class WSUWP_University_Taxonomies {
 					'Food Animal',
 					'Foreign Animal Diseases',
 					'Pathology',
-					'Pharmacology (Animal)',
+					'Pharmacology, Animal',
 					'Zoonoses',
 				),
 			),
