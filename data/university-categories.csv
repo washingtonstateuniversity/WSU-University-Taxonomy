@@ -40,7 +40,7 @@
 "Academic Subjects",academic-subjects,Biology,biology,Zoology,zoology
 "Academic Subjects",academic-subjects,Business,business,,
 "Academic Subjects",academic-subjects,Business,business,Accounting,accounting
-"Academic Subjects",academic-subjects,Business,business,"Construction Management",consturction-management
+"Academic Subjects",academic-subjects,Business,business,"Construction Management",construction-management
 "Academic Subjects",academic-subjects,Business,business,Economics,economics
 "Academic Subjects",academic-subjects,Business,business,Finance,finance
 "Academic Subjects",academic-subjects,Business,business,Hospitality,hospitality
@@ -62,7 +62,6 @@
 "Academic Subjects",academic-subjects,"Computer Sciences",computer-sciences,"Smart Environments",smart-environments
 "Academic Subjects",academic-subjects,"Design (Construction)",design-construction,,
 "Academic Subjects",academic-subjects,"Design (Construction)",design-construction,Architecture,architecture
-"Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Construction Management",construction-management
 "Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Interior Design",interior-design
 "Academic Subjects",academic-subjects,"Design (Construction)",design-construction,"Landscape Architecture",landscape-architecture
 "Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,,
@@ -70,7 +69,7 @@
 "Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,Geology,geology
 "Academic Subjects",academic-subjects,"Earth Sciences",earth-sciences,"Natural Resources",natural-resources
 "Academic Subjects",academic-subjects,"Education (Academics)",education-academics,,
-"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,Administration,administration-education-academics
+"Academic Subjects",academic-subjects,"Education (Academics)",education-academics,Administration,administration
 "Academic Subjects",academic-subjects,"Education (Academics)",education-academics,"Special Education",special-education
 "Academic Subjects",academic-subjects,"Education (Academics)",education-academics,"Teaching (Education)",teaching-education
 "Academic Subjects",academic-subjects,Engineering,engineering,,
@@ -96,7 +95,7 @@
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Medical Health",medical-health
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Metabolic Disorders",metabolic-disorders
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Nursing,nursing
-"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Nutrition,nutrition-health-sciences
+"Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Nutrition, Health",nutrition-health
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Pharmacy,pharmacy
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,"Physical performance, recreation",physical-performance-recreation
 "Academic Subjects",academic-subjects,"Health Sciences",health-sciences,Sleep,sleep
@@ -138,12 +137,11 @@
 "Academic Subjects",academic-subjects,"Veterinary Medicine",veterinary-medicine,Zoonoses,zoonoses
 Alumni,alumni,,,,
 Alumni,alumni,"Alumni Assoc.",alumni-assoc,,
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,"Alumni Benefits",alumni-benefits
 Alumni,alumni,"Alumni Assoc.",alumni-assoc,"Alumni Centre",alumni-centre
+Alumni,alumni,"Alumni Assoc.",alumni-assoc,"Alumni Events",alumni-events
 Alumni,alumni,"Alumni Assoc.",alumni-assoc,Awards,awards
-Alumni,alumni,"Alumni Assoc.",alumni-assoc,Benefits,benefits
-Alumni,alumni,"Alumni Assoc.",alumni-assoc,Events,events
 Alumni,alumni,"Alumni Assoc.",alumni-assoc,Membership,membership
-Alumni,alumni,"Alumni Assoc.",alumni-assoc,Recognition,recognition
 Alumni,alumni,"Notable Alumni",notable-alumni,,
 Alumni,alumni,"Notable Alumni",notable-alumni,Athletes,athletes
 Alumni,alumni,"Notable Alumni",notable-alumni,"Business Leaders",business-leaders
@@ -160,32 +158,32 @@ Alumni,alumni,"Notable Alumni",notable-alumni,Scientists,scientists
 "Community &amp; Economic Development",community-economic-development,"Small Business",small-business,,
 "Community &amp; Economic Development",community-economic-development,"Technology Transfer",technology-transfer,,
 "Community &amp; Economic Development",community-economic-development,WeatherNet,weathernet,,
-Events,events-2,,,,
-Events,events-2,Anniversary,anniversary,,
-Events,events-2,Athletic,athletic,,
-Events,events-2,Camp,camp,,
-Events,events-2,Concert,concert,,
-Events,events-2,Conference,conference,,
-Events,events-2,Cultural,cultural,,
-Events,events-2,Deadline,deadline,,
-Events,events-2,"Dedication &amp; Naming",dedication-naming,,
-Events,events-2,"Dedication &amp; Naming",dedication-naming,Building,building
-Events,events-2,"Dedication &amp; Naming",dedication-naming,College/School/Program,collegeschoolprogram
-Events,events-2,Exhibit,exhibit,,
-Events,events-2,"Fair and Festival",fair-and-festival,,
-Events,events-2,"Field Day",field-day,,
-Events,events-2,Film,film,,
-Events,events-2,Groundbreaking,groundbreaking,,
-Events,events-2,"Guest Speaker",guest-speaker,,
-Events,events-2,Lecture,lecture,,
-Events,events-2,Meeting,meeting,,
-Events,events-2,Performance,performance,,
-Events,events-2,Reception,reception,,
-Events,events-2,Recognition,recognition-events-2,,
-Events,events-2,Recreation/Wellness,recreationwellness,,
-Events,events-2,Seminar,seminar,,
-Events,events-2,"Student event",student-event,,
-Events,events-2,Workshop,workshop,,
+Events,events,,,,
+Events,events,Anniversary,anniversary,,
+Events,events,Athletic,athletic,,
+Events,events,Camp,camp,,
+Events,events,Concert,concert,,
+Events,events,Conference,conference,,
+Events,events,Cultural,cultural,,
+Events,events,Deadline,deadline,,
+Events,events,"Dedication &amp; Naming",dedication-naming,,
+Events,events,"Dedication &amp; Naming",dedication-naming,Building,building
+Events,events,"Dedication &amp; Naming",dedication-naming,College/School/Program,collegeschoolprogram
+Events,events,Exhibit,exhibit,,
+Events,events,"Fair and Festival",fair-and-festival,,
+Events,events,"Field Day",field-day,,
+Events,events,Film,film,,
+Events,events,Groundbreaking,groundbreaking,,
+Events,events,"Guest Speaker",guest-speaker,,
+Events,events,Lecture,lecture,,
+Events,events,Meeting,meeting,,
+Events,events,Performance,performance,,
+Events,events,Reception,reception,,
+Events,events,Recognition,recognition,,
+Events,events,Recreation/Wellness,recreationwellness,,
+Events,events,Seminar,seminar,,
+Events,events,"Student event",student-event,,
+Events,events,Workshop,workshop,,
 "Faculty, Staff",faculty-staff,,,,
 "Faculty, Staff",faculty-staff,"Awards, employee",awards-employee,,
 "Faculty, Staff",faculty-staff,Faculty,faculty,,
@@ -241,12 +239,12 @@ Research,research,"Undergraduate Research",undergraduate-research,,
 "Resources &amp; Offices",resources-offices,"Health &amp; Wellness Services",health-wellness-services,,
 "Resources &amp; Offices",resources-offices,"History of University",history-of-university,,
 "Resources &amp; Offices",resources-offices,"Human Resources",human-resources,,
-"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Benefits,benefits-human-resources
-"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Employment,employment-human-resources
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,"Employee Benefits",employee-benefits
 "Resources &amp; Offices",resources-offices,"Human Resources",human-resources,"Equal Employment Opportunities",equal-employment-opportunities
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Jobs,jobs
 "Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Payroll,payroll
 "Resources &amp; Offices",resources-offices,"Human Resources",human-resources,"Professional Development",professional-development
-"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Retirement,retirement-human-resources
+"Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Retirees,retirees
 "Resources &amp; Offices",resources-offices,"Human Resources",human-resources,Training,training
 "Resources &amp; Offices",resources-offices,"Information Technology",information-technology,,
 "Resources &amp; Offices",resources-offices,"Information Technology",information-technology,"Faculty and Staff",faculty-and-staff
@@ -265,10 +263,10 @@ Research,research,"Undergraduate Research",undergraduate-research,,
 "Resources &amp; Offices",resources-offices,Museums,museums,"Anthropology Museum",anthropology-museum
 "Resources &amp; Offices",resources-offices,Museums,museums,"Art Museum",art-museum
 "Resources &amp; Offices",resources-offices,Museums,museums,"Conner Museum",conner-museum
-"Resources &amp; Offices",resources-offices,Museums,museums,Entomology,entomology-museums
-"Resources &amp; Offices",resources-offices,Museums,museums,Geology,geology-museums
-"Resources &amp; Offices",resources-offices,Museums,museums,Herbarium,herbarium
-"Resources &amp; Offices",resources-offices,Museums,museums,Veterinary,veterinary
+"Resources &amp; Offices",resources-offices,Museums,museums,"Entomology Museum",entomology-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,"Geology Museum",geology-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,"Herbarium Museum",herbarium-museum
+"Resources &amp; Offices",resources-offices,Museums,museums,"Veterinary Museum",veterinary-museum
 "Resources &amp; Offices",resources-offices,President,president,,
 "Resources &amp; Offices",resources-offices,Safety,safety,,
 "Resources &amp; Offices",resources-offices,Safety,safety,"Campus police",campus-police
@@ -279,13 +277,12 @@ Research,research,"Undergraduate Research",undergraduate-research,,
 "Resources &amp; Offices",resources-offices,Transportation,transportation,Bus,bus
 "Resources &amp; Offices",resources-offices,Transportation,transportation,Parking,parking
 "Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,,
-"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Employment,employment-university-statistics
-"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Enrollment,enrollment
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Employment,employment
+"Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,"Enrollment Statistics",enrollment-statistics
 "Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Funding,funding
 "Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,Graduation,graduation
 "Resources &amp; Offices",resources-offices,"University Statistics",university-statistics,"Private Support",private-support
 Sports,sports,,,,
-Sports,sports,Administration,administration-sports,,
 Sports,sports,Club,club,,
 Sports,sports,Intercollegiate,intercollegiate,,
 Sports,sports,Intercollegiate,intercollegiate,Baseball,baseball
@@ -301,6 +298,7 @@ Sports,sports,Intercollegiate,intercollegiate,"Track &amp; Field",track-field
 Sports,sports,Intercollegiate,intercollegiate,Volleyball,volleyball
 Sports,sports,Intramural,intramural,,
 Sports,sports,Intramural,intramural,"Outdoor Recreation",outdoor-recreation
+Sports,sports,"Sports Administration",sports-administration,,
 Students,students,,,,
 Students,students,Admissions,admissions,,
 Students,students,Advising,advising,,
@@ -314,7 +312,7 @@ Students,students,"Clubs, organizations",clubs-organizations,,
 Students,students,Counseling,counseling,,
 Students,students,"Dining Services",dining-services,,
 Students,students,Diversity,diversity,,
-Students,students,Enrollment,enrollment-students,,
+Students,students,Enrollment,enrollment,,
 Students,students,Fellowships,fellowships,,
 Students,students,"Financial aid",financial-aid,,
 Students,students,"Health wellness",health-wellness,,

@@ -487,7 +487,6 @@ class WSUWP_University_Taxonomies {
 				),
 				'Design (Construction)' => array(
 					'Architecture',
-					'Construction Management',
 					'Interior Design',
 					'Landscape Architecture',
 				),
@@ -526,7 +525,7 @@ class WSUWP_University_Taxonomies {
 					'Medical Health',
 					'Metabolic Disorders',
 					'Nursing',
-					'Nutrition',
+					'Nutrition, Health',
 					'Pharmacy',
 					'Physical performance, recreation',
 					'Sleep',
@@ -577,10 +576,9 @@ class WSUWP_University_Taxonomies {
 				'Alumni Assoc.' => array(
 					'Alumni Centre',
 					'Awards',
-					'Benefits',
-					'Events',
+					'Alumni Benefits',
+					'Alumni Events',
 					'Membership',
-					'Recognition',
 				),
 				'Notable Alumni' => array(
 					'Athletes',
@@ -696,12 +694,12 @@ class WSUWP_University_Taxonomies {
 				'Health &amp; Wellness Services' => array(),
 				'History of University' => array(),
 				'Human Resources' => array(
-					'Benefits',
-					'Employment',
+					'Employee Benefits',
+					'Jobs',
 					'Equal Employment Opportunities',
 					'Payroll',
 					'Professional Development',
-					'Retirement',
+					'Retirees',
 					'Training',
 				),
 				'Information Technology' => array(
@@ -723,10 +721,10 @@ class WSUWP_University_Taxonomies {
 					'Anthropology Museum',
 					'Art Museum',
 					'Conner Museum',
-					'Entomology',
-					'Geology',
-					'Herbarium',
-					'Veterinary',
+					'Entomology Museum',
+					'Geology Museum',
+					'Herbarium Museum',
+					'Veterinary Museum',
 				),
 				'President' => array(),
 				'Safety' => array(
@@ -741,14 +739,14 @@ class WSUWP_University_Taxonomies {
 				),
 				'University Statistics' => array(
 					'Employment',
-					'Enrollment',
+					'Enrollment Statistics',
 					'Funding',
 					'Graduation',
 					'Private Support',
 				),
 			),
 			'Sports' => array(
-				'Administration' => array(),
+				'Sports Administration' => array(),
 				'Club' => array(),
 				'Intercollegiate' => array(
 					'Baseball',
