@@ -3,7 +3,7 @@
  * Helper utilities to export university category information into CSV and other formats.
  */
 
-//add_action( 'init', 'wsuwp_dump_categories_csv' );
+//add_action( 'init', 'wsuwp_dump_categories_csv', 999 );
 /**
  * Dump the current categories to a CSV file.
  *
@@ -33,7 +33,7 @@ function wsuwp_dump_categories_csv() {
 	fclose($fp);
 }
 
-//add_action( 'init', 'wsuwp_dump_categories_php_array' );
+//add_action( 'init', 'wsuwp_dump_categories_php_array', 999 );
 /**
  * Echo current category data as an array assignment to be used in a PHP script.
  *
