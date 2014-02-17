@@ -24,7 +24,7 @@ function wsuwp_dump_categories_csv() {
 		}
 	}
 
-	$fp = fopen( WP_PLUGIN_DIR . 'university-categories.csv', 'w');
+	$fp = fopen( WP_PLUGIN_DIR . '/university-categories.csv', 'w');
 
 	foreach ($csv_array as $fields) {
 		fputcsv($fp, $fields);
