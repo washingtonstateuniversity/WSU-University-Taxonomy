@@ -394,6 +394,7 @@ class WSUWP_University_Taxonomies {
 				'San Juan County',
 				'Skagit County',
 				'Skamania County',
+				'Snohomish County',
 				'Spokane County',
 				'Stevens County',
 				'Thurston County',
