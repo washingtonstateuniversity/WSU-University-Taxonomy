@@ -261,12 +261,16 @@ class WSUWP_University_Taxonomies {
 	 * @param string $hook Hook indicating the current admin page.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
-		if ( 'edit-tags.php' !== $hook ) {
+		if ( 'edit-tags.php' !== $hook && 'post.php' !== $hook ) {
 			return;
 		}
 
 		if ( $this->university_category === get_current_screen()->taxonomy || $this->university_location === get_current_screen()->taxonomy ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
+		}
+
+		if ( 'post.php' === $hook ) {
+			wp_enqueue_style( 'wsuwp-taxonomy-edit-post', plugins_url( 'css/edit-post.css', __FILE__ ) );
 		}
 
 	}
