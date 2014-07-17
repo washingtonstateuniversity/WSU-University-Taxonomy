@@ -11,6 +11,14 @@ Author URI: http://web.wsu.edu
 class WSUWP_University_Taxonomies {
 
 	/**
+	 * Maintain a record of the taxonomy schema. This should be changed whenever
+	 * a schema change should be initiated on any site using the taxonomy.
+	 *
+	 * @var string Current version of the taxonomy schema.
+	 */
+	var $taxonomy_schema_version = '1';
+
+	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
 	 */
 	var $university_category = 'wsuwp_university_category';
@@ -24,6 +32,7 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
+		add_action( 'wpmu_new_blog',         array( $this, 'pre_load_taxonomies' ), 10 );
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
@@ -31,6 +40,19 @@ class WSUWP_University_Taxonomies {
 		add_action( 'load-edit-tags.php',    array( $this, 'display_locations'              ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
+	}
+
+	/**
+	 * Pre-load University wide taxonomies whenever a new site is created on the network.
+	 *
+	 * @param int $site_id The ID of the new site.
+	 */
+	public function pre_load_taxonomies( $site_id ) {
+		switch_to_blog( $site_id );
+		$this->load_locations();
+		$this->load_categories();
+		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		restore_current_blog();
 	}
 
 	/**
@@ -121,6 +143,16 @@ class WSUWP_University_Taxonomies {
 			return;
 		}
 
+		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+			$this->load_locations();
+			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		}
+	}
+
+	/**
+	 * Load pre configured locations when requested.
+	 */
+	public function load_locations() {
 		$this->clear_taxonomy_cache( $this->university_location );
 
 		// Get our current master list of locations.
@@ -166,6 +198,16 @@ class WSUWP_University_Taxonomies {
 			return;
 		}
 
+		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+			$this->load_categories();
+			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		}
+	}
+
+	/**
+	 * Load pre-configured categories when requested.
+	 */
+	public function load_categories() {
 		$this->clear_taxonomy_cache( $this->university_category );
 
 		// Get our current master list of categories.
