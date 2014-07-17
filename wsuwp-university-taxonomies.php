@@ -34,6 +34,7 @@ class WSUWP_University_Taxonomies {
 	function __construct() {
 		add_action( 'wpmu_new_blog',         array( $this, 'pre_load_taxonomies' ), 10 );
 		add_action( 'admin_init',            array( $this, 'check_schema' ), 10 );
+		add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
@@ -62,7 +63,7 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function check_schema() {
 		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			wp_schedule_single_event( time() + 60, array( $this, 'update_schema' ) );
+			wp_schedule_single_event( time() + 60, 'wsu_taxonomy_update_schema' );
 		}
 	}
 
