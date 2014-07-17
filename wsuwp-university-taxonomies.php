@@ -33,6 +33,7 @@ class WSUWP_University_Taxonomies {
 	 */
 	function __construct() {
 		add_action( 'wpmu_new_blog',         array( $this, 'pre_load_taxonomies' ), 10 );
+		add_action( 'admin_init',            array( $this, 'check_schema' ), 10 );
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
@@ -53,6 +54,25 @@ class WSUWP_University_Taxonomies {
 		$this->load_categories();
 		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 		restore_current_blog();
+	}
+
+	/**
+	 * Check the current version of the taxonomy schema on every admin page load. If it is
+	 * out of date, fire a single wp-cron event to process the changes.
+	 */
+	public function check_schema() {
+		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+			wp_schedule_single_event( time() + 60, array( $this, 'update_schema' ) );
+		}
+	}
+
+	/**
+	 * Update the taxonomy schema and version.
+	 */
+	public function update_schema() {
+		$this->load_categories();
+		$this->load_locations();
+		update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 	}
 
 	/**
