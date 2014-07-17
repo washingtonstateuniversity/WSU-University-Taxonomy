@@ -1,0 +1,14 @@
+# Because OSX
+.DS_Store
+
+# Ignore Sublime project files.
+*.sublime*
+
+# Ignore PHPStorm project files.
+/.idea
+
+# Ignore node modules created by NPM
+/node_modules
+
+# Ignore the generated WordPress plugin dist directory
+/dist-wp-plugin
