@@ -29,6 +29,11 @@ class WSUWP_University_Taxonomies {
 	var $university_location = 'wsuwp_university_location';
 
 	/**
+	 * @var string Taxonomy slug for the University Organization taxonomy.
+	 */
+	var $university_organization = 'wsuwp_university_org';
+
+	/**
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
@@ -53,6 +58,7 @@ class WSUWP_University_Taxonomies {
 		switch_to_blog( $site_id );
 		$this->load_locations();
 		$this->load_categories();
+		$this->load_organizations();
 		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 		restore_current_blog();
 	}
@@ -73,6 +79,7 @@ class WSUWP_University_Taxonomies {
 	public function update_schema() {
 		$this->load_categories();
 		$this->load_locations();
+		$this->load_organizations();
 		update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 	}
 
@@ -142,6 +149,28 @@ class WSUWP_University_Taxonomies {
 			'query_var'         => $this->university_location,
 		);
 		register_taxonomy( $this->university_location, array( 'post', 'page', 'attachment' ), $args );
+
+		$labels = array(
+			'name' => 'University Organization',
+			'search_items'  => 'Search Organizations',
+			'all_items'     => 'All Organizations',
+			'edit_item'     => 'Edit Organization',
+			'update_item'   => 'Update Organization',
+			'add_new_item'  => 'Add New Organization',
+			'new_item_name' => 'New Organization Name',
+			'menu_name'     => 'University Organizations',
+		);
+		$args = array(
+			'labels'            => $labels,
+			'description'       => 'The central organization taxonomy for Washington State University',
+			'public'            => true,
+			'hierarchical'      => true,
+			'show_ui'           => true,
+			'show_in_menu'      => true,
+			'rewrite'           => false,
+			'query_var'         => $this->university_organization,
+		);
+		register_taxonomy( $this->university_organization, array( 'post', 'page' ), $args );
 	}
 
 	/**
@@ -154,6 +183,57 @@ class WSUWP_University_Taxonomies {
 		wp_cache_delete( 'get',     $taxonomy );
 		delete_option( $taxonomy . '_children' );
 		_get_term_hierarchy( $taxonomy );
+	}
+
+	/**
+	 * Compare the current state of locations and populate anything that is missing.
+	 */
+	public function compare_organizations() {
+		if ( $this->university_organization !== get_current_screen()->taxonomy ) {
+			return;
+		}
+
+		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+			$this->load_organizations();
+			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		}
+	}
+
+	/**
+	 * Load pre configured organizations when requested.
+	 */
+	public function load_organizations() {
+		$this->clear_taxonomy_cache( $this->university_organization );
+
+		$master_list = $this->get_university_organizations();
+
+		$current_list = get_terms( $this->university_organization, array( 'hide_empty' => false ) );
+		$current_list = wp_list_pluck( $current_list, 'name' );
+
+		foreach( $master_list as $term => $child_terms ) {
+			$parent_id = false;
+
+			if ( ! in_array( $term, $current_list ) ) {
+				$new_term = wp_insert_term( $term, $this->university_organization, array( 'parent' => 0 ) );
+				$parent_id = $new_term['term_id'];
+			}
+
+			foreach( $child_terms as $child_term ) {
+				if ( ! in_array( $child_term, $current_list ) ) {
+					if ( ! $parent_id ) {
+						$parent = get_term_by( 'name', $term, $this->university_organization );
+						if ( isset( $parent->id ) ) {
+							$parent_id = $parent->id;
+						} else {
+							$parent_id = 0;
+						}
+					}
+					wp_insert_term( $child_term, $this->university_organization, array( 'parent' => $parent_id ) );
+				}
+			}
+		}
+
+		$this->clear_taxonomy_cache( $this->university_organization );
 	}
 
 	/**
@@ -416,6 +496,34 @@ class WSUWP_University_Taxonomies {
 		echo '</div>';
 		include( ABSPATH . 'wp-admin/admin-footer.php' );
 		die();
+	}
+
+	/**
+	 * Maintain an array of current university organizations.
+	 *
+	 * @return array University Organizations
+	 */
+	public function get_university_organizations() {
+		$organizations = array(
+			'Office' => array(
+				'International Programs',
+			),
+			'College' => array(
+				'Carson College of Business',
+				'CAHNRS',
+				'College of Arts and Sciences',
+				'College of Education',
+				'College of Medical Sciences',
+				'College of Nursing',
+				'College of Pharmacy',
+				'College of Veterinary Medicine',
+				'Edward R. Murrow College of Communication',
+				'Honors College',
+				'Voiland College of Engineering and Architecture',
+			),
+		);
+
+		return $organizations;
 	}
 
 	/**
