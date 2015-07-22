@@ -49,6 +49,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'display_organizations'          ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
+		add_filter( 'pre_insert_term',       array( $this, 'prevent_term_creation'          ), 10, 2 );
 	}
 
 	/**
@@ -98,6 +99,23 @@ class WSUWP_University_Taxonomies {
 		$wp_taxonomies['post_tag']->labels->name          = 'University Tags';
 		$wp_taxonomies['post_tag']->labels->singular_name = 'University Tag';
 		$wp_taxonomies['post_tag']->labels->menu_name     = 'University Tags';
+	}
+
+	/**
+	 * In normal term entry situations, we prevent new terms being created for the
+	 * taxonomies that we statically maintain.
+	 *
+	 * @param string $term     Term being added.
+	 * @param string $taxonomy Taxonomy of the term being added.
+	 *
+	 * @return string|WP_Error Pass on the term untouched if not one of our taxonomies. WP_Error otherwise.
+	 */
+	public function prevent_term_creation( $term, $taxonomy ) {
+		if ( in_array( $taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
+			$term = new WP_Error( 'invalid_term', 'These terms cannot be modified.' );
+		}
+
+		return $term;
 	}
 
 	/**
