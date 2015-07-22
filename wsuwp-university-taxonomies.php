@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '1';
+	var $taxonomy_schema_version = '20150722-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -224,8 +224,8 @@ class WSUWP_University_Taxonomies {
 	public function load_terms( $taxonomy ) {
 		$this->clear_taxonomy_cache( $taxonomy );
 
+		// Get a master list of terms used to populate this taxonomy.
 		if ( $this->university_category === $taxonomy ) {
-			// Get our current master list of categories.
 			$master_list = $this->get_university_categories();
 		} elseif ( $this->university_location === $taxonomy ) {
 			$master_list = $this->get_university_locations();
@@ -329,7 +329,7 @@ class WSUWP_University_Taxonomies {
 	 * @param string $hook Hook indicating the current admin page.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
-		if ( 'edit-tags.php' !== $hook && 'post.php' !== $hook ) {
+		if ( 'edit-tags.php' !== $hook && 'post.php' !== $hook && 'post-new.php' !== $hook ) {
 			return;
 		}
 
@@ -337,7 +337,7 @@ class WSUWP_University_Taxonomies {
 			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
 		}
 
-		if ( 'post.php' === $hook ) {
+		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-edit-post', plugins_url( 'css/edit-post.css', __FILE__ ) );
 		}
 
