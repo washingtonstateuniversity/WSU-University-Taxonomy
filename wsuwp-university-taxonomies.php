@@ -59,9 +59,9 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function pre_load_taxonomies( $site_id ) {
 		switch_to_blog( $site_id );
-		$this->load_locations();
+		$this->load_terms( $this->university_location );
 		$this->load_terms( $this->university_category );
-		$this->load_organizations();
+		$this->load_terms( $this->university_organization );
 		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 		restore_current_blog();
 	}
@@ -81,8 +81,8 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function update_schema() {
 		$this->load_terms( $this->university_category );
-		$this->load_locations();
-		$this->load_organizations();
+		$this->load_terms( $this->university_location );
+		$this->load_terms( $this->university_organization );
 		update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 	}
 
@@ -214,50 +214,9 @@ class WSUWP_University_Taxonomies {
 		}
 
 		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_organizations();
+			$this->load_terms( $this->university_organization );
 			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 		}
-	}
-
-	/**
-	 * Load pre configured organizations when requested.
-	 */
-	public function load_organizations() {
-		$this->clear_taxonomy_cache( $this->university_organization );
-
-		$master_list = $this->get_university_organizations();
-
-		$current_list = get_terms( $this->university_organization, array( 'hide_empty' => false ) );
-		$current_list = wp_list_pluck( $current_list, 'name' );
-
-		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
-
-		foreach( $master_list as $term => $child_terms ) {
-			$parent_id = false;
-
-			if ( ! in_array( $term, $current_list ) ) {
-				$new_term = wp_insert_term( $term, $this->university_organization, array( 'parent' => 0 ) );
-				$parent_id = $new_term['term_id'];
-			}
-
-			foreach( $child_terms as $child_term ) {
-				if ( ! in_array( $child_term, $current_list ) ) {
-					if ( ! $parent_id ) {
-						$parent = get_term_by( 'name', $term, $this->university_organization );
-						if ( isset( $parent->id ) ) {
-							$parent_id = $parent->id;
-						} else {
-							$parent_id = 0;
-						}
-					}
-					wp_insert_term( $child_term, $this->university_organization, array( 'parent' => $parent_id ) );
-				}
-			}
-		}
-
-		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
-
-		$this->clear_taxonomy_cache( $this->university_organization );
 	}
 
 	/**
@@ -269,54 +228,9 @@ class WSUWP_University_Taxonomies {
 		}
 
 		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_locations();
+			$this->load_terms( $this->university_location );
 			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
 		}
-	}
-
-	/**
-	 * Load pre configured locations when requested.
-	 */
-	public function load_locations() {
-		$this->clear_taxonomy_cache( $this->university_location );
-
-		// Get our current master list of locations.
-		$master_locations = $this->get_university_locations();
-
-		// Get our current list of top level locations.
-		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
-		$current_locations = wp_list_pluck( $current_locations, 'name' );
-
-		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
-
-		foreach ( $master_locations as $location => $child_locations ) {
-			$parent_id = false;
-
-			// If the parent location is not a term yet, insert it.
-			if ( ! in_array( $location, $current_locations ) ) {
-				$new_term    = wp_insert_term( $location, $this->university_location, array( 'parent' => 0 ) );
-				$parent_id = $new_term['term_id'];
-			}
-
-			// Loop through the parent's children to check term existence.
-			foreach( $child_locations as $child_location ) {
-				if ( ! in_array( $child_location, $current_locations ) ) {
-					if ( ! $parent_id ) {
-						$parent = get_term_by( 'name', $location, $this->university_location );
-						if ( isset( $parent->id ) ) {
-							$parent_id = $parent->id;
-						} else {
-							$parent_id = 0;
-						}
-					}
-					wp_insert_term( $child_location, $this->university_location, array( 'parent' => $parent_id ) );
-				}
-			}
-		}
-
-		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
-
-		$this->clear_taxonomy_cache( $this->university_location );
 	}
 
 	/**
@@ -584,20 +498,21 @@ class WSUWP_University_Taxonomies {
 	public function get_university_organizations() {
 		$organizations = array(
 			'Office' => array(
-				'International Programs',
+				'International Programs' => array(),
+				'University Communications' => array(),
 			),
 			'College' => array(
-				'Carson College of Business',
-				'CAHNRS',
-				'College of Arts and Sciences',
-				'College of Education',
-				'College of Medical Sciences',
-				'College of Nursing',
-				'College of Pharmacy',
-				'College of Veterinary Medicine',
-				'Edward R. Murrow College of Communication',
-				'Honors College',
-				'Voiland College of Engineering and Architecture',
+				'Carson College of Business' => array(),
+				'CAHNRS' => array(),
+				'College of Arts and Sciences' => array(),
+				'College of Education' => array(),
+				'College of Medical Sciences' => array(),
+				'College of Nursing' => array(),
+				'College of Pharmacy' => array(),
+				'College of Veterinary Medicine' => array(),
+				'Edward R. Murrow College of Communication' => array(),
+				'Honors College' => array(),
+				'Voiland College of Engineering and Architecture' => array(),
 			),
 		);
 
@@ -618,55 +533,55 @@ class WSUWP_University_Taxonomies {
 			'WSU Vancouver'                    => array(),
 			'WSU Global Campus'                => array(),
 			'WSU Extension'                    => array(
-				'Asotin County',
-				'Benton County',
-				'Chelan County',
-				'Clallam County',
-				'Clark County',
-				'Columbia County',
-				'Cowlitz County',
-				'Douglas County',
-				'Ferry County',
-				'Franklin County',
-				'Garfield County',
-				'Grant County',
-				'Grays Harbor County',
-				'Island County',
-				'Jefferson County',
-				'King County',
-				'Kitsap County',
-				'Kittitas County',
-				'Klickitat County',
-				'Lewis County',
-				'Lincoln County',
-				'Mason County',
-				'Okanogan County',
-				'Pacific County',
-				'Pend Oreille County',
-				'Pierce County',
-				'San Juan County',
-				'Skagit County',
-				'Skamania County',
-				'Snohomish County',
-				'Spokane County',
-				'Stevens County',
-				'Thurston County',
-				'Wahkiakum County',
-				'Walla Walla County',
-				'Whatcom County',
-				'Whitman County',
-				'Yakima County',
+				'Asotin County' => array(),
+				'Benton County' => array(),
+				'Chelan County' => array(),
+				'Clallam County' => array(),
+				'Clark County' => array(),
+				'Columbia County' => array(),
+				'Cowlitz County' => array(),
+				'Douglas County' => array(),
+				'Ferry County' => array(),
+				'Franklin County' => array(),
+				'Garfield County' => array(),
+				'Grant County' => array(),
+				'Grays Harbor County' => array(),
+				'Island County' => array(),
+				'Jefferson County' => array(),
+				'King County' => array(),
+				'Kitsap County' => array(),
+				'Kittitas County' => array(),
+				'Klickitat County' => array(),
+				'Lewis County' => array(),
+				'Lincoln County' => array(),
+				'Mason County' => array(),
+				'Okanogan County' => array(),
+				'Pacific County' => array(),
+				'Pend Oreille County' => array(),
+				'Pierce County' => array(),
+				'San Juan County' => array(),
+				'Skagit County' => array(),
+				'Skamania County' => array(),
+				'Snohomish County' => array(),
+				'Spokane County' => array(),
+				'Stevens County' => array(),
+				'Thurston County' => array(),
+				'Wahkiakum County' => array(),
+				'Walla Walla County' => array(),
+				'Whatcom County' => array(),
+				'Whitman County' => array(),
+				'Yakima County' => array(),
 			),
 			'WSU Seattle'                      => array(),
 			'WSU North Puget Sound at Everett' => array(),
 			'WSU Research Centers'             => array(
-				'Lind',
-				'Long Beach',
-				'Mount Vernon',
-				'Othello',
-				'Prosser',
-				'Puyallup',
-				'Wenatchee',
+				'Lind' => array(),
+				'Long Beach' => array(),
+				'Mount Vernon' => array(),
+				'Othello' => array(),
+				'Prosser' => array(),
+				'Puyallup' => array(),
+				'Wenatchee' => array(),
 			)
 		);
 
