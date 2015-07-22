@@ -42,9 +42,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_locations'              ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_categories'             ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_organizations'          ), 10 );
+		add_action( 'load-edit-tags.php',    array( $this, 'compare_schema'                 ), 10 );
 		add_action( 'load-edit-tags.php',    array( $this, 'display_locations'              ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'display_organizations'          ), 11 );
@@ -206,30 +204,16 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Compare the current state of locations and populate anything that is missing.
+	 * Compare the existing schema version on taxonomy page loads and run update
+	 * process if a mismatch is present.
 	 */
-	public function compare_organizations() {
-		if ( $this->university_organization !== get_current_screen()->taxonomy ) {
+	public function compare_schema() {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
 			return;
 		}
 
 		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_terms( $this->university_organization );
-			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
-		}
-	}
-
-	/**
-	 * Compare the current state of locations and populate anything that is missing.
-	 */
-	public function compare_locations() {
-		if ( $this->university_location !== get_current_screen()->taxonomy ) {
-			return;
-		}
-
-		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_terms( $this->university_location );
-			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+			$this->update_schema();
 		}
 	}
 
@@ -339,20 +323,6 @@ class WSUWP_University_Taxonomies {
 		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$this->clear_taxonomy_cache( $taxonomy );
-	}
-
-	/**
-	 * Compare the current state of categories and populate anything that is missing.
-	 */
-	public function compare_categories() {
-		if ( $this->university_category !== get_current_screen()->taxonomy ) {
-			return;
-		}
-
-		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
-			$this->load_terms( $this->university_category );
-			update_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
-		}
 	}
 
 	/**
