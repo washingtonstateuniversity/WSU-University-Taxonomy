@@ -55,10 +55,7 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function pre_load_taxonomies( $site_id ) {
 		switch_to_blog( $site_id );
-		$this->load_terms( $this->university_location );
-		$this->load_terms( $this->university_category );
-		$this->load_terms( $this->university_organization );
-		add_option( 'wsu_taxonomy_schema', $this->taxonomy_schema_version );
+		$this->update_schema();
 		restore_current_blog();
 	}
 
