@@ -43,9 +43,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
 		add_action( 'load-edit-tags.php',    array( $this, 'compare_schema'                 ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_locations'              ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_categories'             ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_organizations'          ), 11 );
+		add_action( 'load-edit-tags.php',    array( $this, 'display_terms'                  ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
 		add_filter( 'pre_insert_term',       array( $this, 'prevent_term_creation'          ), 10, 2 );
 	}
@@ -346,100 +344,32 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
-	 * Display a dashboard for University Organizations. This offers a view of the existing
-	 * organizations and removes the ability to add/edit terms of the taxonomy.
+	 * Display a dashboard for a custom taxonomy rather than the default term
+	 * management screen provided by WordPress core.
 	 */
-	public function display_organizations() {
-		if ( $this->university_organization !== get_current_screen()->taxonomy ) {
+	public function display_terms() {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
 			return;
 		}
 
-		// Setup the page.
-		global $title;
-		$tax = get_taxonomy( $this->university_organization );
-		$title = $tax->labels->name;
-		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub"><h2>University Organizations</h2>';
-
-		$parent_terms = get_terms( $this->university_organization, array( 'hide_empty' => false, 'parent' => '0' ) );
-
-		foreach( $parent_terms as $term ) {
-			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $this->university_organization, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
-			echo '<ul>';
-
-			foreach ( $child_terms as $child ) {
-				echo '<li>' . esc_html( $child->name ) . '</li>';
-			}
-			echo '</ul>';
-		}
-
-		// Close the page.
-		echo '</div>';
-		include( ABSPATH . 'wp-admin/admin-footer.php' );
-		die();
-	}
-
-	/**
-	 * Display a dashboard for University Locations. This offers a view of the existing
-	 * locations and removes the ability to add/edit terms of the taxonomy.
-	 */
-	public function display_locations() {
-		if ( $this->university_location !== get_current_screen()->taxonomy ) {
-			return;
-		}
+		$taxonomy = get_current_screen()->taxonomy;
 
 		// Setup the page.
 		global $title;
-		$tax = get_taxonomy( $this->university_location );
+		$tax = get_taxonomy( $taxonomy );
 		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub"><h2>University Locations</h2>';
+		echo '<div class="wrap nosubsub""><h2>' . esc_html( $title ) . '</h2>';
 
-		$parent_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$parent_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => '0' ) );
 
 		foreach( $parent_terms as $term ) {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $this->university_location, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
-			echo '<ul>';
-
-			foreach ( $child_terms as $child ) {
-				echo '<li>' . esc_html( $child->name ) . '</li>';
-			}
-			echo '</ul>';
-		}
-
-		// Close the page.
-		echo '</div>';
-		include( ABSPATH . 'wp-admin/admin-footer.php' );
-		die();
-	}
-
-	/**
-	 * Display a dashboard for University Categories. This offers a view of the existing
-	 * categories and removes the ability to add/edit terms of the taxonomy.
-	 */
-	public function display_categories() {
-		if ( $this->university_category !== get_current_screen()->taxonomy ) {
-			return;
-		}
-
-		// Setup the page.
-		global $title;
-		$tax = get_taxonomy( $this->university_category );
-		$title = $tax->labels->name;
-		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub""><h2>University Categories</h2>';
-
-		$parent_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => '0' ) );
-
-		foreach( $parent_terms as $term ) {
-			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
+			$child_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
 
 			foreach( $child_terms as $child ) {
 				echo '<h4>' . esc_html( $child->name ) . '</h4>';
-				$grandchild_terms = get_terms( $this->university_category, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
+				$grandchild_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
 
 				echo '<ul>';
 
