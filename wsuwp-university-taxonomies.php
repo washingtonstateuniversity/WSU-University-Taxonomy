@@ -440,7 +440,7 @@ class WSUWP_University_Taxonomies {
 			return;
 		}
 
-		if ( $this->university_category === get_current_screen()->taxonomy || $this->university_location === get_current_screen()->taxonomy ) {
+		if ( in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
 		}
 
