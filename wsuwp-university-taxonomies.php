@@ -230,6 +230,8 @@ class WSUWP_University_Taxonomies {
 		$current_list = get_terms( $this->university_organization, array( 'hide_empty' => false ) );
 		$current_list = wp_list_pluck( $current_list, 'name' );
 
+		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
+
 		foreach( $master_list as $term => $child_terms ) {
 			$parent_id = false;
 
@@ -252,6 +254,8 @@ class WSUWP_University_Taxonomies {
 				}
 			}
 		}
+
+		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$this->clear_taxonomy_cache( $this->university_organization );
 	}
@@ -283,6 +287,8 @@ class WSUWP_University_Taxonomies {
 		$current_locations = get_terms( $this->university_location, array( 'hide_empty' => false ) );
 		$current_locations = wp_list_pluck( $current_locations, 'name' );
 
+		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
+
 		foreach ( $master_locations as $location => $child_locations ) {
 			$parent_id = false;
 
@@ -307,6 +313,8 @@ class WSUWP_University_Taxonomies {
 				}
 			}
 		}
+
+		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$this->clear_taxonomy_cache( $this->university_location );
 	}
@@ -340,6 +348,8 @@ class WSUWP_University_Taxonomies {
 		foreach( $level1_exist as $level1 ) {
 			$level1_assign[ $level1->name ] = array( 'term_id' => $level1->term_id );
 		}
+
+		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$level1_names = array_keys( $master_list );
 		/**
@@ -414,6 +424,8 @@ class WSUWP_University_Taxonomies {
 				}
 			}
 		}
+
+		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
 
 		$this->clear_taxonomy_cache( $this->university_category );
 	}
