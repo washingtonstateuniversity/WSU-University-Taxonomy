@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20150722-001';
+	var $taxonomy_schema_version = '20170309-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -430,12 +430,14 @@ class WSUWP_University_Taxonomies {
 			'WSU Vancouver'                    => array(),
 			'WSU Global Campus'                => array(),
 			'WSU Extension'                    => array(
+				'Adams County' => array(),
 				'Asotin County' => array(),
 				'Benton County' => array(),
 				'Chelan County' => array(),
 				'Clallam County' => array(),
 				'Clark County' => array(),
 				'Columbia County' => array(),
+				'Colville Reservation' => array(),
 				'Cowlitz County' => array(),
 				'Douglas County' => array(),
 				'Ferry County' => array(),
