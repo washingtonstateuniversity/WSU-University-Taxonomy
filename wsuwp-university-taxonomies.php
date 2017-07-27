@@ -46,6 +46,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'load-edit-tags.php',    array( $this, 'display_terms'                  ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
 		add_filter( 'pre_insert_term',       array( $this, 'prevent_term_creation'          ), 10, 2 );
+		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 	}
 
 	/**
@@ -878,6 +879,117 @@ class WSUWP_University_Taxonomies {
 		);
 
 		return $categories;
+	}
+
+	/**
+	 * Returns default taxonomies.
+	 */
+	public function get_default_metabox_taxonomies() {
+		$taxonomies = array(
+			'wsuwp_university_org',
+			'wsuwp_university_location',
+			'wsuwp_university_category',
+			'category',
+			'post_tag',
+		);
+
+		return apply_filters( 'wsuwp_taxonomy_metabox_taxonomies', $taxonomies );
+	}
+
+	/**
+	 * Returns default post types.
+	 */
+	public function get_default_metabox_post_types() {
+		$taxonomies = $this->get_default_metabox_taxonomies();
+
+		$post_types = array(
+			'page' => $taxonomies,
+			'post' => $taxonomies,
+		);
+
+		return apply_filters( 'wsuwp_taxonomy_metabox_post_types', $post_types );
+	}
+
+	/**
+	 * Replace the default taxonomy metaboxes with our own.
+	 *
+	 * @param $string $post_type
+	 * @param string $context
+	 */
+	public function taxonomy_meta_boxes( $post_type, $context ) {
+		if ( 'side' !== $context ) {
+			return;
+		}
+
+		$post_types = $this->get_default_metabox_post_types();
+
+		if ( ! in_array( $post_type, array_keys( $post_types ), true ) ) {
+			return;
+		}
+
+		foreach ( $post_types[ $post_type ] as $taxonomy ) {
+			if ( get_taxonomy( $taxonomy )->hierarchical ) {
+				remove_meta_box( $taxonomy . 'div', $post_type, 'side' );
+			} else {
+				remove_meta_box( 'tagsdiv-' . $taxonomy, $post_type, 'side' );
+			}
+		}
+
+		add_meta_box(
+			'wsuwp-university-taxonomies',
+			'University Taxonomies',
+			array( $this, 'display_university_taxonomies_meta_box' ),
+			array_keys( $post_types ),
+			'side',
+			'low'
+		);
+	}
+
+	/**
+	 * Display the metabox for selecting taxonomy terms.
+	 */
+	public function display_university_taxonomies_meta_box( $post ) {
+		// Get only the whitelisted taxonomies.
+		$taxonomies = array_intersect( $this->get_default_metabox_taxonomies(), get_object_taxonomies( $post ) );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			?>
+
+			<p class="post-attributes-label-wrapper">
+				<label class="post-attributes-label" for="<?php echo esc_attr( $taxonomy ); ?>"><?php echo esc_html( get_taxonomy( $taxonomy )->labels->name ); ?></label>
+			</p>
+
+			<?php
+			$dropdown_args = array(
+				'class' => 'taxonomy-select2',
+				'echo' => false,
+				'hide_empty' => false,
+				'id' => $taxonomy,
+				'name' => 'tax_input[' . $taxonomy . '][]',
+				'taxonomy' => $taxonomy,
+			);
+
+			if ( get_taxonomy( $taxonomy )->hierarchical ) {
+				$dropdown_args['hierarchical'] = true;
+			} else {
+				$dropdown_args['value_field'] = 'name';
+			}
+
+			$dropdown = wp_dropdown_categories( $dropdown_args );
+			$dropdown = str_replace( '<select', '<select multiple="multiple" style="width: 100%"', $dropdown );
+			$dropdown = str_replace( '&nbsp;', '', $dropdown );
+
+			$selected_terms = get_the_terms( $post->ID, $taxonomy );
+
+			if ( $selected_terms && ! is_wp_error( $selected_terms ) ) {
+				foreach ( $selected_terms as $term ) {
+					$value = ( 'post_tag' === $taxonomy ) ? $term->name : $term->term_id;
+					$dropdown = str_replace( 'value="' . $value . '"', 'value="' . $value . '" selected="selected"', $dropdown );
+				}
+			}
+
+			echo $dropdown;
+		}
 	}
 }
 new WSUWP_University_Taxonomies();
