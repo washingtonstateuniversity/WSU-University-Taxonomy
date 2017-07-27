@@ -336,7 +336,10 @@ class WSUWP_University_Taxonomies {
 		}
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
+			wp_enqueue_style( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css' );
 			wp_enqueue_style( 'wsuwp-taxonomy-edit-post', plugins_url( 'css/edit-post.css', __FILE__ ) );
+			wp_enqueue_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', array( 'jquery' ) );
+			wp_enqueue_script( 'wsuwp-taxonomy-edit-post', plugins_url( 'js/edit-post.js', __FILE__ ), array( 'select2' ), null, true );
 		}
 
 	}
