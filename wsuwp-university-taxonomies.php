@@ -940,7 +940,7 @@ class WSUWP_University_Taxonomies {
 
 		add_meta_box(
 			'wsuwp-university-taxonomies',
-			'University Taxonomies',
+			'Taxonomies',
 			array( $this, 'display_university_taxonomies_meta_box' ),
 			array_keys( $post_types ),
 			'side',
@@ -956,10 +956,12 @@ class WSUWP_University_Taxonomies {
 		$taxonomies = array_intersect( $this->get_default_metabox_taxonomies(), get_object_taxonomies( $post ) );
 
 		foreach ( $taxonomies as $taxonomy ) {
+			$taxonomy_settings = get_taxonomy( $taxonomy );
+			$id = $taxonomy . '-select';
 			?>
 
 			<p class="post-attributes-label-wrapper">
-				<label class="post-attributes-label" for="<?php echo esc_attr( $taxonomy ); ?>"><?php echo esc_html( get_taxonomy( $taxonomy )->labels->name ); ?></label>
+				<label class="post-attributes-label" for="<?php echo esc_attr( $id ); ?>"><?php echo esc_html( get_taxonomy( $taxonomy )->labels->name ); ?></label>
 			</p>
 
 			<?php
@@ -967,19 +969,27 @@ class WSUWP_University_Taxonomies {
 				'class' => 'taxonomy-select2',
 				'echo' => false,
 				'hide_empty' => false,
-				'id' => $taxonomy,
+				'id' => $id,
 				'name' => 'tax_input[' . $taxonomy . '][]',
 				'taxonomy' => $taxonomy,
 			);
 
-			if ( get_taxonomy( $taxonomy )->hierarchical ) {
+			if ( $taxonomy_settings->hierarchical ) {
 				$dropdown_args['hierarchical'] = true;
 			} else {
 				$dropdown_args['value_field'] = 'name';
 			}
 
 			$dropdown = wp_dropdown_categories( $dropdown_args );
-			$dropdown = str_replace( '<select', '<select multiple="multiple" style="width: 100%"', $dropdown );
+
+			$additional_attributes = 'multiple="multiple" style="width: 100%"';
+
+			if ( ! $taxonomy_settings->hierarchical ) {
+				$additional_attributes = $additional_attributes . '  data-tags="true" data-token-separators=","';
+			}
+
+			$dropdown = str_replace( '<select', '<select ' . $additional_attributes, $dropdown );
+
 			$dropdown = str_replace( '&nbsp;', '', $dropdown );
 
 			$selected_terms = get_the_terms( $post->ID, $taxonomy );
