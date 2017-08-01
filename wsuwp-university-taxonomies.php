@@ -37,15 +37,15 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		add_action( 'wpmu_new_blog',         array( $this, 'pre_load_taxonomies' ), 10 );
-		add_action( 'admin_init',            array( $this, 'check_schema' ), 10 );
+		add_action( 'wpmu_new_blog', array( $this, 'pre_load_taxonomies' ), 10 );
+		add_action( 'admin_init', array( $this, 'check_schema' ), 10 );
 		add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
-		add_action( 'init',                  array( $this, 'modify_default_taxonomy_labels' ), 10 );
-		add_action( 'init',                  array( $this, 'register_taxonomies'            ), 11 );
-		add_action( 'load-edit-tags.php',    array( $this, 'compare_schema'                 ), 10 );
-		add_action( 'load-edit-tags.php',    array( $this, 'display_terms'                  ), 11 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts'          )     );
-		add_filter( 'pre_insert_term',       array( $this, 'prevent_term_creation'          ), 10, 2 );
+		add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ), 10 );
+		add_action( 'init', array( $this, 'register_taxonomies' ), 11 );
+		add_action( 'load-edit-tags.php', array( $this, 'compare_schema' ), 10 );
+		add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 	}
 
@@ -65,7 +65,7 @@ class WSUWP_University_Taxonomies {
 	 * out of date, fire a single wp-cron event to process the changes.
 	 */
 	public function check_schema() {
-		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+		if ( get_option( 'wsu_taxonomy_schema', false ) !== $this->taxonomy_schema_version ) {
 			wp_schedule_single_event( time() + 60, 'wsu_taxonomy_update_schema' );
 		}
 	}
@@ -105,7 +105,7 @@ class WSUWP_University_Taxonomies {
 	 * @return string|WP_Error Pass on the term untouched if not one of our taxonomies. WP_Error otherwise.
 	 */
 	public function prevent_term_creation( $term, $taxonomy ) {
-		if ( in_array( $taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
+		if ( in_array( $taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ), true ) ) {
 			$term = new WP_Error( 'invalid_term', 'These terms cannot be modified.' );
 		}
 
@@ -204,11 +204,11 @@ class WSUWP_University_Taxonomies {
 	 * process if a mismatch is present.
 	 */
 	public function compare_schema() {
-		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ) ) ) {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_location, $this->university_organization, $this->university_category ), true ) ) {
 			return;
 		}
 
-		if ( $this->taxonomy_schema_version !== get_option( 'wsu_taxonomy_schema', false ) ) {
+		if ( get_option( 'wsu_taxonomy_schema', false ) !== $this->taxonomy_schema_version ) {
 			$this->update_schema();
 		}
 	}
@@ -234,10 +234,15 @@ class WSUWP_University_Taxonomies {
 		}
 
 		// Get our current list of top level parents.
-		$level1_exist  = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$level1_exist  = get_terms( $taxonomy, array(
+			'hide_empty' => false,
+			'parent' => '0',
+		) );
 		$level1_assign = array();
-		foreach( $level1_exist as $level1 ) {
-			$level1_assign[ $level1->name ] = array( 'term_id' => $level1->term_id );
+		foreach ( $level1_exist as $level1 ) {
+			$level1_assign[ $level1->name ] = array(
+				'term_id' => $level1->term_id,
+			);
 		}
 
 		remove_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10 );
@@ -253,11 +258,15 @@ class WSUWP_University_Taxonomies {
 		 *     * $level1_children array containing all of the current parent's child arrays.
 		 *     * $level1_assign   array of top level parents that exist in the database with term ids.
 		 */
-		foreach( $level1_names as $level1_name ) {
+		foreach ( $level1_names as $level1_name ) {
 			if ( ! array_key_exists( $level1_name, $level1_assign ) ) {
-				$new_term = wp_insert_term( $level1_name, $taxonomy, array( 'parent' => '0' ) );
+				$new_term = wp_insert_term( $level1_name, $taxonomy, array(
+					'parent' => '0',
+				) );
 				if ( ! is_wp_error( $new_term ) ) {
-					$level1_assign[ $level1_name ] = array( 'term_id' => $new_term['term_id'] );
+					$level1_assign[ $level1_name ] = array(
+						'term_id' => $new_term['term_id'],
+					);
 				}
 			}
 		}
@@ -272,12 +281,17 @@ class WSUWP_University_Taxonomies {
 		 *     * $level1_children array containing all of the current parent's child arrays.
 		 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
 		 */
-		foreach( $level1_names as $level1_name ) {
-			$level2_exists = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+		foreach ( $level1_names as $level1_name ) {
+			$level2_exists = get_terms( $taxonomy, array(
+				'hide_empty' => false,
+				'parent' => $level1_assign[ $level1_name ]['term_id'],
+			) );
 			$level2_assign = array();
 
-			foreach( $level2_exists as $level2 ) {
-				$level2_assign[ $level2->name ] = array( 'term_id' =>  $level2->term_id );
+			foreach ( $level2_exists as $level2 ) {
+				$level2_assign[ $level2->name ] = array(
+					'term_id' => $level2->term_id,
+				);
 			}
 
 			$level2_names = array_keys( $master_list[ $level1_name ] );
@@ -291,11 +305,15 @@ class WSUWP_University_Taxonomies {
 			 *     * $level2_children array containing the current second level category's children. Unused in this context.
 			 *     * $level2_assign   array of this parent's second level categories that exist in the database with term ids.
 			 */
-			foreach( $level2_names as $level2_name ) {
+			foreach ( $level2_names as $level2_name ) {
 				if ( ! array_key_exists( $level2_name, $level2_assign ) ) {
-					$new_term = wp_insert_term( $level2_name, $taxonomy, array( 'parent' => $level1_assign[ $level1_name ]['term_id'] ) );
+					$new_term = wp_insert_term( $level2_name, $taxonomy, array(
+						'parent' => $level1_assign[ $level1_name ]['term_id'],
+					) );
 					if ( ! is_wp_error( $new_term ) ) {
-						$level2_assign[ $level2_name ] = array( 'term_id' => $new_term['term_id'] );
+						$level2_assign[ $level2_name ] = array(
+							'term_id' => $new_term['term_id'],
+						);
 					}
 				}
 			}
@@ -303,14 +321,19 @@ class WSUWP_University_Taxonomies {
 			/**
 			 * Look for mismatches between second and third level category relationships.
 			 */
-			foreach( $level2_names as $level2_name ) {
-				$level3_exists = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+			foreach ( $level2_names as $level2_name ) {
+				$level3_exists = get_terms( $taxonomy, array(
+					'hide_empty' => false,
+					'parent' => $level2_assign[ $level2_name ]['term_id'],
+				) );
 				$level3_exists = wp_list_pluck( $level3_exists, 'name' );
 
 				$level3_names = $master_list[ $level1_name ][ $level2_name ];
-				foreach( $level3_names as $level3_name ) {
-					if ( ! in_array( $level3_name, $level3_exists ) ) {
-						wp_insert_term( $level3_name, $taxonomy, array( 'parent' => $level2_assign[ $level2_name ]['term_id'] ) );
+				foreach ( $level3_names as $level3_name ) {
+					if ( ! in_array( $level3_name, $level3_exists, true ) ) {
+						wp_insert_term( $level3_name, $taxonomy, array(
+							'parent' => $level2_assign[ $level2_name ]['term_id'],
+						) );
 					}
 				}
 			}
@@ -337,7 +360,7 @@ class WSUWP_University_Taxonomies {
 			return;
 		}
 
-		if ( in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
+		if ( in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ), true ) ) {
 			wp_enqueue_style( 'wsuwp-taxonomy-admin', plugins_url( 'css/edit-tags-style.css', __FILE__ ) );
 		}
 
@@ -355,28 +378,35 @@ class WSUWP_University_Taxonomies {
 	 * management screen provided by WordPress core.
 	 */
 	public function display_terms() {
-		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ) ) ) {
+		if ( ! in_array( get_current_screen()->taxonomy, array( $this->university_organization, $this->university_category, $this->university_location ), true ) ) {
 			return;
 		}
 
 		$taxonomy = get_current_screen()->taxonomy;
 
 		// Setup the page.
-		global $title;
 		$tax = get_taxonomy( $taxonomy );
-		$title = $tax->labels->name;
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub""><h2>' . esc_html( $title ) . '</h2>';
+		echo '<div class="wrap nosubsub""><h2>' . esc_html( $tax->labels->name ) . '</h2>';
 
-		$parent_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => '0' ) );
+		$parent_terms = get_terms( $taxonomy, array(
+			'hide_empty' => false,
+			'parent' => '0',
+		) );
 
-		foreach( $parent_terms as $term ) {
+		foreach ( $parent_terms as $term ) {
 			echo '<h3>' . esc_html( $term->name ) . '</h3>';
-			$child_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $term->term_id ) );
+			$child_terms = get_terms( $taxonomy, array(
+				'hide_empty' => false,
+				'parent' => $term->term_id,
+			) );
 
-			foreach( $child_terms as $child ) {
+			foreach ( $child_terms as $child ) {
 				echo '<h4>' . esc_html( $child->name ) . '</h4>';
-				$grandchild_terms = get_terms( $taxonomy, array( 'hide_empty' => false, 'parent' => $child->term_id ) );
+				$grandchild_terms = get_terms( $taxonomy, array(
+					'hide_empty' => false,
+					'parent' => $child->term_id,
+				) );
 
 				echo '<ul>';
 
@@ -388,7 +418,6 @@ class WSUWP_University_Taxonomies {
 				}
 				echo '</ul>';
 			}
-
 		}
 
 		// Close the page.
@@ -491,7 +520,7 @@ class WSUWP_University_Taxonomies {
 				'Prosser' => array(),
 				'Puyallup' => array(),
 				'Wenatchee' => array(),
-			)
+			),
 		);
 
 		return $locations;
@@ -1007,7 +1036,24 @@ class WSUWP_University_Taxonomies {
 				}
 			}
 
-			echo $dropdown;
+			$allowed = array(
+				'select' => array(
+					'class' => array(),
+					'name' => array(),
+					'id' => array(),
+					'multiple' => array(),
+					'style' => array(),
+					'data-tags' => array(),
+					'data-token-separators' => array(),
+				),
+				'option' => array(
+					'class' => array(),
+					'value' => array(),
+					'selected' => array(),
+				),
+			);
+
+			echo wp_kses( $dropdown, $allowed );
 		}
 	}
 }
