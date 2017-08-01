@@ -12,3 +12,6 @@
 
 # Ignore the generated WordPress plugin dist directory
 /dist-wp-plugin
+
+composer.lock
+vendor

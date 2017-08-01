@@ -19,6 +19,16 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		phpcs: {
+			plugin: {
+				src: [ "./*.php" ]
+			},
+			options: {
+				bin: "vendor/bin/phpcs --extensions=php --ignore=\"*/vendor/*,*/node_modules/*\"",
+				standard: "phpcs.ruleset.xml"
+			}
+		},
+
 		jshint: {
 			grunt_script: {
 				src: [ "Gruntfile.js" ],
@@ -66,8 +76,9 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-jscs" );
+	grunt.loadNpmTasks( "grunt-phpcs" );
 
 	// Default task(s).
-	grunt.registerTask( "default", [ "jscs", "jshint" ] );
+	grunt.registerTask( "default", [ "phpcs", "jscs", "jshint" ] );
 	grunt.registerTask( "wp-plugin", [ "copy" ] );
 };
