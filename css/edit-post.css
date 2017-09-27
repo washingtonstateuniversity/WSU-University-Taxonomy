@@ -1,9 +1,12 @@
-#wsuwp-university-taxonomies .select2-container {
-	z-index: 1;
-}
-
+#wsuwp_university_org-adder,
+#wsuwp_university_location-adder,
+#wsuwp_university_category-adder,
 .taxonomy-select2 {
 	display: none;
+}
+
+#wsuwp-university-taxonomies .select2-container {
+	z-index: 1;
 }
 
 .select2-container--default .select2-selection--multiple,
