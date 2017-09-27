@@ -988,6 +988,64 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Provides the term adding interface for heirarchical taxonomies.
+	 *
+	 * @param object $taxonomy Taxonomy settings.
+	 */
+	public function term_adding_interface( $taxonomy ) {
+		$name = $taxonomy->name;
+		$label = $taxonomy->labels->singular_name;
+		?>
+		<div id="<?php echo esc_attr( $name ); ?>-adder"
+			 class="wp-hidden-children">
+
+			<a id="<?php echo esc_attr( $name ); ?>-add-toggle"
+			   href="#<?php echo esc_attr( $name ); ?>-add"
+			   class="hide-if-no-js taxonomy-add-new">+ Add New <?php echo esc_html( $label ); ?></a>
+
+			<p id="<?php echo esc_attr( $name ); ?>-add"
+			   class="<?php echo esc_attr( $name ); ?>-add wp-hidden-child">
+
+				<label class="screen-reader-text"
+					   for="new<?php echo esc_attr( $name ); ?>">Add New <?php echo esc_html( $label ); ?></label>
+
+				<input type="text"
+					   name="new<?php echo esc_attr( $name ); ?>"
+					   id="new<?php echo esc_attr( $name ); ?>"
+					   class="form-required"
+					   value=""
+					   aria-required="true">
+
+				<label class="screen-reader-text"
+					   for="new<?php echo esc_attr( $name ); ?>_parent">Parent <?php echo esc_html( $label ); ?>:</label>
+
+				<?php
+				wp_dropdown_categories( array(
+					'class' => 'postform',
+					'hide_empty' => false,
+					'hierarchical' => true,
+					'id' => 'new' . $name . '_parent',
+					'name' => 'new' . $name . '_parent',
+					'show_option_none' => '— Parent ' . $label . ' —',
+					'taxonomy' => $name,
+				) );
+				?>
+
+				<input type="button"
+					   id="<?php echo esc_attr( $name ); ?>-add-submit"
+					   data-wp-lists="add:<?php echo esc_attr( $name ); ?>checklist:<?php echo esc_attr( $name ); ?>-add"
+					   class="button <?php echo esc_attr( $name ); ?>-add-submit"
+					   value="Add New <?php echo esc_attr( $label ); ?>">
+
+				<?php wp_nonce_field( '_ajax_nonce-add-' . $name, '_ajax_nonce-add-' . $name, false ); ?>
+
+			</p>
+
+		</div>
+		<?php
+	}
+
+	/**
 	 * Display the metabox for selecting taxonomy terms.
 	 */
 	public function display_university_taxonomies_meta_box( $post ) {
@@ -1058,6 +1116,10 @@ class WSUWP_University_Taxonomies {
 			);
 
 			echo wp_kses( $dropdown, $allowed );
+
+			if ( $taxonomy_settings->hierarchical && ! in_array( $taxonomy, array( 'wsuwp_university_org', 'wsuwp_university_location', 'wsuwp_university_category' ), true ) ) {
+				$this->term_adding_interface( $taxonomy_settings );
+			}
 		}
 	}
 }
