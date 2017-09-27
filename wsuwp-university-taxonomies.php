@@ -1082,7 +1082,7 @@ class WSUWP_University_Taxonomies {
 			$additional_attributes = 'multiple="multiple" style="width: 100%"';
 
 			if ( ! $taxonomy_settings->hierarchical ) {
-				$additional_attributes = $additional_attributes . '  data-tags="true" data-token-separators=","';
+				$additional_attributes = $additional_attributes . ' data-tags="true" data-token-separators=","';
 			}
 
 			$dropdown = str_replace( '<select', '<select ' . $additional_attributes, $dropdown );
