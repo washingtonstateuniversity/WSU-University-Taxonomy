@@ -10,4 +10,14 @@
 			return data.text;
 		}
 	} );
+
+	// Toggle the term adding interface.
+	$( ".taxonomy-add-new" ).click( function( e ) {
+		e.preventDefault();
+
+		var taxonomy = $( this ).attr( "id" ).split( "-" )[ 0 ];
+
+		$( "#" + taxonomy + "-adder" ).toggleClass( "wp-hidden-children" );
+		$( "#new" + taxonomy ).focus();
+	} );
 }( jQuery ) );
