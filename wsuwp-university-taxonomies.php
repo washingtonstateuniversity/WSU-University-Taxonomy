@@ -47,6 +47,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
+		add_action( 'wp_ajax_add_term', array( $this, 'ajax_add_term' ) );
 	}
 
 	/**
@@ -370,6 +371,11 @@ class WSUWP_University_Taxonomies {
 				wp_enqueue_style( 'wsuwp-select2' );
 				wp_enqueue_script( 'select2' );
 				wp_enqueue_script( 'wsuwp-select2' );
+
+				wp_localize_script( 'wsuwp-select2', 'wsuwp_taxonomies', array(
+					'ajax_url' => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'wsuwp-add-term' ),
+				) );
 			} else {
 				wp_enqueue_style( 'wsuwp-edit-post', plugins_url( 'css/edit-post.css', __FILE__ ) );
 			}
@@ -1014,7 +1020,8 @@ class WSUWP_University_Taxonomies {
 					   id="new<?php echo esc_attr( $name ); ?>"
 					   class="form-required"
 					   value=""
-					   aria-required="true">
+					   aria-required="true"
+					   autocomplete="off">
 
 				<label class="screen-reader-text"
 					   for="new<?php echo esc_attr( $name ); ?>_parent">Parent <?php echo esc_html( $label ); ?>:</label>
@@ -1027,17 +1034,15 @@ class WSUWP_University_Taxonomies {
 					'id' => 'new' . $name . '_parent',
 					'name' => 'new' . $name . '_parent',
 					'show_option_none' => '— Parent ' . $label . ' —',
+					'option_none_value'  => '0',
 					'taxonomy' => $name,
 				) );
 				?>
 
 				<input type="button"
 					   id="<?php echo esc_attr( $name ); ?>-add-submit"
-					   data-wp-lists="add:<?php echo esc_attr( $name ); ?>checklist:<?php echo esc_attr( $name ); ?>-add"
-					   class="button <?php echo esc_attr( $name ); ?>-add-submit"
+					   class="button term-add-submit"
 					   value="Add New <?php echo esc_attr( $label ); ?>">
-
-				<?php wp_nonce_field( '_ajax_nonce-add-' . $name, '_ajax_nonce-add-' . $name, false ); ?>
 
 			</p>
 
@@ -1121,6 +1126,58 @@ class WSUWP_University_Taxonomies {
 				$this->term_adding_interface( $taxonomy_settings );
 			}
 		}
+	}
+
+	/**
+	 * Adds a term to a hierarchical taxonomy.
+	 */
+	public function ajax_add_term() {
+		check_admin_referer( 'wsuwp-add-term', 'nonce' );
+
+		$taxonomy = sanitize_text_field( $_POST['taxonomy'] );
+		$parent = absint( $_POST['parent'] );
+		$term = sanitize_text_field( $_POST['term'] );
+		$term_slug = sanitize_title( $term );
+
+		$inserted_term = wp_insert_term(
+			$term,
+			$taxonomy,
+			array(
+				'parent' => $parent,
+				'slug' => $term_slug,
+			)
+		);
+
+		// Bail if something has gone wrong.
+		if ( is_wp_error( $inserted_term ) ) {
+			wp_send_json_error();
+		}
+
+		// Get the complete term object.
+		$new_term = get_term( $inserted_term['term_id'], $taxonomy );
+
+		// Determine a logical insertion point for the new term.
+		$all_terms = get_terms( array(
+			'taxonomy' => $taxonomy,
+			'hide_empty' => false,
+			'fields' => 'ids',
+			'parent' => $parent,
+		) );
+
+		$new_term_index = array_search( $inserted_term['term_id'], $all_terms, true );
+
+		if ( 0 !== $new_term_index ) {
+			$insert_after = $all_terms[ $new_term_index - 1 ];
+		} else {
+			$insert_after = $parent;
+		}
+
+		// Pass along the ID of the existing term that the new term should be inserted after.
+		$new_term->wsuwp_insert_after = $insert_after;
+
+		echo wp_json_encode( $new_term );
+
+		exit();
 	}
 }
 new WSUWP_University_Taxonomies();
