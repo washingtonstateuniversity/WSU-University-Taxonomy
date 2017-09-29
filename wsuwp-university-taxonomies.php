@@ -44,7 +44,7 @@ class WSUWP_University_Taxonomies {
 		add_action( 'init', array( $this, 'register_taxonomies' ), 11 );
 		add_action( 'load-edit-tags.php', array( $this, 'compare_schema' ), 10 );
 		add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
 		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_add_term', array( $this, 'ajax_add_term' ) );
