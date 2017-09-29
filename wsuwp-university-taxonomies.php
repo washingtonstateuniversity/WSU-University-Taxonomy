@@ -352,8 +352,8 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function admin_enqueue_scripts( $hook ) {
 		// Register scripts and styles so they can be easily enqueued by other plugins if needed.
-		wp_register_style( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css' );
-		wp_register_script( 'select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', array( 'jquery' ) );
+		wp_register_style( 'select2', plugins_url( 'assets/select2.min.css', __FILE__ ) );
+		wp_register_script( 'select2', plugins_url( 'assets/select2.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_register_style( 'wsuwp-select2', plugins_url( 'css/wsuwp-select2.css', __FILE__ ), array( 'select2' ) );
 		wp_register_script( 'wsuwp-select2', plugins_url( 'js/wsuwp-select2.js', __FILE__ ), array( 'select2' ), null, true );
 
