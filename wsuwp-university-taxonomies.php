@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.3.3
+Version: 0.4.0
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
-Author: washingtonstateuniversity, jeremyfelt
+Author: washingtonstateuniversity, jeremyfelt, philcable
 Author URI: https://web.wsu.edu/
 */
 
