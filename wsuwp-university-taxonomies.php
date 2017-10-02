@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.0
+Version: 0.4.1
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -351,6 +351,10 @@ class WSUWP_University_Taxonomies {
 	 * @param string $hook Hook indicating the current admin page.
 	 */
 	public function admin_enqueue_scripts( $hook ) {
+		if ( false === apply_filters( 'wsu_taxonomy_select2_interface', true ) ) {
+			return;
+		}
+
 		// Register scripts and styles so they can be easily enqueued by other plugins if needed.
 		wp_register_style( 'select2', plugins_url( 'assets/select2.min.css', __FILE__ ) );
 		wp_register_script( 'select2', plugins_url( 'assets/select2.min.js', __FILE__ ), array( 'jquery' ) );
@@ -966,6 +970,10 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function taxonomy_meta_boxes( $post_type, $context ) {
 		if ( 'side' !== $context ) {
+			return;
+		}
+
+		if ( false === apply_filters( 'wsu_taxonomy_select2_interface', true ) ) {
 			return;
 		}
 
