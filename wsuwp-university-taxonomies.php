@@ -1062,8 +1062,10 @@ class WSUWP_University_Taxonomies {
 	 * Display the metabox for selecting taxonomy terms.
 	 */
 	public function display_university_taxonomies_meta_box( $post ) {
-		// Get only the whitelisted taxonomies.
-		$taxonomies = array_intersect( $this->get_default_metabox_taxonomies(), get_object_taxonomies( $post ) );
+		// Ensure that only the appropriate taxonomies are displayed for the current post type.
+		$post_types = $this->get_default_metabox_post_types();
+		$post_type_taxonomies = ( isset( $post_types[ get_post_type() ] ) ) ? $post_types[ get_post_type() ] : $this->get_default_metabox_taxonomies();
+		$taxonomies = array_intersect( $post_type_taxonomies, get_object_taxonomies( $post ) );
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$taxonomy_settings = get_taxonomy( $taxonomy );
