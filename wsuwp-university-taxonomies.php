@@ -935,6 +935,8 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Returns default taxonomies.
+	 *
+	 * @return array Taxonomies to include in the custom metabox.
 	 */
 	public function get_default_metabox_taxonomies() {
 		$taxonomies = array(
@@ -950,6 +952,8 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Returns default post types.
+	 *
+	 * @return array Post types for which to display the custom taxonomy metabox.
 	 */
 	public function get_default_metabox_post_types() {
 		$taxonomies = $this->get_default_metabox_taxonomies();
@@ -1003,6 +1007,11 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Provides a filter for easily disabling the term adding interface.
+	 *
+	 * This is only for the Edit/Add New {Post Type} view,
+	 * and has no impact on the taxonomy's dashboard page.
+	 *
+	 * @return array Taxonomies for which to disable the term adding interface.
 	 */
 	public function disable_term_adding_interface() {
 		$taxonomies = array(
