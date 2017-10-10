@@ -1002,6 +1002,19 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Provides a filter for easily disabling the term adding interface.
+	 */
+	public function disable_term_adding_interface() {
+		$taxonomies = array(
+			'wsuwp_university_org',
+			'wsuwp_university_location',
+			'wsuwp_university_category',
+		);
+
+		return apply_filters( 'wsuwp_taxonomy_metabox_disable_new_term_adding', $taxonomies );
+	}
+
+	/**
 	 * Provides the term adding interface for heirarchical taxonomies.
 	 *
 	 * @param object $taxonomy Taxonomy settings.
@@ -1132,7 +1145,7 @@ class WSUWP_University_Taxonomies {
 
 			echo wp_kses( $dropdown, $allowed );
 
-			if ( $taxonomy_settings->hierarchical && ! in_array( $taxonomy, array( 'wsuwp_university_org', 'wsuwp_university_location', 'wsuwp_university_category' ), true ) ) {
+			if ( $taxonomy_settings->hierarchical && ! in_array( $taxonomy, $this->disable_term_adding_interface(), true ) ) {
 				$this->term_adding_interface( $taxonomy_settings );
 			}
 		}
