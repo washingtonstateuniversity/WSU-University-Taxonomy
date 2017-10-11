@@ -935,6 +935,8 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Returns default taxonomies.
+	 *
+	 * @return array Taxonomies to include in the custom metabox.
 	 */
 	public function get_default_metabox_taxonomies() {
 		$taxonomies = array(
@@ -950,6 +952,8 @@ class WSUWP_University_Taxonomies {
 
 	/**
 	 * Returns default post types.
+	 *
+	 * @return array Post types for which to display the custom taxonomy metabox.
 	 */
 	public function get_default_metabox_post_types() {
 		$taxonomies = $this->get_default_metabox_taxonomies();
@@ -999,6 +1003,24 @@ class WSUWP_University_Taxonomies {
 			'side',
 			'low'
 		);
+	}
+
+	/**
+	 * Provides a filter for easily disabling the term adding interface.
+	 *
+	 * This is only for the Edit/Add New {Post Type} view,
+	 * and has no impact on the taxonomy's dashboard page.
+	 *
+	 * @return array Taxonomies for which to disable the term adding interface.
+	 */
+	public function disable_term_adding_interface() {
+		$taxonomies = array(
+			'wsuwp_university_org',
+			'wsuwp_university_location',
+			'wsuwp_university_category',
+		);
+
+		return apply_filters( 'wsuwp_taxonomy_metabox_disable_new_term_adding', $taxonomies );
 	}
 
 	/**
@@ -1062,8 +1084,10 @@ class WSUWP_University_Taxonomies {
 	 * Display the metabox for selecting taxonomy terms.
 	 */
 	public function display_university_taxonomies_meta_box( $post ) {
-		// Get only the whitelisted taxonomies.
-		$taxonomies = array_intersect( $this->get_default_metabox_taxonomies(), get_object_taxonomies( $post ) );
+		// Ensure that only the appropriate taxonomies are displayed for the current post type.
+		$post_types = $this->get_default_metabox_post_types();
+		$post_type_taxonomies = ( isset( $post_types[ get_post_type() ] ) ) ? $post_types[ get_post_type() ] : $this->get_default_metabox_taxonomies();
+		$taxonomies = array_intersect( $post_type_taxonomies, get_object_taxonomies( $post ) );
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$taxonomy_settings = get_taxonomy( $taxonomy );
@@ -1130,7 +1154,7 @@ class WSUWP_University_Taxonomies {
 
 			echo wp_kses( $dropdown, $allowed );
 
-			if ( $taxonomy_settings->hierarchical && ! in_array( $taxonomy, array( 'wsuwp_university_org', 'wsuwp_university_location', 'wsuwp_university_category' ), true ) ) {
+			if ( $taxonomy_settings->hierarchical && ! in_array( $taxonomy, $this->disable_term_adding_interface(), true ) ) {
 				$this->term_adding_interface( $taxonomy_settings );
 			}
 		}
