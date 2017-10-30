@@ -1219,8 +1219,8 @@ class WSUWP_University_Taxonomies {
 	 * Ensures that a post's terms are properly updated
 	 * when all terms for a given taxonomy are removed.
 	 *
-	 * @param int      $post_id
-	 * @param \WP_Post $post
+	 * @param int     $post_id
+	 * @param WP_Post $post
 	 */
 	public function save_post( $post_id, $post ) {
 		if ( ! isset( $_POST['wsuwp_select2_nonce'] ) || ! wp_verify_nonce( $_POST['wsuwp_select2_nonce'], 'wsuwp_select2_interface' ) ) {
