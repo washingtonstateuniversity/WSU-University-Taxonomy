@@ -48,6 +48,7 @@ class WSUWP_University_Taxonomies {
 		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_add_term', array( $this, 'ajax_add_term' ) );
+		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 	}
 
 	/**
@@ -1084,6 +1085,8 @@ class WSUWP_University_Taxonomies {
 	 * Display the metabox for selecting taxonomy terms.
 	 */
 	public function display_university_taxonomies_meta_box( $post ) {
+		wp_nonce_field( 'wsuwp_select2_interface', 'wsuwp_select2_nonce' );
+
 		// Ensure that only the appropriate taxonomies are displayed for the current post type.
 		$post_types = $this->get_default_metabox_post_types();
 		$post_type_taxonomies = ( isset( $post_types[ get_post_type() ] ) ) ? $post_types[ get_post_type() ] : $this->get_default_metabox_taxonomies();
@@ -1210,6 +1213,49 @@ class WSUWP_University_Taxonomies {
 		echo wp_json_encode( $new_term );
 
 		exit();
+	}
+
+	/**
+	 * Ensures that a post's terms are properly updated
+	 * when all terms for a given taxonomy are removed.
+	 *
+	 * @param int      $post_id
+	 * @param \WP_Post $post
+	 */
+	public function save_post( $post_id, $post ) {
+		if ( ! isset( $_POST['wsuwp_select2_nonce'] ) || ! wp_verify_nonce( $_POST['wsuwp_select2_nonce'], 'wsuwp_select2_interface' ) ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( 'auto-draft' === $post->post_status ) {
+			return;
+		}
+
+		// The nonce check should prevent us from getting this far,
+		// but just for good measure, we'll check if the post type
+		// is in the whitelist before proceeding.
+		$post_types = $this->get_default_metabox_post_types();
+
+		if ( ! in_array( $post->post_type, array_keys( $post_types ), true ) ) {
+			return;
+		}
+
+		$taxonomies = get_post_taxonomies( $post_id );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			// Skip over any taxonomies that aren't included in the Select2 interface.
+			if ( ! in_array( $taxonomy, $post_types[ $post->post_type ], true ) ) {
+				continue;
+			}
+
+			if ( ! isset( $_POST['tax_input'][ $taxonomy ] ) ) {
+				wp_set_object_terms( $post_id, '', $taxonomy );
+			}
+		}
 	}
 }
 new WSUWP_University_Taxonomies();
