@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.3
+Version: 0.4.4
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -1133,7 +1133,7 @@ class WSUWP_University_Taxonomies {
 
 			if ( $selected_terms && ! is_wp_error( $selected_terms ) ) {
 				foreach ( $selected_terms as $term ) {
-					$value = ( 'post_tag' === $taxonomy ) ? $term->name : $term->term_id;
+					$value = ( $taxonomy_settings->hierarchical ) ? $term->term_id : $term->name;
 					$dropdown = str_replace( 'value="' . $value . '"', 'value="' . $value . '" selected="selected"', $dropdown );
 				}
 			}
