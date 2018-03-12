@@ -447,7 +447,7 @@ class WSUWP_University_Taxonomies {
 		// Setup the page.
 		$tax = get_taxonomy( $taxonomy );
 		require_once( ABSPATH . 'wp-admin/admin-header.php' );
-		echo '<div class="wrap nosubsub""><h2>' . esc_html( $tax->labels->name ) . '</h2>';
+		echo '<div class="wrap nosubsub"><h2>' . esc_html( $tax->labels->name ) . '</h2>';
 
 		$parent_terms = get_terms( $taxonomy, array(
 			'hide_empty' => false,
