@@ -13,7 +13,9 @@
 
 .wrap li {
 	display: inline-block;
-	width: 250px;
+	padding: 0 12px;
+	vertical-align: top;
+	width: 226px;
 }
 
 .wrap li em {
