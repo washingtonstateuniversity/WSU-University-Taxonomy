@@ -216,6 +216,48 @@ class WSUWP_University_Taxonomies {
 	}
 
 	/**
+	 * Process term removals or name changes.
+	 *
+	 * @param strong $taxonomy Taxonomy for which to process term changes.
+	 */
+	public function process_term_updates( $taxonomy ) {
+		$existing_terms = get_terms( array(
+			'taxonomy' => $taxonomy,
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		) );
+
+		// Bail if there are no existing terms.
+		if ( empty( $existing_terms ) ) {
+			return;
+		}
+
+		// Flip the array of terms so we have IDs keyed by name.
+		$existing_terms = array_flip( $existing_terms );
+
+		// Get the array of terms that have been updated.
+		$updated_names = $this->get_university_term_updates( $taxonomy );
+
+		foreach ( $updated_names as $previous_name => $new_name ) {
+
+			// Confirm an existing match before processing any change.
+			if ( ! array_key_exists( $previous_name, $existing_terms ) ) {
+				continue;
+			}
+
+			$existing_term_id = $existing_terms[ $previous_name ];
+
+			if ( '' === $new_name ) {
+				wp_delete_term( $existing_term_id, $taxonomy );
+			} else {
+				wp_update_term( $existing_term_id, $taxonomy, array(
+					'name' => $new_name,
+				) );
+			}
+		}
+	}
+
+	/**
 	 * Ensure all of the pre-configured terms for a given taxonomy are loaded with
 	 * the proper parent -> child relationships.
 	 *
@@ -234,6 +276,9 @@ class WSUWP_University_Taxonomies {
 		} else {
 			return;
 		}
+
+		// Process term removals or name changes.
+		$this->process_term_updates( $taxonomy );
 
 		// Get our current list of top level parents.
 		$level1_exist  = get_terms( $taxonomy, array(
@@ -527,7 +572,7 @@ class WSUWP_University_Taxonomies {
 					'Educational Leadership, Sports Studies, and Educational / Counseling Psychology',
 					'Teaching and Learning',
 				),
-				'College of Medical Sciences' => array( // Needs to change to 'Elson S. Floyd College of Medicine'
+				'Elson S. Floyd College of Medicine' => array(
 					'Biomedical Sciences',
 					'Medical Education and Clinical Sciences',
 					'Nutrition and Exercise Physiology',
@@ -1029,6 +1074,26 @@ class WSUWP_University_Taxonomies {
 		);
 
 		return $categories;
+	}
+
+	/**
+	 * Maintain an array of terms that have been changed.
+	 *
+	 * The array should follow the 'existing name' => 'new name' format,
+	 * with the 'new name' value being empty if the term is being deleted.
+	 *
+	 * @return array Terms that have been changed.
+	 */
+	public function get_university_term_updates( $taxonomy ) {
+		$updated_terms = array();
+
+		if ( 'wsuwp_university_org' === $taxonomy ) {
+			$updated_terms = array(
+				'College of Medical Sciences' => 'Elson S. Floyd College of Medicine',
+			);
+		}
+
+		return $updated_terms;
 	}
 
 	/**
