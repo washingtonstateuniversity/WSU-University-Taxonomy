@@ -599,7 +599,7 @@ class WSUWP_University_Taxonomies {
 					'Crop and Soil Sciences',
 					'School of Economic Sciences',
 					'Entomology',
-					'School of the Environment', //**
+					'School of the Environment', // Shared with College of Arts and Sciences.
 					'School of Food Science',
 					'Horticulture',
 					'Human Development',
@@ -616,7 +616,7 @@ class WSUWP_University_Taxonomies {
 					'Critical Culture, Gender, and Race Studies',
 					'Digital Technology and Culture Program',
 					'English',
-					'School of the Environment', //**
+					'School of the Environment', // Shared with CAHNRS.
 					'Fine Arts',
 					'Foreign Languages and Cultures',
 					'History',
