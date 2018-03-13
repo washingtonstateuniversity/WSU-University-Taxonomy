@@ -46,6 +46,9 @@ class WSUWP_University_Taxonomies {
 		add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
 		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
+		add_filter( 'parent_file', array( $this, 'parent_file' ) );
+		add_filter( 'submenu_file', array( $this, 'submenu_file' ), 10, 2 );
+
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_add_term', array( $this, 'ajax_add_term' ) );
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
@@ -484,6 +487,63 @@ class WSUWP_University_Taxonomies {
 		echo '</div>';
 		include( ABSPATH . 'wp-admin/admin-footer.php' );
 		die();
+	}
+
+	/**
+	 * Sets the active parent menu item for a taxonomy dashboard page.
+	 * Using the `load-edit-tags.php` hook prevents this from being set by default.
+	 *
+	 * @param string $parent_file The parent file.
+	 *
+	 * @return string
+	 */
+	public function parent_file( $parent_file ) {
+		if ( ! isset( $_GET['taxonomy'] ) || ! in_array( $_GET['taxonomy'], array( $this->university_category, $this->university_location, $this->university_organization ), true ) ) { // WPCS: CSRF ok.
+			return $parent_file;
+		}
+
+		if ( ! isset( $_GET['post_type'] ) ) { // WPCS: CSRF ok.
+			$parent_file = 'edit.php';
+
+			return $parent_file;
+		}
+
+		$post_type = sanitize_text_field( $_GET['post_type'] );
+		$parent_file .= "edit.php?post_type=$post_type";
+
+		return $parent_file;
+	}
+
+	/**
+	 * Sets the active menu item for a taxonomy dashboard page.
+	 * Using the `load-edit-tags.php` hook prevents this from being set by default.
+	 *
+	 * @param string $submenu_file The submenu file.
+	 * @param string $parent_file  The parent file.
+	 *
+	 * @return string
+	 */
+	public function submenu_file( $submenu_file, $parent_file ) {
+		if ( ! isset( $_GET['taxonomy'] ) || ! in_array( $_GET['taxonomy'], array( $this->university_category, $this->university_location, $this->university_organization ), true ) ) { // WPCS: CSRF ok.
+			return $submenu_file;
+		}
+
+		$taxonomy = sanitize_text_field( $_GET['taxonomy'] );
+		$submenu_file = "edit-tags.php?taxonomy=$taxonomy";
+
+		if ( isset( $_GET['post_type'] ) ) { // WPCS: CSRF ok.
+			$args = array(
+				'public' => true,
+			);
+			$post_types = get_post_types( $args, 'names' );
+
+			if ( in_array( $_GET['post_type'], $post_types, true ) ) { // WPCS: CSRF ok.
+				$post_type = sanitize_text_field( $_GET['post_type'] );
+				$submenu_file .= "&amp;post_type=$post_type";
+			}
+		}
+
+		return $submenu_file;
 	}
 
 	/**
