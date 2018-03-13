@@ -597,10 +597,9 @@ class WSUWP_University_Taxonomies {
 					'Apparel, Merchandising, Design, and Textiles',
 					'Biological Systems Engineering',
 					'Crop and Soil Sciences',
-					'School of Design and Construction', //*
 					'School of Economic Sciences',
 					'Entomology',
-					'School of the Environment', //**
+					'School of the Environment', // Shared with College of Arts and Sciences.
 					'School of Food Science',
 					'Horticulture',
 					'Human Development',
@@ -617,7 +616,7 @@ class WSUWP_University_Taxonomies {
 					'Critical Culture, Gender, and Race Studies',
 					'Digital Technology and Culture Program',
 					'English',
-					'School of the Environment', //**
+					'School of the Environment', // Shared with CAHNRS.
 					'Fine Arts',
 					'Foreign Languages and Cultures',
 					'History',
@@ -660,7 +659,7 @@ class WSUWP_University_Taxonomies {
 				'Voiland College of Engineering and Architecture' => array(
 					'School of Chemical Engineering and Bioengineering',
 					'Civil and Environmental Engineering',
-					'School of Design and Construction', //*
+					'School of Design and Construction',
 					'School of Electrical Engineering and Computer Science',
 					'Engineering and Computer Science (Tri-Cities)',
 					'School of Engineering and Computer Science (Vancouver)',
