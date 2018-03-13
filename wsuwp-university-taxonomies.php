@@ -597,7 +597,6 @@ class WSUWP_University_Taxonomies {
 					'Apparel, Merchandising, Design, and Textiles',
 					'Biological Systems Engineering',
 					'Crop and Soil Sciences',
-					'School of Design and Construction', //*
 					'School of Economic Sciences',
 					'Entomology',
 					'School of the Environment', //**
@@ -660,7 +659,7 @@ class WSUWP_University_Taxonomies {
 				'Voiland College of Engineering and Architecture' => array(
 					'School of Chemical Engineering and Bioengineering',
 					'Civil and Environmental Engineering',
-					'School of Design and Construction', //*
+					'School of Design and Construction',
 					'School of Electrical Engineering and Computer Science',
 					'Engineering and Computer Science (Tri-Cities)',
 					'School of Engineering and Computer Science (Vancouver)',
