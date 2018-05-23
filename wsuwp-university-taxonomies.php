@@ -71,6 +71,12 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function check_schema() {
 		if ( get_option( 'wsu_taxonomy_schema', false ) !== $this->taxonomy_schema_version ) {
+			// Don't schedule a duplicate event if one has already been scheduled.
+			$next = wp_next_scheduled( $hook, $args );
+			if ( $next )  {
+				return;
+			}
+
 			wp_schedule_single_event( time() + 60, 'wsu_taxonomy_update_schema' );
 		}
 	}
