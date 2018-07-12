@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20180312-001';
+	var $taxonomy_schema_version = '20180712-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
