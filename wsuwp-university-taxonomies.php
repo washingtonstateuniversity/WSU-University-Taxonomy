@@ -619,19 +619,19 @@ class WSUWP_University_Taxonomies {
 					'School of Biological Sciences',
 					'Chemistry',
 					'Criminal Justice and Criminology',
-					'Critical Culture, Gender, and Race Studies',
 					'Digital Technology and Culture Program',
 					'English',
 					'School of the Environment', // Shared with CAHNRS.
 					'Fine Arts',
-					'Foreign Languages and Cultures',
 					'History',
+					'School of Languages, Cultures, and Race',
 					'Mathematics and Statistics',
 					'School of Music',
 					'Physics and Astronomy',
 					'School of Politics, Philosophy, and Public Affairs',
 					'Psychology',
 					'Sociology',
+					'Women\'s Studies Program',
 				),
 				'College of Education' => array(
 					'Educational Leadership, Sports Studies, and Educational / Counseling Psychology',
@@ -1155,6 +1155,8 @@ class WSUWP_University_Taxonomies {
 		if ( 'wsuwp_university_org' === $taxonomy ) {
 			$updated_terms = array(
 				'College of Medical Sciences' => 'Elson S. Floyd College of Medicine',
+				'Critical Culture, Gender, and Race Studies' => 'School of Languages, Cultures, and Race',
+				'Foreign Languages and Cultures' => '',
 			);
 		}
 
