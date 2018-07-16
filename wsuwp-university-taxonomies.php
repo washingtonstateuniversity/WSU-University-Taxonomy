@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.7
+Version: 0.4.8
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20180712-001';
+	var $taxonomy_schema_version = '20180716-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -561,9 +561,17 @@ class WSUWP_University_Taxonomies {
 		$organizations = array(
 			'Office' => array(
 				'Academic Outreach and Innovation' => array(),
-				'Budget' => array(),
-				'Emergency Management' => array(),
-				'Enrollment Management' => array(),
+				'Alumni Association' => array(),
+				'Budget Office' => array(),
+				'Cougar Health Services' => array(),
+				'Office of Emergency Management' => array(),
+				'Enrollment Management' => array(
+					'Office of Admissions and Recruitment',
+					'New Student Programs',
+					'Student Financial Services',
+					'Office of the Registrar',
+					'Enrollment Information Technology',
+				),
 				'Extension' => array(
 					'Agriculture and Natural Resources',
 					'Community and Economic Development',
@@ -573,22 +581,28 @@ class WSUWP_University_Taxonomies {
 				'Facilities Services' => array(),
 				'Finance and Administration' => array(),
 				'Foundation' => array(),
-				'Graduate School' => array(),
-				'Health and Wellness' => array(),
-				'Human Resources' => array(),
+				'Graduate School' => array(
+					'Molecular Plant Sciences',
+				),
+				'Human Resource Services' => array(),
 				'Information Technology Services' => array(),
 				'Intercollegiate Athletics' => array(),
-				'Internal Audit' => array(),
-				'International Programs' => array(),
+				'Office of Internal Audit' => array(),
+				'Office of International Programs' => array(),
 				'Libraries' => array(),
-				'President' => array(),
-				'Provost' => array(),
+				'Office of the President' => array(),
+				'Office of the Provost' => array(),
 				'Public Safety' => array(),
-				'Research' => array(
-					'Commercialization',
+				'Office of Research' => array(
+					'Office of Commercialization',
+					'Office of Research Advancement and Partnerships',
 				),
-				'Student Affairs' => array(),
-				'University Communications' => array(),
+				'Sleep and Performance Research Center' => array(),
+				'Division of Student Affairs' => array(),
+				'Transportation Services' => array(),
+				'Office of Undergraduate Education' => array(),
+				'University Marketing and Communications' => array(),
+				'Office of Veterans Affairs' => array(),
 			),
 			'College' => array(
 				'Carson College of Business' => array(
@@ -598,7 +612,7 @@ class WSUWP_University_Taxonomies {
 					'Management, Information Systems and Entrepreneurship',
 					'Marketing and International Business',
 				),
-				'CAHNRS' => array(
+				'College of Agricultural, Human, and Natural Resource Sciences' => array(
 					'Animal Science',
 					'Apparel, Merchandising, Design, and Textiles',
 					'Biological Systems Engineering',
@@ -618,6 +632,7 @@ class WSUWP_University_Taxonomies {
 					'Asian Program',
 					'School of Biological Sciences',
 					'Chemistry',
+					'Creative Media and Digital Culture Program',
 					'Criminal Justice and Criminology',
 					'Digital Technology and Culture Program',
 					'English',
@@ -644,7 +659,7 @@ class WSUWP_University_Taxonomies {
 					'Speech and Hearing Sciences',
 				),
 				'College of Nursing' => array(),
-				'College of Pharmacy' => array(
+				'College of Pharmacy and Pharmaceutical Sciences' => array(
 					'Experimental and Systems Pharmacology',
 					'Pharmaceutical Sciences',
 					'Pharmacotherapy',
@@ -1157,6 +1172,20 @@ class WSUWP_University_Taxonomies {
 				'College of Medical Sciences' => 'Elson S. Floyd College of Medicine',
 				'Critical Culture, Gender, and Race Studies' => 'School of Languages, Cultures, and Race',
 				'Foreign Languages and Cultures' => '',
+				'Budget' => 'Budget Office',
+				'Emergency Management' => 'Office of Emergency Management',
+				'Health and Wellness' => 'Cougar Health Services',
+				'Human Resources' => 'Human Resource Services',
+				'Internal Audit' => 'Office of Internal Audit',
+				'International Programs' => 'Office of International Programs',
+				'President' => 'Office of the President',
+				'Provost' => 'Office of the Provost',
+				'Research' => 'Office of Research',
+				'Commercialization' => 'Office of Commercialization',
+				'Student Affairs' => 'Division of Student Affairs',
+				'University Communications' => 'University Marketing and Communications',
+				'CAHNRS' => 'College of Agricultural, Human, and Natural Resource Sciences',
+				'College of Pharmacy' => 'College of Pharmacy and Pharmaceutical Sciences',
 			);
 		}
 
