@@ -579,6 +579,7 @@ class WSUWP_University_Taxonomies {
 				),
 				'External Affairs and Government Relations' => array(),
 				'Facilities Services' => array(),
+				'Faculty Senate' => array(),
 				'Finance and Administration' => array(),
 				'Foundation' => array(),
 				'Graduate School' => array(
