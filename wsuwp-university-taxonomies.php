@@ -592,7 +592,9 @@ class WSUWP_University_Taxonomies {
 				'Office of International Programs' => array(),
 				'Libraries' => array(),
 				'Office of the President' => array(),
-				'Office of the Provost' => array(),
+				'Office of the Provost' => array(
+					'Jordan Schnitzer Museum of Art WSU',
+				),
 				'Public Safety' => array(),
 				'Office of Research' => array(
 					'Office of Commercialization',
