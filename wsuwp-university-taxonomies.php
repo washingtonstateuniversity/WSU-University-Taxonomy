@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.10
+Version: 0.4.11
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20180820-001';
+	var $taxonomy_schema_version = '20180821-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -751,7 +751,7 @@ class WSUWP_University_Taxonomies {
 				'Yakima County' => array(),
 			),
 			'WSU Seattle'                      => array(),
-			'WSU North Puget Sound at Everett' => array(),
+			'WSU Everett'                      => array(),
 			'WSU Research Centers'             => array(
 				'Lind' => array(),
 				'Long Beach' => array(),
@@ -1189,6 +1189,12 @@ class WSUWP_University_Taxonomies {
 				'University Communications' => 'University Marketing and Communications',
 				'CAHNRS' => 'College of Agricultural, Human, and Natural Resource Sciences',
 				'College of Pharmacy' => 'College of Pharmacy and Pharmaceutical Sciences',
+			);
+		}
+
+		if ( 'wsuwp_university_location' === $taxonomy ) {
+			$updated_terms = array(
+				'WSU North Puget Sound at Everett' => 'WSU Everett',
 			);
 		}
 
