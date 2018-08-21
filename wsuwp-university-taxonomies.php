@@ -751,7 +751,7 @@ class WSUWP_University_Taxonomies {
 				'Yakima County' => array(),
 			),
 			'WSU Seattle'                      => array(),
-			'WSU North Puget Sound at Everett' => array(),
+			'WSU Everett'                      => array(),
 			'WSU Research Centers'             => array(
 				'Lind' => array(),
 				'Long Beach' => array(),
@@ -1189,6 +1189,12 @@ class WSUWP_University_Taxonomies {
 				'University Communications' => 'University Marketing and Communications',
 				'CAHNRS' => 'College of Agricultural, Human, and Natural Resource Sciences',
 				'College of Pharmacy' => 'College of Pharmacy and Pharmaceutical Sciences',
+			);
+		}
+
+		if ( 'wsuwp_university_locations' === $taxonomy ) {
+			$updated_terms = array(
+				'WSU North Puget Sound at Everett' => 'WSU Everett',
 			);
 		}
 
