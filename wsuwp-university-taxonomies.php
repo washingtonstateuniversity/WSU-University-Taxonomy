@@ -594,6 +594,7 @@ class WSUWP_University_Taxonomies {
 				'Office of the President' => array(),
 				'Office of the Provost' => array(
 					'Jordan Schnitzer Museum of Art WSU',
+					'Association for Faculty Women',
 				),
 				'Public Safety' => array(),
 				'Office of Research' => array(
