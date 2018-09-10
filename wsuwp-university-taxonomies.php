@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.11
+Version: 0.4.12
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20180821-001';
+	var $taxonomy_schema_version = '20180910-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -594,6 +594,7 @@ class WSUWP_University_Taxonomies {
 				'Office of the President' => array(),
 				'Office of the Provost' => array(
 					'Jordan Schnitzer Museum of Art WSU',
+					'Association for Faculty Women',
 				),
 				'Public Safety' => array(),
 				'Office of Research' => array(
