@@ -762,7 +762,7 @@ class WSUWP_University_Taxonomies {
 				'Puyallup' => array(),
 				'Wenatchee' => array(),
 			),
-			'WSU Bremerton'						=> array (
+			'WSU Bremerton'                    =>array(
 				'Olympic College' => array(),
 			),
 		);
