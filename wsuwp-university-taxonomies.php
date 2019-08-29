@@ -653,8 +653,9 @@ class WSUWP_University_Taxonomies {
 					'Women\'s Studies Program',
 				),
 				'College of Education' => array(
-					'Educational Leadership, Sports Studies, and Educational / Counseling Psychology',
+					'Educational Leadership and Sport Management',
 					'Teaching and Learning',
+					'Kinesiology and Educational Psychology',
 				),
 				'Elson S. Floyd College of Medicine' => array(
 					'Biomedical Sciences',
@@ -705,7 +706,7 @@ class WSUWP_University_Taxonomies {
 		$locations = array(
 			'WSU Pullman'                      => array(),
 			'WSU West/Downtown Seattle'        => array(),
-			'WSU Spokane'                      => array(),
+			'WSU Health Sciences Spokane'      => array(),
 			'WSU Tri-Cities'                   => array(),
 			'WSU Vancouver'                    => array(),
 			'WSU Global Campus'                => array(),
