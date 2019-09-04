@@ -605,7 +605,32 @@ class WSUWP_University_Taxonomies {
 				'Division of Student Affairs' => array(),
 				'Transportation Services' => array(),
 				'Office of Undergraduate Education' => array(),
-				'University Marketing and Communications' => array(),
+				'University Marketing and Communications' => array(
+					'Administration' => array(),
+					'Finance and Administrative Support Team' => array(
+						'Finance and Administration',
+						'IT Support',
+					),
+					'Strategic Communications' => array(
+						'EM Marketing',
+						'University Events',
+						'News and Media Relations',
+						'Presidential Communications',
+						'Visual Design',
+						'Photo Services',
+						'Video Services',
+						'WA State Magazine',
+						'Web Communications',
+					),
+					'University Publishing' => array(
+						'Coug Prints Plus',
+						'Graphic Design',
+						'Mailing Services',
+						'Printing Services',
+						'Production Coordination',
+						'WSU Press',
+					),
+				),
 				'Office of Veterans Affairs' => array(),
 			),
 			'College' => array(
