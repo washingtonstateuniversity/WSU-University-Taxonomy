@@ -1,6 +1,6 @@
 {
 	"name": "wsu-university-taxonomy",
-	"version": "0.4.12",
+	"version": "0.5.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/washingtonstateuniversity/wsu-university-taxonomy.git"
