@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.16
+Version: 0.4.17
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20190904-003';
+	var $taxonomy_schema_version = '20190919-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -675,7 +675,6 @@ class WSUWP_University_Taxonomies {
 					'Women\'s Studies Program',
 				),
 				'College of Education' => array(
-					'Educational Leadership, Sports Studies, and Educational / Counseling Psychology',
 					'Teaching and Learning',
 					'Kinesiology and Educational Psychology',
 				),
@@ -1216,7 +1215,7 @@ class WSUWP_University_Taxonomies {
 				'University Communications' => 'University Marketing and Communications',
 				'CAHNRS' => 'College of Agricultural, Human, and Natural Resource Sciences',
 				'College of Pharmacy' => 'College of Pharmacy and Pharmaceutical Sciences',
-				'Educational Leadership and Sport Management' => '',
+				'Educational Leadership, Sports Studies, and Educational / Counseling Psychology' => 'Educational Leadership and Sport Management',
 			);
 		}
 
