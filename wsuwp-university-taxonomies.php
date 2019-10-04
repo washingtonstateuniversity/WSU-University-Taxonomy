@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 0.4.17
+Version: 1.0.0
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20190919-001';
+	var $taxonomy_schema_version = '20191004-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -606,26 +606,26 @@ class WSUWP_University_Taxonomies {
 				'Transportation Services' => array(),
 				'Office of Undergraduate Education' => array(),
 				'University Marketing and Communications' => array(
-					'Administration',
-					'Finance and Administrative Support Team',
+					'Administration - University Marketing and Communications',
+					'Finance and Administrative Support Team - University Marketing and Communications',
 					'Finance and Administration',
-					'IT Support',
-					'Strategic Communications',
-					'EM Marketing',
-					'University Events',
-					'News and Media Relations',
-					'Presidential Communications',
-					'Visual Design',
-					'Photo Services',
-					'Video Services',
-					'WA State Magazine',
-					'Web Communications',
-					'University Publishing',
-					'Coug Prints Plus',
-					'Graphic Design',
-					'Mailing Services',
-					'Printing Services',
-					'Production Coordination',
+					'IT Support - University Marketing and Communications',
+					'Strategic Communications - University Marketing and Communications',
+					'EM Marketing - University Marketing and Communications',
+					'University Events - University Marketing and Communications',
+					'News and Media Relations - University Marketing and Communications',
+					'Presidential Communications - University Marketing and Communications',
+					'Visual Design - University Marketing and Communications',
+					'Photo Services - University Marketing and Communications',
+					'Video Services - University Marketing and Communications',
+					'WA State Magazine - University Marketing and Communications',
+					'Web Communications - University Marketing and Communications',
+					'University Publishing - University Marketing and Communications',
+					'Coug Prints Plus - University Marketing and Communications',
+					'Graphic Design - University Marketing and Communications',
+					'Mailing Services - University Marketing and Communications',
+					'Printing Services - University Marketing and Communications',
+					'Production Coordination - University Marketing and Communications',
 					'WSU Press',
 				),
 				'Office of Veterans Affairs' => array(),
@@ -1216,6 +1216,26 @@ class WSUWP_University_Taxonomies {
 				'CAHNRS' => 'College of Agricultural, Human, and Natural Resource Sciences',
 				'College of Pharmacy' => 'College of Pharmacy and Pharmaceutical Sciences',
 				'Educational Leadership, Sports Studies, and Educational / Counseling Psychology' => 'Educational Leadership and Sport Management',
+				'Administration' => 'Administration - University Marketing and Communications',
+				'Finance and Administrative Support Team' => 'Finance and Administrative Support Team - University Marketing and Communications',
+				'IT Support' => 'IT Support - University Marketing and Communications',
+				'Strategic Communications' => 'Strategic Communications - University Marketing and Communications',
+				'EM Marketing' => 'EM Marketing - University Marketing and Communications',
+				'University Events' => 'University Events - University Marketing and Communications',
+				'News and Media Relations' => 'News and Media Relations - University Marketing and Communications',
+				'Presidential Communications' => 'Presidential Communications - University Marketing and Communications',
+				'Visual Design' => 'Visual Design - University Marketing and Communications',
+				'Photo Services' => 'Photo Services - University Marketing and Communications',
+				'Video Services' => 'Video Services - University Marketing and Communications',
+				'WA State Magazine' => 'WA State Magazine - University Marketing and Communications',
+				'Web Communications' => 'Web Communications - University Marketing and Communications',
+				'University Publishing' => 'University Publishing - University Marketing and Communications',
+				'Coug Prints Plus' => 'Coug Prints Plus - University Marketing and Communications',
+				'Graphic Design' => 'Graphic Design - University Marketing and Communications',
+				'Mailing Services' => 'Mailing Services - University Marketing and Communications',
+				'Printing Services' => 'Printing Services - University Marketing and Communications',
+				'Production Coordination' => 'Production Coordination - University Marketing and Communications',
+				'WSU Press' => 'WSU Press - University Marketing and Communications',
 			);
 		}
 
