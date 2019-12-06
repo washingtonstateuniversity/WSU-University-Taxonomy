@@ -685,6 +685,11 @@ class WSUWP_University_Taxonomies {
 					'Medical Education and Clinical Sciences',
 					'Nutrition and Exercise Physiology',
 					'Speech and Hearing Sciences',
+					'Admissions, Recruiting and inclusion',
+					'Behavioral Health Innovations',
+					'Health Policy and Administration',
+					'Sleep and Performance Research Center',
+					'Virtual Care Clinic',
 				),
 				'College of Nursing' => array(),
 				'College of Pharmacy and Pharmaceutical Sciences' => array(
