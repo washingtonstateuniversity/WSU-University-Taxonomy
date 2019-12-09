@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 1.0.0
+Version: 1.0.1
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20191004-001';
+	var $taxonomy_schema_version = '20191209-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -577,7 +577,9 @@ class WSUWP_University_Taxonomies {
 					'Community and Economic Development',
 					'Youth and Family',
 				),
-				'External Affairs and Government Relations' => array(),
+				'External Affairs and Government Relations' => array(
+					'Small Business Development Center',
+				),
 				'Facilities Services' => array(),
 				'Faculty Senate' => array(),
 				'Finance and Administration' => array(),
