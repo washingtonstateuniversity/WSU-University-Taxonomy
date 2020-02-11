@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 1.0.1
+Version: 1.0.2
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20191209-001';
+	var $taxonomy_schema_version = '20200211-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -736,7 +736,7 @@ class WSUWP_University_Taxonomies {
 		$locations = array(
 			'WSU Pullman'                      => array(),
 			'WSU West/Downtown Seattle'        => array(),
-			'WSU Spokane'                      => array(),
+			'WSU Health Sciences Spokane'      => array(),
 			'WSU Tri-Cities'                   => array(),
 			'WSU Vancouver'                    => array(),
 			'WSU Global Campus'                => array(),
@@ -1251,7 +1251,7 @@ class WSUWP_University_Taxonomies {
 		if ( 'wsuwp_university_location' === $taxonomy ) {
 			$updated_terms = array(
 				'WSU North Puget Sound at Everett' => 'WSU Everett',
-				'WSU Health Sciences Spokane' => '',
+				'WSU Spokane' => 'WSU Health Sciences Spokane',
 			);
 		}
 
