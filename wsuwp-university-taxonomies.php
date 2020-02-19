@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 1.0.3
+Version: 1.0.4
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -692,6 +692,7 @@ class WSUWP_University_Taxonomies {
 					'Health Policy and Administration',
 					'Sleep and Performance Research Center',
 					'Virtual Care Clinic',
+					'WSU Health Sciences Spokane',
 				),
 				'College of Nursing' => array(),
 				'College of Pharmacy and Pharmaceutical Sciences' => array(
