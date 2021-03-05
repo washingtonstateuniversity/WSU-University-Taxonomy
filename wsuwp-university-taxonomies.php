@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20210305-001';
+	var $taxonomy_schema_version = '20210305-002';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -731,6 +731,7 @@ class WSUWP_University_Taxonomies {
 					'School of Global Animal Health - Veterinary hospital',
 					'School of Molecular Biosciences - Veterinary hospital',
 					'Veterinary Microbiology and Pathology - Veterinary hospital',
+				),
 			),
 		);
 
