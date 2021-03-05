@@ -16,7 +16,7 @@ class WSUWP_University_Taxonomies {
 	 *
 	 * @var string Current version of the taxonomy schema.
 	 */
-	var $taxonomy_schema_version = '20200625-001';
+	var $taxonomy_schema_version = '20210305-001';
 
 	/**
 	 * @var string Taxonomy slug for the WSU University Category taxonomy.
@@ -725,6 +725,12 @@ class WSUWP_University_Taxonomies {
 					'School of Engineering and Computer Science (Vancouver)',
 					'School of Mechanical and Materials Engineering',
 				),
+				'Veterinary Hospital' => array(
+					'Veterinary Clinical Sciences - Veterinary hospital',
+					'Integrative Physiology and Neuroscience - Veterinary hospital',
+					'School of Global Animal Health - Veterinary hospital',
+					'School of Molecular Biosciences - Veterinary hospital',
+					'Veterinary Microbiology and Pathology - Veterinary hospital',
 			),
 		);
 
