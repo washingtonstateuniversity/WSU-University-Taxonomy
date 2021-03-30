@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 1.0.6
+Version: 2.0.0
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -37,17 +37,17 @@ class WSUWP_University_Taxonomies {
 	 * Fire necessary hooks when instantiated.
 	 */
 	function __construct() {
-		add_action( 'wpmu_new_blog', array( $this, 'pre_load_taxonomies' ), 10 );
-		add_action( 'admin_init', array( $this, 'check_schema' ), 10 );
-		add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
+		//add_action( 'wpmu_new_blog', array( $this, 'pre_load_taxonomies' ), 10 );
+		//add_action( 'admin_init', array( $this, 'check_schema' ), 10 );
+		//add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
 		add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init', array( $this, 'register_taxonomies' ), 11 );
-		add_action( 'load-edit-tags.php', array( $this, 'compare_schema' ), 10 );
-		add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
-		add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
-		add_filter( 'parent_file', array( $this, 'parent_file' ) );
-		add_filter( 'submenu_file', array( $this, 'submenu_file' ), 10, 2 );
+		//add_action( 'load-edit-tags.php', array( $this, 'compare_schema' ), 10 );
+		//add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
+		//add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
+		//add_filter( 'pre_insert_term', array( $this, 'prevent_term_creation' ), 10, 2 );
+		//add_filter( 'parent_file', array( $this, 'parent_file' ) );
+		//add_filter( 'submenu_file', array( $this, 'submenu_file' ), 10, 2 );
 
 		add_action( 'do_meta_boxes', array( $this, 'taxonomy_meta_boxes' ), 10, 2 );
 		add_action( 'wp_ajax_add_term', array( $this, 'ajax_add_term' ) );
