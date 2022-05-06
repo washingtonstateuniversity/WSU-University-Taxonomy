@@ -1,13 +1,15 @@
 window.addEventListener("load", () => {
-  var editor = wp.data.dispatch("core/edit-post");
-  var taxonomies = document
-    .getElementById("wsuwp-taxonomies__metabox-taxonomies")
-    .innerText.split(",");
+  if (wp.data) {
+    var editor = wp.data.dispatch("core/edit-post");
+    var taxonomies = document
+      .getElementById("wsuwp-taxonomies__metabox-taxonomies")
+      .innerText.split(",");
 
-  if (taxonomies && taxonomies.length > 0) {
-    for (var i = 0; i < taxonomies.length; i++) {
-      var taxonomy = taxonomies[i];
-      editor.removeEditorPanel("taxonomy-panel-" + taxonomy);
+    if (taxonomies && taxonomies.length > 0) {
+      for (var i = 0; i < taxonomies.length; i++) {
+        var taxonomy = taxonomies[i];
+        editor.removeEditorPanel("taxonomy-panel-" + taxonomy);
+      }
     }
   }
 
