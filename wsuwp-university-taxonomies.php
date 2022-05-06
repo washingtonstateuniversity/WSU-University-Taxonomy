@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 2.0.0.1
+Version: 2.0.1
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -40,7 +40,7 @@ class WSUWP_University_Taxonomies {
 		//add_action( 'wpmu_new_blog', array( $this, 'pre_load_taxonomies' ), 10 );
 		//add_action( 'admin_init', array( $this, 'check_schema' ), 10 );
 		//add_action( 'wsu_taxonomy_update_schema', array( $this, 'update_schema' ) );
-		add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ), 10 );
+		// add_action( 'init', array( $this, 'modify_default_taxonomy_labels' ), 10 );
 		add_action( 'init', array( $this, 'register_taxonomies' ), 11 );
 		//add_action( 'load-edit-tags.php', array( $this, 'compare_schema' ), 10 );
 		//add_action( 'load-edit-tags.php', array( $this, 'display_terms' ), 11 );
@@ -170,6 +170,7 @@ class WSUWP_University_Taxonomies {
 			'hierarchical'      => true,
 			'show_ui'           => true,
 			'show_in_menu'      => true,
+			'show_in_rest'      => true,
 			'rewrite'           => false,
 			'query_var'         => $this->university_location,
 		);
@@ -192,6 +193,7 @@ class WSUWP_University_Taxonomies {
 			'hierarchical'      => true,
 			'show_ui'           => true,
 			'show_in_menu'      => true,
+			'show_in_rest'      => true,
 			'rewrite'           => false,
 			'query_var'         => $this->university_organization,
 		);
@@ -411,6 +413,8 @@ class WSUWP_University_Taxonomies {
 		}
 
 		// Register scripts and styles so they can be easily enqueued by other plugins if needed.
+		wp_register_style( 'wsuwp-taxonomy-block-editor', plugins_url( 'css/block-editor.css', __FILE__ ), array(), $this->$taxonomy_schema_version );
+		wp_register_script( 'wsuwp-taxonomy-block-editor', plugins_url( 'js/block-editor.js', __FILE__ ), array(), $this->$taxonomy_schema_version );
 		wp_register_style( 'select2', plugins_url( 'assets/select2.min.css', __FILE__ ) );
 		wp_register_script( 'select2', plugins_url( 'assets/select2.min.js', __FILE__ ), array( 'jquery' ) );
 		wp_register_style( 'wsuwp-select2', plugins_url( 'css/wsuwp-select2.css', __FILE__ ), array( 'select2' ) );
@@ -426,6 +430,8 @@ class WSUWP_University_Taxonomies {
 
 		if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
 			if ( in_array( get_current_screen()->post_type, array_keys( $this->get_default_metabox_post_types() ), true ) ) {
+				wp_enqueue_style( 'wsuwp-taxonomy-block-editor' );
+				wp_enqueue_script( 'wsuwp-taxonomy-block-editor' );
 				wp_enqueue_style( 'select2' );
 				wp_enqueue_style( 'wsuwp-select2' );
 				wp_enqueue_script( 'select2' );
@@ -1276,11 +1282,11 @@ class WSUWP_University_Taxonomies {
 	 */
 	public function get_default_metabox_taxonomies() {
 		$taxonomies = array(
+			'category',
+			'post_tag',
 			'wsuwp_university_org',
 			'wsuwp_university_location',
 			'wsuwp_university_category',
-			'category',
-			'post_tag',
 		);
 
 		return apply_filters( 'wsuwp_taxonomy_metabox_taxonomies', $taxonomies );
@@ -1426,6 +1432,8 @@ class WSUWP_University_Taxonomies {
 		$post_types = $this->get_default_metabox_post_types();
 		$post_type_taxonomies = ( isset( $post_types[ get_post_type() ] ) ) ? $post_types[ get_post_type() ] : $this->get_default_metabox_taxonomies();
 		$taxonomies = array_intersect( $post_type_taxonomies, get_object_taxonomies( $post ) );
+		
+		echo '<div id="wsuwp-taxonomies__metabox-taxonomies" style="display:none;">' . implode( ',', $taxonomies ) . '</div>';
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$taxonomy_settings = get_taxonomy( $taxonomy );
