@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WSUWP University Taxonomies
-Version: 2.0.1
+Version: 2.0.2
 Plugin URI: https://web.wsu.edu/
 Description: Provides Washington State University taxonomies to WordPress
 Author: washingtonstateuniversity, jeremyfelt, philcable
@@ -143,11 +143,12 @@ class WSUWP_University_Taxonomies {
 		);
 		$args = array(
 			'labels'            => $labels,
-			'description'       => 'The central taxonomy for Washington State University',
+			'description'       => 'The central category taxonomy for Washington State University',
 			'public'            => true,
 			'hierarchical'      => true,
 			'show_ui'           => true,
 			'show_in_menu'      => true,
+			'show_in_rest'      => true,
 			'rewrite'           => false,
 			'query_var'         => $this->university_category,
 		);
